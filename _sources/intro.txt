@@ -1,0 +1,5 @@
+Introduction
+============
+
+This guide is aimed at providing additional information not covered by the official
+KPP manual.
