@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Compiling KPP &mdash; ezkpp 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ezkpp 0.1 documentation" href="index.html" />
+    <link rel="next" title="Running KPP" href="running.html" />
+    <link rel="prev" title="About bash" href="bash.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="compiling-kpp">
+<h1>Compiling KPP<a class="headerlink" href="#compiling-kpp" title="Permalink to this headline">¶</a></h1>
+<p>In this chapter we detail how to successfully download and compile KPP
+on your system under the Bash environment.</p>
+<div class="section" id="downloading-into-your-folder">
+<h2>Downloading into your folder<a class="headerlink" href="#downloading-into-your-folder" title="Permalink to this headline">¶</a></h2>
+<p>One of the first things to be said is: most of the commands we will use will
+only work if you&#8217;re in the right directory (which we will always tell what it
+is). So when you open a terminal, that terminal is &#8220;running&#8221; in some directory
+in your computer.  You can find out which directory that is by entering the
+command <cite>pwd</cite> which stands for &#8220;Print Working Directory&#8221;. That will show you
+exactly where you are on your computer. You can also enter <cite>ls</cite>, which will
+&#8220;list&#8221; everything you have on that directory. To change directories, you can
+use the command <cite>cd</cite>, which stands for &#8220;Change Directory&#8221;. So if you want to go
+to your downloads directory, you can type <cite>cd Downloads</cite>, or <cite>cd
+/home/user/Downloads</cite> depending on where you are on your terminal (the first is
+a relative and the second is an <a class="reference external" href="https://jeremywsherman.com/blog/2011/09/26/absolute-and-relative-paths/">absolute or full path</a>).</p>
+<p>If you prefer to download KPP through its website manually and unpack it
+somewhere, you&#8217;ll have to go there with your terminal. So, if I unpack it in my
+home directory, as soon as I open my terminal I&#8217;ll have to use <cite>cd
+/home/myname/kpp-2.2.3</cite>. This command will only work if the path is correct (it
+won&#8217;t work on Windows, for example, which does not have a <cite>/home</cite> location. If
+you&#8217;re using Bash on Windows it&#8217;s better to go with the following alternative.</p>
+<p>Alternatively, you can open a terminal and run</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">people</span><span class="o">.</span><span class="n">cs</span><span class="o">.</span><span class="n">vt</span><span class="o">.</span><span class="n">edu</span><span class="o">/~</span><span class="n">asandu</span><span class="o">/</span><span class="n">Software</span><span class="o">/</span><span class="n">Kpp</span><span class="o">/</span><span class="n">Download</span><span class="o">/</span><span class="n">kpp</span><span class="o">-</span><span class="mf">2.2</span><span class="o">.</span><span class="mi">3</span><span class="n">_Nov</span><span class="o">.</span><span class="mf">2012.</span><span class="n">zip</span>
+<span class="n">unzip</span> <span class="n">kpp</span><span class="o">-</span><span class="mf">2.2</span><span class="o">.</span><span class="mi">3</span><span class="n">_Nov</span><span class="o">.</span><span class="mf">2012.</span><span class="n">zip</span>
+<span class="n">cd</span> <span class="n">kpp</span><span class="o">-</span><span class="mf">2.2</span><span class="o">.</span><span class="mi">3</span>
+</pre></div>
+</div>
+<p>which will automatically download the software, unpack it and move to the
+correct directory (which was created when unpacking).</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Compiling KPP</a><ul>
+<li><a class="reference internal" href="#downloading-into-your-folder">Downloading into your folder</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="bash.html" title="previous chapter">About bash</a></li>
+      <li>Next: <a href="running.html" title="next chapter">Running KPP</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/compiling.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Tomas Chor.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/compiling.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
