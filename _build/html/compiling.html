@@ -61,16 +61,143 @@ a relative and the second is an <a class="reference external" href="https://jere
 somewhere, you&#8217;ll have to go there with your terminal. So, if I unpack it in my
 home directory, as soon as I open my terminal I&#8217;ll have to use <cite>cd
 /home/myname/kpp-2.2.3</cite>. This command will only work if the path is correct (it
-won&#8217;t work on Windows, for example, which does not have a <cite>/home</cite> location. If
-you&#8217;re using Bash on Windows it&#8217;s better to go with the following alternative.</p>
+might not work on Windows, for example, which does not have a <cite>/home</cite> location.
+If you&#8217;re using Bash on Windows it&#8217;s better to go with the following
+alternative.</p>
 <p>Alternatively, you can open a terminal and run</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">people</span><span class="o">.</span><span class="n">cs</span><span class="o">.</span><span class="n">vt</span><span class="o">.</span><span class="n">edu</span><span class="o">/~</span><span class="n">asandu</span><span class="o">/</span><span class="n">Software</span><span class="o">/</span><span class="n">Kpp</span><span class="o">/</span><span class="n">Download</span><span class="o">/</span><span class="n">kpp</span><span class="o">-</span><span class="mf">2.2</span><span class="o">.</span><span class="mi">3</span><span class="n">_Nov</span><span class="o">.</span><span class="mf">2012.</span><span class="n">zip</span>
-<span class="n">unzip</span> <span class="n">kpp</span><span class="o">-</span><span class="mf">2.2</span><span class="o">.</span><span class="mi">3</span><span class="n">_Nov</span><span class="o">.</span><span class="mf">2012.</span><span class="n">zip</span>
-<span class="n">cd</span> <span class="n">kpp</span><span class="o">-</span><span class="mf">2.2</span><span class="o">.</span><span class="mi">3</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget http://people.cs.vt.edu/~asandu/Software/Kpp/Download/kpp-2.2.3_Nov.2012.zip
+unzip kpp-2.2.3_Nov.2012.zip
+<span class="nb">cd</span> kpp-2.2.3
 </pre></div>
 </div>
 <p>which will automatically download the software, unpack it and move to the
 correct directory (which was created when unpacking).</p>
+<p>Make sure you&#8217;re in the correct directory by entering <code class="docutils literal"><span class="pre">pwd</span></code>, which should show
+you that you&#8217;re on the <cite>kpp-2.2.3</cite> directory. You can also type <cite>ls</cite>, which should
+show you a list of everything that was in the zip file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cflags</span>        <span class="n">drv</span>       <span class="nb">int</span>                 <span class="n">Makefile</span><span class="o">.</span><span class="n">defs</span>  <span class="n">site</span><span class="o">-</span><span class="n">lisp</span>
+<span class="n">cflags</span><span class="o">.</span><span class="n">guess</span>  <span class="n">examples</span>  <span class="nb">int</span><span class="o">.</span><span class="n">modified_WCOPY</span>  <span class="n">models</span>         <span class="n">src</span>
+<span class="n">doc</span>           <span class="n">gpl</span>       <span class="n">Makefile</span>            <span class="n">readme</span>         <span class="n">util</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="making-sure-dependecies-are-installed">
+<h2>Making sure dependecies are installed<a class="headerlink" href="#making-sure-dependecies-are-installed" title="Permalink to this headline">¶</a></h2>
+<p>Now we are going to set-up the environment to compile KPP. The first step is to
+make sure that you have the necessary software.</p>
+<p>Be sure that FLEX (public domain lexical analizer) is installed on your
+machine. You can run <code class="docutils literal"><span class="pre">flex</span> <span class="pre">--version</span></code> and if it is installed you should see
+something like <code class="docutils literal"><span class="pre">flex</span> <span class="pre">2.6.0</span></code>. If instead you see something like <code class="docutils literal"><span class="pre">flex:</span>
+<span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code> then it means that it is not installed and you&#8217;re going to
+have to install it by running <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">update</span> <span class="pre">&amp;&amp;</span> <span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">flex</span></code> if
+you&#8217;re running Linux natively or by manually installing downloading and
+installing the file if you&#8217;re emulating (with Cygwin, for example).</p>
+<p>Be also sure that <code class="docutils literal"><span class="pre">yacc</span></code> and <code class="docutils literal"><span class="pre">sed</span></code> are installed by typing <code class="docutils literal"><span class="pre">which</span> <span class="pre">yacc</span></code>
+and <code class="docutils literal"><span class="pre">which</span> <span class="pre">sed</span></code>. If you see something like <code class="docutils literal"><span class="pre">/usr/bin/sed</span></code> or
+<code class="docutils literal"><span class="pre">/usr/lib/yacc</span></code> then they are installed. If you see an error message, then
+you&#8217;re going to have to install it.</p>
+</div>
+<div class="section" id="telling-your-system-where-kpp-is">
+<h2>Telling your system where KPP is<a class="headerlink" href="#telling-your-system-where-kpp-is" title="Permalink to this headline">¶</a></h2>
+<p>Now that Flex is installed, we need to make sure that the system knows where KPP
+is in your system. We do that by altering a file called <code class="docutils literal"><span class="pre">.bashrc</span></code>, which
+sets some configurations for your terminal (if you&#8217;re using a Bash terminal).
+This is a text file and we simply need to add some lines. We&#8217;ll do that step by step.</p>
+<p>First, in the directory where you unpacked KPP, run the command <code class="docutils literal"><span class="pre">pwd</span></code> to
+print the present working directory and copy its output. You&#8217;ll need this to
+tell your terminal where KPP is.</p>
+<p>Now you need to open and edit <code class="docutils literal"><span class="pre">.bashrc</span></code> which can be done with many programs.
+The best option would be to try <code class="docutils literal"><span class="pre">gedit</span></code>, <code class="docutils literal"><span class="pre">geany</span></code>, <code class="docutils literal"><span class="pre">pluma</span></code> or <code class="docutils literal"><span class="pre">abiword</span></code>,
+which all have graphical user interfaces (GUI). You can try all of these in the
+command <code class="docutils literal"><span class="pre">gedit</span> <span class="pre">~/.bashrc</span></code>, or <code class="docutils literal"><span class="pre">geany</span> <span class="pre">~/.bashrc</span></code> and so forth with the
+others. If any of those work, great! If not, you&#8217;re probably going to have to
+use Nano by running the command <code class="docutils literal"><span class="pre">nano</span> <span class="pre">~/.bashrc</span></code>, which runs on the terminal
+itself.</p>
+<p>With Nano, you&#8217;re going to see something like Fig. <a href="#id1"><span class="problematic" id="id2">`ref::something`_</span></a> after you
+open it. If you&#8217;re using something else you&#8217;ll probably see something more
+friendly, but with the same lines of code. You can ignore all those codes and
+jump to the last line of the file.  You&#8217;re going to create another line and
+paste</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">KPP_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/kpp
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$KPP_HOME</span>/bin
+</pre></div>
+</div>
+<p>except that you should replace <code class="docutils literal"><span class="pre">$HOME/kpp</span></code> with the output of your <code class="docutils literal"><span class="pre">pwd</span></code> command.
+For example, if the output of <code class="docutils literal"><span class="pre">pwd</span></code> was <code class="docutils literal"><span class="pre">/home/user/Downloads/kpp-2.2.3</span></code> you
+should write</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">KPP_HOME</span><span class="o">=</span>/home/user/Downloads/kpp-2.2.3
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$KPP_HOME</span>/bin
+</pre></div>
+</div>
+<p>After this is done, you are going to save and exit. If you&#8217;re using any option
+with a GUI this should be straightforward. With Nano you can do it by pressing
+control X, choosing the &#8220;yes&#8221; option (by only pressing y) when it asks you to
+save, and then pressing enter when asked to confirm to name of the file to save
+to.</p>
+<p>Now your terminal will know where KPP is the next times you start it. But for
+the changes to make effect you need to close this terminal and open another
+one. So just close the terminal you were working with, open a new one. Now, if
+everything worked properly, you should be able to type <code class="docutils literal"><span class="pre">cd</span> <span class="pre">$KPP_HOME</span></code> and go
+automatically to your KPP directory.</p>
+</div>
+<div class="section" id="specifying-how-to-compile">
+<h2>Specifying how to compile<a class="headerlink" href="#specifying-how-to-compile" title="Permalink to this headline">¶</a></h2>
+<p>If this worked, we are ready for the next step, which is telling your system
+how to compile KPP. First, type <code class="docutils literal"><span class="pre">locate</span> <span class="pre">libfl.a</span></code> and save the output. If that
+is no output, use <code class="docutils literal"><span class="pre">locate</span> <span class="pre">libfl.sh</span></code> and save the output of that. In my case
+the output was <code class="docutils literal"><span class="pre">/usr/lib/x86_64-linux-gnu/libfl.a</span></code>. If neither of those
+commands gave you an output, you might need to install the Flex-dev package
+with <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">flex-devel.x86_64</span></code>.</p>
+<p>Now in your KPP directory, use the same text editor as before to open a file
+called <code class="docutils literal"><span class="pre">Makefile.defs</span></code>, which sets how Bash is going to make the executable
+code for KPP. So type <code class="docutils literal"><span class="pre">gedit</span> <span class="pre">Makefile.defs</span></code>, or <code class="docutils literal"><span class="pre">nano</span> <span class="pre">Makefile.defs</span></code> and so
+on, depending on the editor you&#8217;re using.</p>
+<p>Once again, you&#8217;ll see a lot of lines with comments, and the only lines that
+matter are those that don&#8217;t start with <code class="docutils literal"><span class="pre">#</span></code>. Look for the 5 items to complete
+in this file. The first one is <code class="docutils literal"><span class="pre">CC</span></code>, which sets the compiler. In this guide
+we will use the Gnu Compiler Collection, <code class="docutils literal"><span class="pre">gcc</span></code>. So make sure that the line
+which starts with <code class="docutils literal"><span class="pre">CC</span></code> reads <code class="docutils literal"><span class="pre">CC=gcc</span></code>.</p>
+<p>Next, since we made sure that Flex was installed, make sure the next important
+line reads <code class="docutils literal"><span class="pre">FLEX=flex</span></code>. On the third step, set the next variable
+(<code class="docutils literal"><span class="pre">FLEX_LIB_DIR</span></code>) with the output we just saved without the last part. So in
+my case the output saved was <code class="docutils literal"><span class="pre">/usr/lib/x86_64-linux-gnu/libfl.a</span></code>, so the line
+will read <code class="docutils literal"><span class="pre">FLEX_LIB_DIR=/usr/lib/x86_64-linux-gnu</span></code>. You should, of course,
+replace your line accordingly.</p>
+<p>The next two items defines the options of the compiler and extra directory
+to include in the compilation. We will not worry about those, which unless
+maybe when debugging. Now you can save and close/exit the file.</p>
+<p>If we did everything correctly we can compile KPP simply by running the
+<code class="docutils literal"><span class="pre">make</span></code> command. Many warnings are going to appear on the screen, but as long
+as no error appears, the compilation will be successful. You can be sure it
+was successsful by once again running <code class="docutils literal"><span class="pre">ls</span></code> and seeing that there is now one
+extra file on the KPP directory called <code class="docutils literal"><span class="pre">bin</span></code>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>bin           doc       gpl                 Makefile       readme     util
+cflags        drv       int                 Makefile.defs  site-lisp
+cflags.guess  examples  int.modified_WCOPY  models         src
+</pre></div>
+</div>
+<p>Now let&#8217;s test it by running <code class="docutils literal"><span class="pre">kpp</span> <span class="pre">test</span></code>. If the output is something like</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="ow">is</span> <span class="n">KPP</span><span class="o">-</span><span class="mf">2.2</span><span class="o">.</span><span class="mf">3.</span>
+
+<span class="n">KPP</span> <span class="ow">is</span> <span class="n">parsing</span> <span class="n">the</span> <span class="n">equation</span> <span class="n">file</span><span class="o">.</span>
+<span class="n">Fatal</span> <span class="n">error</span> <span class="p">:</span> <span class="n">test</span><span class="p">:</span> <span class="n">File</span> <span class="ow">not</span> <span class="n">found</span>
+<span class="n">Program</span> <span class="n">aborted</span>
+</pre></div>
+</div>
+<p>then we know it worked. This tells you the version of KPP and that it couldn&#8217;t
+file any file to work with, which is fine because we didn&#8217;t give it any yet. If
+this worked, you can skip to the next section.</p>
+<p>If, however you get an output similar to <code class="docutils literal"><span class="pre">kpp:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found...</span></code> then
+chances are that <code class="docutils literal"><span class="pre">bin</span></code> is a binary executable file, while it should be a
+directory containing the binary file. This should not happen, according to the
+manual, but for some reason it (very) often does. We need simply to rename that
+executable file and put it a directory called <code class="docutils literal"><span class="pre">bin</span></code>. This can be done with
+the followinf command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mv bin kpp <span class="o">&amp;&amp;</span> mkdir bin <span class="o">&amp;&amp;</span> mv kpp bin
+</pre></div>
+</div>
+<p>Try this command and then try <code class="docutils literal"><span class="pre">kpp</span> <span class="pre">test</span></code> again. You should get the correct
+output this time, meaning that the system could find KPP successfully.</p>
 </div>
 </div>
 
@@ -84,6 +211,9 @@ correct directory (which was created when unpacking).</p>
   <ul>
 <li><a class="reference internal" href="#">Compiling KPP</a><ul>
 <li><a class="reference internal" href="#downloading-into-your-folder">Downloading into your folder</a></li>
+<li><a class="reference internal" href="#making-sure-dependecies-are-installed">Making sure dependecies are installed</a></li>
+<li><a class="reference internal" href="#telling-your-system-where-kpp-is">Telling your system where KPP is</a></li>
+<li><a class="reference internal" href="#specifying-how-to-compile">Specifying how to compile</a></li>
 </ul>
 </li>
 </ul>

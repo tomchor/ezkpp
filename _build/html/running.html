@@ -42,6 +42,96 @@
             
   <div class="section" id="running-kpp">
 <h1>Running KPP<a class="headerlink" href="#running-kpp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-first-test-case">
+<h2>The first test case<a class="headerlink" href="#the-first-test-case" title="Permalink to this headline">¶</a></h2>
+<p>We now follow the manual and begin running the Chapman stratospheric mechanism
+as a test case. This will allow us to illustrate some key feature when running
+KPP.</p>
+<p>In order to run, our example needs three things:</p>
+<ul class="simple">
+<li>a <code class="docutils literal"><span class="pre">.kpp</span></code> file (from the KPP directory, type <code class="docutils literal"><span class="pre">ls</span> <span class="pre">examples</span></code> to see some examples of those)</li>
+<li>a <code class="docutils literal"><span class="pre">.spc</span></code> file (type <code class="docutils literal"><span class="pre">ls</span> <span class="pre">models</span></code> to see some examples of those)</li>
+<li>a <code class="docutils literal"><span class="pre">.eqn</span></code> file (type <code class="docutils literal"><span class="pre">ls</span> <span class="pre">models</span></code> to see some examples of those)</li>
+</ul>
+<p>We begin by creating a directory to run this first test. Let&#8217;s call this
+directory <code class="docutils literal"><span class="pre">test1</span></code> and create it with <code class="docutils literal"><span class="pre">mkdir</span> <span class="pre">test1</span></code>. We go to that directory
+with <code class="docutils literal"><span class="pre">cd</span> <span class="pre">test1</span></code>. Let&#8217;s follow the manual and create a file called <code class="docutils literal"><span class="pre">small_strato.kpp</span></code>
+with the following contents:</p>
+<div class="highlight-fortran"><div class="highlight"><pre><span></span><span class="cp">#MODEL      small_strato</span>
+<span class="cp">#LANGUAGE   Fortran90</span>
+<span class="cp">#DOUBLE     ON</span>
+<span class="cp">#INTEGRATOR rosenbrock</span>
+<span class="cp">#DRIVER     general</span>
+<span class="cp">#JACOBIAN   SPARSE_LU_ROW</span>
+<span class="cp">#HESSIAN    ON</span>
+<span class="cp">#STOICMAT   ON</span>
+</pre></div>
+</div>
+<p>You can do this by typing <code class="docutils literal"><span class="pre">nano</span> <span class="pre">small_strato.kpp</span></code> in the <code class="docutils literal"><span class="pre">test1</span></code> directory, if
+using Nano, or by using another editor of your choice. Then just paste the
+content above in the file, save it and exit it.</p>
+<p>This file tells KPP what model to use and how to process it. You can learn more
+about this in the KPP manual, but basically our file is telling KPP to use the
+<code class="docutils literal"><span class="pre">small_strato</span></code> model, output the code in Fortran 90 with double precision
+using the Rosenbrock integrator.</p>
+<p>If our changes to <code class="docutils literal"><span class="pre">.bashrc</span></code> are correct, then KPP should be able to find the
+correct model, since the <code class="docutils literal"><span class="pre">small_strato</span></code> model is located in the <code class="docutils literal"><span class="pre">models</span></code>
+directory, in the KPP home directory. We test this by running KPP on our
+recently created file with <code class="docutils literal"><span class="pre">kpp</span> <span class="pre">small_strato.kpp</span></code>.</p>
+<p>You should see a line saying <code class="docutils literal"><span class="pre">KPP</span> <span class="pre">has</span> <span class="pre">succesfully</span> <span class="pre">created</span> <span class="pre">the</span> <span class="pre">model</span>
+<span class="pre">&quot;small_strato&quot;</span></code>, which means you were sucessfull. Now if you type <code class="docutils literal"><span class="pre">ls</span></code>,
+you&#8217;ll see many new files:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Makefile_small_strato</span>           <span class="n">small_strato</span><span class="o">.</span><span class="n">map</span>
+<span class="n">small_strato_Function</span><span class="o">.</span><span class="n">f90</span>       <span class="n">small_strato_mex_Fun</span><span class="o">.</span><span class="n">f90</span>
+<span class="n">small_strato_Global</span><span class="o">.</span><span class="n">f90</span>         <span class="n">small_strato_mex_Hessian</span><span class="o">.</span><span class="n">f90</span>
+<span class="n">small_strato_Hessian</span><span class="o">.</span><span class="n">f90</span>        <span class="n">small_strato_mex_Jac_SP</span><span class="o">.</span><span class="n">f90</span>
+<span class="n">small_strato_HessianSP</span><span class="o">.</span><span class="n">f90</span>      <span class="n">small_strato_Model</span><span class="o">.</span><span class="n">f90</span>
+<span class="n">small_strato_Initialize</span><span class="o">.</span><span class="n">f90</span>     <span class="n">small_strato_Monitor</span><span class="o">.</span><span class="n">f90</span>
+<span class="n">small_strato_Integrator</span><span class="o">.</span><span class="n">f90</span>     <span class="n">small_strato_Parameters</span><span class="o">.</span><span class="n">f90</span>
+<span class="n">small_strato_Jacobian</span><span class="o">.</span><span class="n">f90</span>       <span class="n">small_strato_Precision</span><span class="o">.</span><span class="n">f90</span>
+<span class="n">small_strato_JacobianSP</span><span class="o">.</span><span class="n">f90</span>     <span class="n">small_strato_Rates</span><span class="o">.</span><span class="n">f90</span>
+<span class="n">small_strato</span><span class="o">.</span><span class="n">kpp</span>                <span class="n">small_strato_Stoichiom</span><span class="o">.</span><span class="n">f90</span>
+<span class="n">small_strato_LinearAlgebra</span><span class="o">.</span><span class="n">f90</span>  <span class="n">small_strato_StoichiomSP</span><span class="o">.</span><span class="n">f90</span>
+<span class="n">small_strato_Main</span><span class="o">.</span><span class="n">f90</span>           <span class="n">small_strato_Util</span><span class="o">.</span><span class="n">f90</span>
+</pre></div>
+</div>
+<p>These are going to be used to compile the code generated by KPP. Let&#8217;s focus
+for now on the <code class="docutils literal"><span class="pre">Makefile_small_strato</span></code>. This tells which Fortran compiler to
+use and etc.
+Open the <code class="docutils literal"><span class="pre">Makefile_small_strato</span></code> file and find where it says</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1">#COMPILER = G95</span>
+<span class="c1">#COMPILER = LAHEY</span>
+<span class="nv">COMPILER</span> <span class="o">=</span> INTEL
+<span class="c1">#COMPILER = PGF</span>
+<span class="c1">#COMPILER = HPUX</span>
+<span class="c1">#COMPILER = GFORTRAN</span>
+</pre></div>
+</div>
+<p>This tells the computer to use the intel Fortran compiler, <code class="docutils literal"><span class="pre">ifort</span></code>. If you
+are using <code class="docutils literal"><span class="pre">ifort</span></code>, you should leave it as it is. If you are using another
+compiler, put the <code class="docutils literal"><span class="pre">#</span></code> in front of the <code class="docutils literal"><span class="pre">INTEL</span></code> and take it out of the line
+which has the name of your compiler. If you don&#8217;t know which compiler you have,
+chances are you have gfortran, which is what we will use here. So, assuming
+gfortran, make it read</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1">#COMPILER = G95</span>
+<span class="c1">#COMPILER = LAHEY</span>
+<span class="c1">#COMPILER = INTEL</span>
+<span class="c1">#COMPILER = PGF</span>
+<span class="c1">#COMPILER = HPUX</span>
+<span class="nv">COMPILER</span> <span class="o">=</span> GFORTRAN
+</pre></div>
+</div>
+<p>Save and exit the file.</p>
+<p>Now all you have to do is run <code class="docutils literal"><span class="pre">make</span> <span class="pre">-fMakefile_small_strato</span></code>, which will
+compile your fortran code into an executable. Now you&#8217;ll see many more new
+files, including one called <code class="docutils literal"><span class="pre">small_strato.exe</span></code>, which is your executable
+file. To test, run <code class="docutils literal"><span class="pre">./small_strato.exe</span></code>, which will run the executable.
+You should see some output on the screen with concentrations, telling you that
+your run was successfull and that everything worked well!</p>
+</div>
+<div class="section" id="understanding-and-improving-on-the-test-case">
+<h2>Understanding and improving on the test case<a class="headerlink" href="#understanding-and-improving-on-the-test-case" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 
@@ -49,7 +139,16 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Running KPP</a><ul>
+<li><a class="reference internal" href="#the-first-test-case">The first test case</a></li>
+<li><a class="reference internal" href="#understanding-and-improving-on-the-test-case">Understanding and improving on the test case</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
