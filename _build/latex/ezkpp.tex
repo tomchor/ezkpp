@@ -32,7 +32,7 @@
 
 
 \title{ezkpp Documentation}
-\date{Oct 16, 2016}
+\date{Oct 25, 2016}
 \release{0.1}
 \author{Tomas Chor}
 \newcommand{\sphinxlogo}{}
@@ -292,20 +292,291 @@ If you prefer to download KPP through its website manually and unpack it
 somewhere, you'll have to go there with your terminal. So, if I unpack it in my
 home directory, as soon as I open my terminal I'll have to use \sphinxtitleref{cd
 /home/myname/kpp-2.2.3}. This command will only work if the path is correct (it
-won't work on Windows, for example, which does not have a \sphinxtitleref{/home} location. If
-you're using Bash on Windows it's better to go with the following alternative.
+might not work on Windows, for example, which does not have a \sphinxtitleref{/home} location.
+If you're using Bash on Windows it's better to go with the following
+alternative.
 
 Alternatively, you can open a terminal and run
 
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n}{wget} \PYG{n}{http}\PYG{p}{:}\PYG{o}{/}\PYG{o}{/}\PYG{n}{people}\PYG{o}{.}\PYG{n}{cs}\PYG{o}{.}\PYG{n}{vt}\PYG{o}{.}\PYG{n}{edu}\PYG{o}{/}\PYG{o}{\PYGZti{}}\PYG{n}{asandu}\PYG{o}{/}\PYG{n}{Software}\PYG{o}{/}\PYG{n}{Kpp}\PYG{o}{/}\PYG{n}{Download}\PYG{o}{/}\PYG{n}{kpp}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{2.2}\PYG{o}{.}\PYG{l+m+mi}{3}\PYG{n}{\PYGZus{}Nov}\PYG{o}{.}\PYG{l+m+mf}{2012.}\PYG{n}{zip}
-\PYG{n}{unzip} \PYG{n}{kpp}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{2.2}\PYG{o}{.}\PYG{l+m+mi}{3}\PYG{n}{\PYGZus{}Nov}\PYG{o}{.}\PYG{l+m+mf}{2012.}\PYG{n}{zip}
-\PYG{n}{cd} \PYG{n}{kpp}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{2.2}\PYG{o}{.}\PYG{l+m+mi}{3}
+wget http://people.cs.vt.edu/\PYGZti{}asandu/Software/Kpp/Download/kpp\PYGZhy{}2.2.3\PYGZus{}Nov.2012.zip
+unzip kpp\PYGZhy{}2.2.3\PYGZus{}Nov.2012.zip
+\PYG{n+nb}{cd} kpp\PYGZhy{}2.2.3
 \end{Verbatim}
 
 which will automatically download the software, unpack it and move to the
 correct directory (which was created when unpacking).
 
+Make sure you're in the correct directory by entering \sphinxcode{pwd}, which should show
+you that you're on the \sphinxtitleref{kpp-2.2.3} directory. You can also type \sphinxtitleref{ls}, which should
+show you a list of everything that was in the zip file:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{cflags}        \PYG{n}{drv}       \PYG{n+nb}{int}                 \PYG{n}{Makefile}\PYG{o}{.}\PYG{n}{defs}  \PYG{n}{site}\PYG{o}{\PYGZhy{}}\PYG{n}{lisp}
+\PYG{n}{cflags}\PYG{o}{.}\PYG{n}{guess}  \PYG{n}{examples}  \PYG{n+nb}{int}\PYG{o}{.}\PYG{n}{modified\PYGZus{}WCOPY}  \PYG{n}{models}         \PYG{n}{src}
+\PYG{n}{doc}           \PYG{n}{gpl}       \PYG{n}{Makefile}            \PYG{n}{readme}         \PYG{n}{util}
+\end{Verbatim}
+
+
+\section{Making sure dependecies are installed}
+\label{compiling:making-sure-dependecies-are-installed}
+Now we are going to set-up the environment to compile KPP. The first step is to
+make sure that you have the necessary software.
+
+Be sure that FLEX (public domain lexical analizer) is installed on your
+machine. You can run \sphinxcode{flex -{-}version} and if it is installed you should see
+something like \sphinxcode{flex 2.6.0}. If instead you see something like \sphinxcode{flex:
+command not found} then it means that it is not installed and you're going to
+have to install it by running \sphinxcode{sudo apt update \&\& sudo apt install flex} if
+you're running Linux natively or by manually installing downloading and
+installing the file if you're emulating (with Cygwin, for example).
+
+Be also sure that \sphinxcode{yacc} and \sphinxcode{sed} are installed by typing \sphinxcode{which yacc}
+and \sphinxcode{which sed}. If you see something like \sphinxcode{/usr/bin/sed} or
+\sphinxcode{/usr/lib/yacc} then they are installed. If you see an error message, then
+you're going to have to install it.
+
+
+\section{Telling your system where KPP is}
+\label{compiling:telling-your-system-where-kpp-is}
+Now that Flex is installed, we need to make sure that the system knows where KPP
+is in your system. We do that by altering a file called \sphinxcode{.bashrc}, which
+sets some configurations for your terminal (if you're using a Bash terminal).
+This is a text file and we simply need to add some lines. We'll do that step by step.
+
+First, in the directory where you unpacked KPP, run the command \sphinxcode{pwd} to
+print the present working directory and copy its output. You'll need this to
+tell your terminal where KPP is.
+
+Now you need to open and edit \sphinxcode{.bashrc} which can be done with many programs.
+The best option would be to try \sphinxcode{gedit}, \sphinxcode{geany}, \sphinxcode{pluma} or \sphinxcode{abiword},
+which all have graphical user interfaces (GUI). You can try all of these in the
+command \sphinxcode{gedit \textasciitilde{}/.bashrc}, or \sphinxcode{geany \textasciitilde{}/.bashrc} and so forth with the
+others. If any of those work, great! If not, you're probably going to have to
+use Nano by running the command \sphinxcode{nano \textasciitilde{}/.bashrc}, which runs on the terminal
+itself.
+
+With Nano, you're going to see something like Fig. {\color{red}\bfseries{}{}`ref::something{}`\_} after you
+open it. If you're using something else you'll probably see something more
+friendly, but with the same lines of code. You can ignore all those codes and
+jump to the last line of the file.  You're going to create another line and
+paste
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nb}{export} \PYG{n+nv}{KPP\PYGZus{}HOME}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}HOME}/kpp
+\PYG{n+nb}{export} \PYG{n+nv}{PATH}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}PATH}:\PYG{n+nv}{\PYGZdl{}KPP\PYGZus{}HOME}/bin
+\end{Verbatim}
+
+except that you should replace \sphinxcode{\$HOME/kpp} with the output of your \sphinxcode{pwd} command.
+For example, if the output of \sphinxcode{pwd} was \sphinxcode{/home/user/Downloads/kpp-2.2.3} you
+should write
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nb}{export} \PYG{n+nv}{KPP\PYGZus{}HOME}\PYG{o}{=}/home/user/Downloads/kpp\PYGZhy{}2.2.3
+\PYG{n+nb}{export} \PYG{n+nv}{PATH}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}PATH}:\PYG{n+nv}{\PYGZdl{}KPP\PYGZus{}HOME}/bin
+\end{Verbatim}
+
+After this is done, you are going to save and exit. If you're using any option
+with a GUI this should be straightforward. With Nano you can do it by pressing
+control X, choosing the ``yes'' option (by only pressing y) when it asks you to
+save, and then pressing enter when asked to confirm to name of the file to save
+to.
+
+Now your terminal will know where KPP is the next times you start it. But for
+the changes to make effect you need to close this terminal and open another
+one. So just close the terminal you were working with, open a new one. Now, if
+everything worked properly, you should be able to type \sphinxcode{cd \$KPP\_HOME} and go
+automatically to your KPP directory.
+
+
+\section{Specifying how to compile}
+\label{compiling:specifying-how-to-compile}
+If this worked, we are ready for the next step, which is telling your system
+how to compile KPP. First, type \sphinxcode{locate libfl.a} and save the output. If that
+is no output, use \sphinxcode{locate libfl.sh} and save the output of that. In my case
+the output was \sphinxcode{/usr/lib/x86\_64-linux-gnu/libfl.a}. If neither of those
+commands gave you an output, you might need to install the Flex-dev package
+with \sphinxcode{sudo apt install flex-devel.x86\_64}.
+
+Now in your KPP directory, use the same text editor as before to open a file
+called \sphinxcode{Makefile.defs}, which sets how Bash is going to make the executable
+code for KPP. So type \sphinxcode{gedit Makefile.defs}, or \sphinxcode{nano Makefile.defs} and so
+on, depending on the editor you're using.
+
+Once again, you'll see a lot of lines with comments, and the only lines that
+matter are those that don't start with \sphinxcode{\#}. Look for the 5 items to complete
+in this file. The first one is \sphinxcode{CC}, which sets the compiler. In this guide
+we will use the Gnu Compiler Collection, \sphinxcode{gcc}. So make sure that the line
+which starts with \sphinxcode{CC} reads \sphinxcode{CC=gcc}.
+
+Next, since we made sure that Flex was installed, make sure the next important
+line reads \sphinxcode{FLEX=flex}. On the third step, set the next variable
+(\sphinxcode{FLEX\_LIB\_DIR}) with the output we just saved without the last part. So in
+my case the output saved was \sphinxcode{/usr/lib/x86\_64-linux-gnu/libfl.a}, so the line
+will read \sphinxcode{FLEX\_LIB\_DIR=/usr/lib/x86\_64-linux-gnu}. You should, of course,
+replace your line accordingly.
+
+The next two items defines the options of the compiler and extra directory
+to include in the compilation. We will not worry about those, which unless
+maybe when debugging. Now you can save and close/exit the file.
+
+If we did everything correctly we can compile KPP simply by running the
+\sphinxcode{make} command. Many warnings are going to appear on the screen, but as long
+as no error appears, the compilation will be successful. You can be sure it
+was successsful by once again running \sphinxcode{ls} and seeing that there is now one
+extra file on the KPP directory called \sphinxcode{bin}:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+bin           doc       gpl                 Makefile       readme     util
+cflags        drv       int                 Makefile.defs  site\PYGZhy{}lisp
+cflags.guess  examples  int.modified\PYGZus{}WCOPY  models         src
+\end{Verbatim}
+
+Now let's test it by running \sphinxcode{kpp test}. If the output is something like
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{This} \PYG{o+ow}{is} \PYG{n}{KPP}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{2.2}\PYG{o}{.}\PYG{l+m+mf}{3.}
+
+\PYG{n}{KPP} \PYG{o+ow}{is} \PYG{n}{parsing} \PYG{n}{the} \PYG{n}{equation} \PYG{n}{file}\PYG{o}{.}
+\PYG{n}{Fatal} \PYG{n}{error} \PYG{p}{:} \PYG{n}{test}\PYG{p}{:} \PYG{n}{File} \PYG{o+ow}{not} \PYG{n}{found}
+\PYG{n}{Program} \PYG{n}{aborted}
+\end{Verbatim}
+
+then we know it worked. This tells you the version of KPP and that it couldn't
+file any file to work with, which is fine because we didn't give it any yet. If
+this worked, you can skip to the next section.
+
+If, however you get an output similar to \sphinxcode{kpp: command not found...} then
+chances are that \sphinxcode{bin} is a binary executable file, while it should be a
+directory containing the binary file. This should not happen, according to the
+manual, but for some reason it (very) often does. We need simply to rename that
+executable file and put it a directory called \sphinxcode{bin}. This can be done with
+the followinf command:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+mv bin kpp \PYG{o}{\PYGZam{}\PYGZam{}} mkdir bin \PYG{o}{\PYGZam{}\PYGZam{}} mv kpp bin
+\end{Verbatim}
+
+Try this command and then try \sphinxcode{kpp test} again. You should get the correct
+output this time, meaning that the system could find KPP successfully.
+
+
+\chapter{Running KPP}
+\label{running::doc}\label{running:running-kpp}
+
+\section{The first test case}
+\label{running:the-first-test-case}
+We now follow the manual and begin running the Chapman stratospheric mechanism
+as a test case. This will allow us to illustrate some key feature when running
+KPP.
+
+In order to run, our example needs three things:
+\begin{itemize}
+\item {} 
+a \sphinxcode{.kpp} file (from the KPP directory, type \sphinxcode{ls examples} to see some examples of those)
+
+\item {} 
+a \sphinxcode{.spc} file (type \sphinxcode{ls models} to see some examples of those)
+
+\item {} 
+a \sphinxcode{.eqn} file (type \sphinxcode{ls models} to see some examples of those)
+
+\end{itemize}
+
+We begin by creating a directory to run this first test. Let's call this
+directory \sphinxcode{test1} and create it with \sphinxcode{mkdir test1}. We go to that directory
+with \sphinxcode{cd test1}. Let's follow the manual and create a file called \sphinxcode{small\_strato.kpp}
+with the following contents:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}MODEL      small\PYGZus{}strato}
+\PYG{c+cp}{\PYGZsh{}LANGUAGE   Fortran90}
+\PYG{c+cp}{\PYGZsh{}DOUBLE     ON}
+\PYG{c+cp}{\PYGZsh{}INTEGRATOR rosenbrock}
+\PYG{c+cp}{\PYGZsh{}DRIVER     general}
+\PYG{c+cp}{\PYGZsh{}JACOBIAN   SPARSE\PYGZus{}LU\PYGZus{}ROW}
+\PYG{c+cp}{\PYGZsh{}HESSIAN    ON}
+\PYG{c+cp}{\PYGZsh{}STOICMAT   ON}
+\end{Verbatim}
+
+You can do this by typing \sphinxcode{nano small\_strato.kpp} in the \sphinxcode{test1} directory, if
+using Nano, or by using another editor of your choice. Then just paste the
+content above in the file, save it and exit it.
+
+This file tells KPP what model to use and how to process it. You can learn more
+about this in the KPP manual, but basically our file is telling KPP to use the
+\sphinxcode{small\_strato} model, output the code in Fortran 90 with double precision
+using the Rosenbrock integrator.
+
+If our changes to \sphinxcode{.bashrc} are correct, then KPP should be able to find the
+correct model, since the \sphinxcode{small\_strato} model is located in the \sphinxcode{models}
+directory, in the KPP home directory. We test this by running KPP on our
+recently created file with \sphinxcode{kpp small\_strato.kpp}.
+
+You should see a line saying \sphinxcode{KPP has succesfully created the model
+"small\_strato"}, which means you were sucessfull. Now if you type \sphinxcode{ls},
+you'll see many new files:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{Makefile\PYGZus{}small\PYGZus{}strato}           \PYG{n}{small\PYGZus{}strato}\PYG{o}{.}\PYG{n}{map}
+\PYG{n}{small\PYGZus{}strato\PYGZus{}Function}\PYG{o}{.}\PYG{n}{f90}       \PYG{n}{small\PYGZus{}strato\PYGZus{}mex\PYGZus{}Fun}\PYG{o}{.}\PYG{n}{f90}
+\PYG{n}{small\PYGZus{}strato\PYGZus{}Global}\PYG{o}{.}\PYG{n}{f90}         \PYG{n}{small\PYGZus{}strato\PYGZus{}mex\PYGZus{}Hessian}\PYG{o}{.}\PYG{n}{f90}
+\PYG{n}{small\PYGZus{}strato\PYGZus{}Hessian}\PYG{o}{.}\PYG{n}{f90}        \PYG{n}{small\PYGZus{}strato\PYGZus{}mex\PYGZus{}Jac\PYGZus{}SP}\PYG{o}{.}\PYG{n}{f90}
+\PYG{n}{small\PYGZus{}strato\PYGZus{}HessianSP}\PYG{o}{.}\PYG{n}{f90}      \PYG{n}{small\PYGZus{}strato\PYGZus{}Model}\PYG{o}{.}\PYG{n}{f90}
+\PYG{n}{small\PYGZus{}strato\PYGZus{}Initialize}\PYG{o}{.}\PYG{n}{f90}     \PYG{n}{small\PYGZus{}strato\PYGZus{}Monitor}\PYG{o}{.}\PYG{n}{f90}
+\PYG{n}{small\PYGZus{}strato\PYGZus{}Integrator}\PYG{o}{.}\PYG{n}{f90}     \PYG{n}{small\PYGZus{}strato\PYGZus{}Parameters}\PYG{o}{.}\PYG{n}{f90}
+\PYG{n}{small\PYGZus{}strato\PYGZus{}Jacobian}\PYG{o}{.}\PYG{n}{f90}       \PYG{n}{small\PYGZus{}strato\PYGZus{}Precision}\PYG{o}{.}\PYG{n}{f90}
+\PYG{n}{small\PYGZus{}strato\PYGZus{}JacobianSP}\PYG{o}{.}\PYG{n}{f90}     \PYG{n}{small\PYGZus{}strato\PYGZus{}Rates}\PYG{o}{.}\PYG{n}{f90}
+\PYG{n}{small\PYGZus{}strato}\PYG{o}{.}\PYG{n}{kpp}                \PYG{n}{small\PYGZus{}strato\PYGZus{}Stoichiom}\PYG{o}{.}\PYG{n}{f90}
+\PYG{n}{small\PYGZus{}strato\PYGZus{}LinearAlgebra}\PYG{o}{.}\PYG{n}{f90}  \PYG{n}{small\PYGZus{}strato\PYGZus{}StoichiomSP}\PYG{o}{.}\PYG{n}{f90}
+\PYG{n}{small\PYGZus{}strato\PYGZus{}Main}\PYG{o}{.}\PYG{n}{f90}           \PYG{n}{small\PYGZus{}strato\PYGZus{}Util}\PYG{o}{.}\PYG{n}{f90}
+\end{Verbatim}
+
+These are going to be used to compile the code generated by KPP. Let's focus
+for now on the \sphinxcode{Makefile\_small\_strato}. This tells which Fortran compiler to
+use and etc.
+Open the \sphinxcode{Makefile\_small\_strato} file and find where it says
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}COMPILER = G95}
+\PYG{c+c1}{\PYGZsh{}COMPILER = LAHEY}
+\PYG{n+nv}{COMPILER} \PYG{o}{=} INTEL
+\PYG{c+c1}{\PYGZsh{}COMPILER = PGF}
+\PYG{c+c1}{\PYGZsh{}COMPILER = HPUX}
+\PYG{c+c1}{\PYGZsh{}COMPILER = GFORTRAN}
+\end{Verbatim}
+
+This tells the computer to use the intel Fortran compiler, \sphinxcode{ifort}. If you
+are using \sphinxcode{ifort}, you should leave it as it is. If you are using another
+compiler, put the \sphinxcode{\#} in front of the \sphinxcode{INTEL} and take it out of the line
+which has the name of your compiler. If you don't know which compiler you have,
+chances are you have gfortran, which is what we will use here. So, assuming
+gfortran, make it read
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}COMPILER = G95}
+\PYG{c+c1}{\PYGZsh{}COMPILER = LAHEY}
+\PYG{c+c1}{\PYGZsh{}COMPILER = INTEL}
+\PYG{c+c1}{\PYGZsh{}COMPILER = PGF}
+\PYG{c+c1}{\PYGZsh{}COMPILER = HPUX}
+\PYG{n+nv}{COMPILER} \PYG{o}{=} GFORTRAN
+\end{Verbatim}
+
+Save and exit the file.
+
+Now all you have to do is run \sphinxcode{make -fMakefile\_small\_strato}, which will
+compile your fortran code into an executable. Now you'll see many more new
+files, including one called \sphinxcode{small\_strato.exe}, which is your executable
+file. To test, run \sphinxcode{./small\_strato.exe}, which will run the executable.
+You should see some output on the screen with concentrations, telling you that
+your run was successfull and that everything worked well!
+
+
+\section{Understanding and improving on the test case}
+\label{running:understanding-and-improving-on-the-test-case}
+
+\chapter{Understanding the output}
+\label{output::doc}\label{output:understanding-the-output}
 
 \chapter{Indices and tables}
 \label{index:indices-and-tables}\begin{itemize}
