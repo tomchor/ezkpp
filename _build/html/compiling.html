@@ -59,17 +59,17 @@ on your system under the Bash environment.</p>
 only work if you&#8217;re in the right directory (which we will always tell what it
 is). So when you open a terminal, that terminal is &#8220;running&#8221; in some directory
 in your computer.  You can find out which directory that is by entering the
-command <cite>pwd</cite> which stands for &#8220;Print Working Directory&#8221;. That will show you
-exactly where you are on your computer. You can also enter <cite>ls</cite>, which will
+command <code class="docutils literal"><span class="pre">pwd</span></code> which stands for &#8220;Print Working Directory&#8221;. That will show you
+exactly where you are on your computer. You can also enter <code class="docutils literal"><span class="pre">ls</span></code>, which will
 &#8220;list&#8221; everything you have on that directory. To change directories, you can
-use the command <cite>cd</cite>, which stands for &#8220;Change Directory&#8221;. So if you want to go
-to your downloads directory, you can type <cite>cd Downloads</cite>, or <cite>cd
-/home/user/Downloads</cite> depending on where you are on your terminal (the first is
+use the command <code class="docutils literal"><span class="pre">cd</span></code>, which stands for &#8220;Change Directory&#8221;. So if you want to go
+to your downloads directory, you can type <code class="docutils literal"><span class="pre">cd</span> <span class="pre">Downloads</span></code>, or <code class="docutils literal"><span class="pre">cd</span>
+<span class="pre">/home/user/Downloads</span></code> depending on where you are on your terminal (the first is
 a relative and the second is an <a class="reference external" href="https://jeremywsherman.com/blog/2011/09/26/absolute-and-relative-paths/">absolute or full path</a>).</p>
 <p>If you prefer to download KPP through its website manually and unpack it
 somewhere, you&#8217;ll have to go there with your terminal. So, if I unpack it in my
-home directory, as soon as I open my terminal I&#8217;ll have to use <cite>cd
-/home/myname/kpp-2.2.3</cite>. This command will only work if the path is correct (it
+home directory, as soon as I open my terminal I&#8217;ll have to use <code class="docutils literal"><span class="pre">cd</span>
+<span class="pre">/home/myname/kpp-2.2.3</span></code>. This command will only work if the path is correct (it
 might not work on Windows, for example, which does not have a <cite>/home</cite> location.
 If you&#8217;re using Bash on Windows it&#8217;s better to go with the following
 alternative.</p>
@@ -131,7 +131,7 @@ open it. If you&#8217;re using something else you&#8217;ll probably see somethin
 friendly, but with the same lines of code. You can ignore all those codes and
 jump to the last line of the file. After the last line you&#8217;ll include the
 following</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">KPP_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/kpp
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">KPP_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/kpp-2.2.3
 <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$KPP_HOME</span>/bin
 </pre></div>
 </div>
@@ -220,6 +220,9 @@ output this time, meaning that the system could find KPP successfully.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/wheat_field.jpg" alt="Logo"/>
+            </a></p>
 <h3><a href="index.html">Table Of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="README.html">Introduction</a></li>

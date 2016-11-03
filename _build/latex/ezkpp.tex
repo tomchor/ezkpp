@@ -35,7 +35,7 @@
 \date{Nov 02, 2016}
 \release{0.1}
 \author{Tomas Chor}
-\newcommand{\sphinxlogo}{}
+\newcommand{\sphinxlogo}{\sphinxincludegraphics{wheat_field.jpg}\par}
 \renewcommand{\releasename}{Release}
 \makeindex
 
@@ -148,13 +148,18 @@ Contents:
 
 
 \chapter{Introduction}
-\label{intro:introduction}\label{intro:easy-guide-to-compiling-and-running-kpp}\label{intro::doc}
-This guide is aimed at providing additional information not covered by the
-official KPP manual. We focus on the latest version of the pogram, release
-2.2.3, which can be freely downloaded at its \href{http://people.cs.vt.edu/~asandu/Software/Kpp/}{official webpage}. We recommend any person
-reading this manual to keep a copy of the original mnaual (which can be
-downloaded \href{http://people.cs.vt.edu/~asandu/Software/Kpp/}{here}) since this
-guide is not meant to replace the original manual, but to suplement it.
+\label{README:introduction}\label{README:easy-guide-to-compiling-and-running-kpp}\label{README::doc}
+This is an unofficial guide is aimed at providing additional information not
+covered by the official KPP manual. We focus on the latest version of the
+software, release 2.2.3, which can be freely downloaded at its \href{http://people.cs.vt.edu/~asandu/Software/Kpp/}{official
+webpage}.
+
+The source for the documentation can be found at its \href{https://github.com/tomchor/ezkpp}{github page} and the online html version can be
+accessed \href{https://tomchor.github.io/ezkpp/}{here}.
+
+We recommend any person reading this guide to keep a copy of the original
+manual (which can be downloaded \href{http://people.cs.vt.edu/~asandu/Software/Kpp/}{here}) since this guide is not
+meant to replace the original manual, but to supplement it.
 
 
 \chapter{About bash}
@@ -355,15 +360,21 @@ command \sphinxcode{gedit \textasciitilde{}/.bashrc}, or \sphinxcode{geany \text
 others. If any of those work, great! If not, you're probably going to have to
 use Nano by running the command \sphinxcode{nano \textasciitilde{}/.bashrc}, which runs on the terminal
 itself.
+\begin{figure}[htbp]
+\centering
+\capstart
 
-With Nano, you're going to see something like Fig. {\color{red}\bfseries{}{}`ref::something{}`\_} after you
+\noindent\scalebox{0.900000}{\sphinxincludegraphics{{nano_example}.png}}
+\caption{Nano editor example.}\label{compiling:nano-ex}\label{compiling:id1}\end{figure}
+
+With Nano, you're going to see something like Fig. {\hyperref[compiling:nano\string-ex]{\sphinxcrossref{\DUrole{std,std-ref}{Nano editor example.}}}} after you
 open it. If you're using something else you'll probably see something more
 friendly, but with the same lines of code. You can ignore all those codes and
-jump to the last line of the file.  You're going to create another line and
-paste
+jump to the last line of the file. After the last line you'll include the
+following
 
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nb}{export} \PYG{n+nv}{KPP\PYGZus{}HOME}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}HOME}/kpp
+\PYG{n+nb}{export} \PYG{n+nv}{KPP\PYGZus{}HOME}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}HOME}/kpp\PYGZhy{}2.2.3
 \PYG{n+nb}{export} \PYG{n+nv}{PATH}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}PATH}:\PYG{n+nv}{\PYGZdl{}KPP\PYGZus{}HOME}/bin
 \end{Verbatim}
 
@@ -463,6 +474,9 @@ output this time, meaning that the system could find KPP successfully.
 
 \chapter{Running KPP}
 \label{running::doc}\label{running:running-kpp}
+Now that KPP is propoerly compiled, we proceed to running the first test case
+to make sure it works!
+
 
 \section{The first test case}
 \label{running:the-first-test-case}
@@ -574,6 +588,10 @@ your run was successfull and that everything worked well!
 
 \section{Understanding and improving on the test case}
 \label{running:understanding-and-improving-on-the-test-case}
+Now let's understand why our run of \sphinxcode{small\_strato.exe} was successful and what
+happened. First, by running the \sphinxcode{.exe} file we ran a program that got some initial
+concentrations of the substances defined for \sphinxcode{small\_strato} and
+
 
 \chapter{Understanding the output}
 \label{output::doc}\label{output:understanding-the-output}

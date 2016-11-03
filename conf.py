@@ -26,6 +26,7 @@
 #
 # needs_sphinx = '1.0'
 
+logo = 'wheat_field.jpg'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
@@ -145,7 +146,7 @@ html_short_title = 'KPP guide'
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
 #
-# html_logo = None
+html_logo = logo
 
 # The name of an image file (relative to this directory) to use as a favicon of
 # the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -274,7 +275,7 @@ latex_documents = [
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
 #
-# latex_logo = None
+latex_logo = logo
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.

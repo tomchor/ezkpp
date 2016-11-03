@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.7.11)  2 NOV 2016 22:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.7.11)  2 NOV 2016 23:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1042,9 +1042,14 @@ LaTeX Info: Redefining \nameref on input line 140.
 \@outlinefile=\write6
 \openout6 = `ezkpp.out'.
 
-LaTeX Font Info:    Try loading font information for T1+phv on input line 143.
+ <wheat_field.jpg, id=61, 433.62pt x 289.08pt>
+File: wheat_field.jpg Graphic file (type jpg)
 
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
+<use wheat_field.jpg>
+Package pdftex.def Info: wheat_field.jpg used on input line 143.
+(pdftex.def)             Requested size: 433.61894pt x 289.07928pt.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 143.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
@@ -1076,7 +1081,7 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 143.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./wheat_field.jpg>]
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
 less on input line 143.
@@ -1121,7 +1126,7 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 150.
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 160.
+less on input line 165.
 
 [2
 
@@ -1129,80 +1134,90 @@ less on input line 160.
 Chapter 2.
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 219.
+less on input line 224.
 
 [3
 
 ] [4]
 Chapter 3.
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 301.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 306.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 333.
+less on input line 338.
 
 [5
 
-] [6]
+] <nano_example.png, id=130, 798.985pt x 516.93124pt>
+File: nano_example.png Graphic file (type png)
+ <use nano_example.png>
+Package pdftex.def Info: nano_example.png used on input line 367.
+(pdftex.def)             Requested size: 798.98305pt x 516.92998pt.
+File: nano_example.png Graphic file (type png)
+
+<use nano_example.png>
+Package pdftex.def Info: nano_example.png used on input line 367.
+(pdftex.def)             Requested size: 469.755pt x 303.92982pt.
+ [6 <./nano_example.png>]
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <9> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 438.
- [7]
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 449.
+ [7] [8]
 Chapter 4.
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 475.
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 489.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <9> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 492.
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 506.
 
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 533.
+less on input line 547.
 
-[8
+[9
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 535--539
+Underfull \hbox (badness 10000) in paragraph at lines 549--553
 \T1/pcr/m/n/10 Makefile_small_strato\T1/ptm/m/n/10 . This tells which For-tran 
 com-piler to use and etc. Open the
  []
 
-[9]
+[10]
 Chapter 5.
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 581.
-
-[10
-
-]
-Chapter 6.
-(./ezkpp.ind)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 598.
-
-
-Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 598.
+less on input line 599.
 
 [11
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 598.
+Chapter 6.
+(./ezkpp.ind)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 616.
+
+
+Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
+less on input line 616.
+
+[12
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 616.
  (./ezkpp.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 598.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 598.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 616.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 616.
 Package rerunfilecheck Info: File `ezkpp.out' has not changed.
 (rerunfilecheck)             Checksum: A4A7486B354857C46035EF5EFAA24922;2297.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 598.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 616.
  ) 
 Here is how much of TeX's memory you used:
- 13429 strings out of 494929
- 181883 string characters out of 6180142
- 290598 words of memory out of 5000000
- 16384 multiletter control sequences out of 15000+600000
+ 13446 strings out of 494929
+ 182153 string characters out of 6180142
+ 288708 words of memory out of 5000000
+ 16395 multiletter control sequences out of 15000+600000
  57238 words of font info for 74 fonts, out of 8000000 for 9000
  17 hyphenation exceptions out of 8191
  36i,12n,45p,335b,451s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1214,10 +1229,10 @@ uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/urw/times/utmri8a.pfb>
-Output written on ezkpp.pdf (13 pages, 126295 bytes).
+Output written on ezkpp.pdf (14 pages, 542706 bytes).
 PDF statistics:
- 192 PDF objects out of 1000 (max. 8388607)
- 162 compressed objects within 2 object streams
- 33 named destinations out of 1000 (max. 500000)
- 133 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 202 PDF objects out of 1000 (max. 8388607)
+ 169 compressed objects within 2 object streams
+ 35 named destinations out of 1000 (max. 500000)
+ 143 words of extra memory for PDF output out of 10000 (max. 10000000)
 
