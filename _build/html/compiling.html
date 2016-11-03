@@ -122,11 +122,15 @@ command <code class="docutils literal"><span class="pre">gedit</span> <span clas
 others. If any of those work, great! If not, you&#8217;re probably going to have to
 use Nano by running the command <code class="docutils literal"><span class="pre">nano</span> <span class="pre">~/.bashrc</span></code>, which runs on the terminal
 itself.</p>
-<p>With Nano, you&#8217;re going to see something like Fig. <a href="#id1"><span class="problematic" id="id2">`ref::something`_</span></a> after you
+<div class="figure align-center" id="id1">
+<span id="nano-ex"></span><a class="reference internal image-reference" href="_images/nano_example.png"><img alt="Example of .bashrc file opened with Nano" src="_images/nano_example.png" style="width: 716.4px; height: 463.5px;" /></a>
+<p class="caption"><span class="caption-text">Nano editor example.</span></p>
+</div>
+<p>With Nano, you&#8217;re going to see something like Fig. <a class="reference internal" href="#nano-ex"><span class="std std-ref">Nano editor example.</span></a> after you
 open it. If you&#8217;re using something else you&#8217;ll probably see something more
 friendly, but with the same lines of code. You can ignore all those codes and
-jump to the last line of the file.  You&#8217;re going to create another line and
-paste</p>
+jump to the last line of the file. After the last line you&#8217;ll include the
+following</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">KPP_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/kpp
 <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$KPP_HOME</span>/bin
 </pre></div>

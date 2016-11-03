@@ -87,11 +87,21 @@ others. If any of those work, great! If not, you're probably going to have to
 use Nano by running the command ``nano ~/.bashrc``, which runs on the terminal
 itself.
 
-With Nano, you're going to see something like Fig. `ref::something`_ after you
+.. _nano-ex:
+
+.. figure:: nano_example.png
+   :align: center
+   :scale: 90 %
+   :alt: Example of .bashrc file opened with Nano
+
+   Nano editor example.
+
+
+With Nano, you're going to see something like Fig. :ref:`nano-ex` after you
 open it. If you're using something else you'll probably see something more
 friendly, but with the same lines of code. You can ignore all those codes and
-jump to the last line of the file.  You're going to create another line and
-paste
+jump to the last line of the file. After the last line you'll include the
+following
 
 .. code-block:: bash
 

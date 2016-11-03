@@ -10,7 +10,7 @@ The source for the documentation can be found at its `github page
 <https://github.com/tomchor/ezkpp>`_ and the online html version can be
 accessed `here <https://tomchor.github.io/ezkpp/>`_.
 
-We recommend any person reading this manual to keep a copy of the original
+We recommend any person reading this guide to keep a copy of the original
 manual (which can be downloaded `here
 <http://people.cs.vt.edu/~asandu/Software/Kpp/>`_) since this guide is not
 meant to replace the original manual, but to supplement it.

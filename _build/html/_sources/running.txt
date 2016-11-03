@@ -1,6 +1,9 @@
 Running KPP
 ===========
 
+Now that KPP is propoerly compiled, we proceed to running the first test case
+to make sure it works!
+
 The first test case
 -------------------
 
@@ -105,3 +108,13 @@ your run was successfull and that everything worked well!
 
 Understanding and improving on the test case
 --------------------------------------------
+
+Now let's understand why our run of ``small_strato.exe`` was successful and what
+happened. First, by running the ``.exe`` file we ran a program that got some initial
+concentrations of the substances defined for ``small_strato`` and 
+
+
+
+
+
+
