@@ -140,7 +140,7 @@ html_theme = 'nature'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #
-# html_short_title = None
+html_short_title = 'KPP guide'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
@@ -168,7 +168,7 @@ html_static_path = ['_static']
 # bottom, using the given strftime format.
 # The empty string is equivalent to '%b %d, %Y'.
 #
-# html_last_updated_fmt = None
+html_last_updated_fmt = '%Y-%m-%d'
 
 # If true, SmartyPants will be used to convert quotes and dashes to
 # typographically correct entities.
@@ -177,7 +177,10 @@ html_static_path = ['_static']
 
 # Custom sidebar templates, maps document names to template names.
 #
-# html_sidebars = {}
+html_sidebars = {
+   '**': ['globaltoc.html', 'sourcelink.html', 'searchbox.html', 'localtoc.html', 'relations.html'],
+   'using/windows': ['windowssidebar.html', 'searchbox.html'],
+}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
@@ -202,7 +205,7 @@ html_static_path = ['_static']
 
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
 #
-# html_show_sphinx = True
+html_show_sphinx = True
 
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
 #
@@ -264,7 +267,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'ezkpp.tex', u'ezkpp Documentation',
+    (master_doc, 'ezkpp.tex', u'An easy guide for KPP',
      u'Tomas Chor', 'manual'),
 ]
 
