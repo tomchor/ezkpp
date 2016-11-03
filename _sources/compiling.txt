@@ -24,22 +24,6 @@ If you prefer to download KPP through its website manually and unpack it
 somewhere, you'll have to go there with your terminal. So, if I unpack it in my
 home directory, as soon as I open my terminal I'll have to use `cd
 /home/myname/kpp-2.2.3`. This command will only work if the path is correct (it
-<<<<<<< HEAD
-won't work on Windows, for example, which does not have a `/home` location. If
-you're using Bash on Windows it's better to go with the following alternative.
-
-Alternatively, you can open a terminal and run
-
-..  code::
-
-
-    wget http://people.cs.vt.edu/~asandu/Software/Kpp/Download/kpp-2.2.3_Nov.2012.zip
-    unzip kpp-2.2.3_Nov.2012.zip
-    cd kpp-2.2.3
-
-which will automatically download the software, unpack it and move to the
-correct directory (which was created when unpacking).
-=======
 might not work on Windows, for example, which does not have a `/home` location.
 If you're using Bash on Windows it's better to go with the following
 alternative.
@@ -209,4 +193,3 @@ the followinf command:
 Try this command and then try ``kpp test`` again. You should get the correct
 output this time, meaning that the system could find KPP successfully.
 
->>>>>>> master

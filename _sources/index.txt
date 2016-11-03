@@ -11,14 +11,11 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   intro
+   README
    bash
    compiling
-<<<<<<< HEAD
-=======
    running
    output
->>>>>>> master
 
 Indices and tables
 ==================

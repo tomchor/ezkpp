@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Possible bug fixes that may be useful &mdash; ezkpp 0.1 documentation</title>
+    <title>Introduction &mdash; ezkpp 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -23,7 +23,9 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="ezkpp 0.1 documentation" href="index.html" /> 
+    <link rel="top" title="ezkpp 0.1 documentation" href="index.html" />
+    <link rel="next" title="About bash" href="bash.html" />
+    <link rel="prev" title="Easy guide to compiling and running KPP" href="index.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -32,6 +34,12 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="bash.html" title="About bash"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Easy guide to compiling and running KPP"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">KPP guide</a> &raquo;</li> 
       </ul>
     </div>  
@@ -41,23 +49,17 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="possible-bug-fixes-that-may-be-useful">
-<h1>Possible bug fixes that may be useful<a class="headerlink" href="#possible-bug-fixes-that-may-be-useful" title="Permalink to this headline">¶</a></h1>
-<p>If you could not find your <code class="docutils literal"><span class="pre">.bashrc</span></code> file, it might mean that you either
-don&#8217;t have one, or that it is located somwhere else. If you&#8217;re using C shell,
-then you should be actually looking for <code class="docutils literal"><span class="pre">.cshrc</span></code>. If that is indeed the case,
-replace <code class="docutils literal"><span class="pre">bashrc</span></code> by <code class="docutils literal"><span class="pre">cshrc</span></code> everywhere it appears. Furthermore, environment
-definitions are made slightly different in C shells. Instead of typing <code class="docutils literal"><span class="pre">export</span>
-<span class="pre">KPP_HOME=$HOME/kpp</span></code> for example, you would have to type <code class="docutils literal"><span class="pre">setenv</span> <span class="pre">KPP_HOME</span>
-<span class="pre">$HOME/kpp</span></code>. For other (less common) shells, we advice you to google these
-definitions. They should be easy to find.  When in doubt of which shell you&#8217;re
-using, type <code class="docutils literal"><span class="pre">echo</span> <span class="pre">$SHELL</span></code> and check the output.</p>
-<p>If you still can&#8217;t find you <code class="docutils literal"><span class="pre">.bashrc</span></code> or <code class="docutils literal"><span class="pre">.cshrc</span></code>, chances are you&#8217;re using
-an emulator, and not running natively. If this is the case, google for the
-location of the <code class="docutils literal"><span class="pre">.bashrc</span></code>-equivalent in your shell emulator (be it, Cygwin,
-Mingw, cmder or others).</p>
-<p>If you could not find <code class="docutils literal"><span class="pre">libfl.a</span></code> or <code class="docutils literal"><span class="pre">libfl.sh</span></code>, but Flex is installed,
-you might need to manually download yourself Flex from `</p>
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>This is an unofficial guide is aimed at providing additional information not
+covered by the official KPP manual. We focus on the latest version of the
+software, release 2.2.3, which can be freely downloaded at its <a class="reference external" href="http://people.cs.vt.edu/~asandu/Software/Kpp/">official
+webpage</a>.</p>
+<p>The source for the documentation can be found at its <a class="reference external" href="https://github.com/tomchor/ezkpp">github page</a> and the online html version can be
+accessed <a class="reference external" href="https://tomchor.github.io/ezkpp/">here</a>.</p>
+<p>We recommend any person reading this manual to keep a copy of the original
+manual (which can be downloaded <a class="reference external" href="http://people.cs.vt.edu/~asandu/Software/Kpp/">here</a>) since this guide is not
+meant to replace the original manual, but to supplement it.</p>
 </div>
 
 
@@ -67,8 +69,8 @@ you might need to manually download yourself Flex from `</p>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
 <h3><a href="index.html">Table Of Contents</a></h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">Introduction</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bash.html">About bash</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling KPP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running KPP</a></li>
@@ -78,7 +80,7 @@ you might need to manually download yourself Flex from `</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/bugs.txt"
+      <li><a href="_sources/README.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -92,6 +94,12 @@ you might need to manually download yourself Flex from `</p>
     </form>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Easy guide to compiling and running KPP</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bash.html"
+                        title="next chapter">About bash</a></p>
         </div>
       </div>
       <div class="clearer"></div>
@@ -102,6 +110,12 @@ you might need to manually download yourself Flex from `</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="bash.html" title="About bash"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Easy guide to compiling and running KPP"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">KPP guide</a> &raquo;</li> 
       </ul>
     </div>
