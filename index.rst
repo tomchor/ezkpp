@@ -14,6 +14,8 @@ Contents:
    intro
    bash
    compiling
+   running
+   output
 
 Indices and tables
 ==================

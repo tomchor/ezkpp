@@ -14,6 +14,11 @@ Contents:
    intro
    bash
    compiling
+<<<<<<< HEAD
+=======
+   running
+   output
+>>>>>>> master
 
 Indices and tables
 ==================
