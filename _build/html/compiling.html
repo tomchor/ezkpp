@@ -60,27 +60,48 @@ only work if you&#8217;re in the right directory (which we will always tell what
 is). So when you open a terminal, that terminal is &#8220;running&#8221; in some directory
 in your computer.  You can find out which directory that is by entering the
 command <code class="docutils literal"><span class="pre">pwd</span></code> which stands for &#8220;Print Working Directory&#8221;. That will show you
-exactly where you are on your computer. You can also enter <code class="docutils literal"><span class="pre">ls</span></code>, which will
-&#8220;list&#8221; everything you have on that directory. To change directories, you can
-use the command <code class="docutils literal"><span class="pre">cd</span></code>, which stands for &#8220;Change Directory&#8221;. So if you want to go
-to your downloads directory, you can type <code class="docutils literal"><span class="pre">cd</span> <span class="pre">Downloads</span></code>, or <code class="docutils literal"><span class="pre">cd</span>
-<span class="pre">/home/user/Downloads</span></code> depending on where you are on your terminal (the first is
-a relative and the second is an <a class="reference external" href="https://jeremywsherman.com/blog/2011/09/26/absolute-and-relative-paths/">absolute or full path</a>).</p>
+exactly where you are on your computer.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can also use the <code class="docutils literal"><span class="pre">ls</span></code> command, which will &#8220;list&#8221; everything you have on
+that directory to get a better sense of where you are. Also, you can use the
+command <code class="docutils literal"><span class="pre">tree</span> <span class="pre">-d</span> <span class="pre">`pwd`</span></code>, which shows you your current directory on top, and
+the subdirectories in it in a tree-like structure. Try it! This can also be used
+to make you get a sense of where you are and what directories are &#8220;around you&#8221;.</p>
+</div>
+<p>To change directories, you can
+use the command <code class="docutils literal"><span class="pre">cd</span></code>, which stands for &#8220;Change Directory&#8221;. So if you want to
+go to your downloads directory, you can type <code class="docutils literal"><span class="pre">cd</span> <span class="pre">Downloads</span></code>, or <code class="docutils literal"><span class="pre">cd</span>
+<span class="pre">/home/myuser/Downloads</span></code> depending on where you are on your terminal (the first
+is a relative path (to your current location) and the second is an absolute or
+full path; you can read more about relative and absolute paths <a class="reference external" href="https://jeremywsherman.com/blog/2011/09/26/absolute-and-relative-paths/">here</a>).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Throughout this document, we&#8217;ll generally use <code class="docutils literal"><span class="pre">myuser</span></code> to refer to
+your username in the system. This generally comes right after <code class="docutils literal"><span class="pre">/home/</span></code>
+and you should change according to your case. So if your user name is <code class="docutils literal"><span class="pre">john</span></code>
+you&#8217;d replace <code class="docutils literal"><span class="pre">/home/myuser</span></code> with <code class="docutils literal"><span class="pre">/home/john</span></code> in every occasion.</p>
+</div>
 <p>If you prefer to download KPP through its website manually and unpack it
 somewhere, you&#8217;ll have to go there with your terminal. So, if I unpack it in my
 home directory, as soon as I open my terminal I&#8217;ll have to use <code class="docutils literal"><span class="pre">cd</span>
-<span class="pre">/home/myname/kpp-2.2.3</span></code>. This command will only work if the path is correct (it
-might not work on Windows, for example, which does not have a <cite>/home</cite> location.
+<span class="pre">/home/myuser/kpp-2.2.3</span></code>. This command will only work if the path is correct (it
+might not work on Windows, for example, which does not have a <code class="docutils literal"><span class="pre">/home</span></code> location.
 If you&#8217;re using Bash on Windows it&#8217;s better to go with the following
 alternative.</p>
-<p>Alternatively, you can open a terminal and run</p>
+<p>However, if you&#8217;re insecure with navigating your directories using your
+terminal, it&#8217;s best to do everything via this second, more straightfoward,
+option. It uses solely commands but it&#8217;s easier. First, as soon as you open the
+terminal run the following commands</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>wget http://people.cs.vt.edu/~asandu/Software/Kpp/Download/kpp-2.2.3_Nov.2012.zip
 unzip kpp-2.2.3_Nov.2012.zip
 <span class="nb">cd</span> kpp-2.2.3
 </pre></div>
 </div>
-<p>which will automatically download the software, unpack it and move to the
-correct directory (which was created when unpacking).</p>
+<p>Line one will automatically download the software to your current directory and
+line two will unpack it.  This will create a new directory with all the
+contants of the <code class="docutils literal"><span class="pre">.zip</span></code> file, so the last command line will move to the
+recently-created directory.</p>
 <p>Make sure you&#8217;re in the correct directory by entering <code class="docutils literal"><span class="pre">pwd</span></code>, which should show
 you that you&#8217;re on the <cite>kpp-2.2.3</cite> directory. You can also type <cite>ls</cite>, which should
 show you a list of everything that was in the zip file:</p>
@@ -96,7 +117,7 @@ show you a list of everything that was in the zip file:</p>
 make sure that you have the necessary software. These are called the
 dependencies of a program: it is everything the program needs to be available
 in the system (softwares, libraries, etc.) before it&#8217;s installed.</p>
-<p>Be sure that FLEX (public domain lexical analizer) is installed on your
+<p>Be sure that FLEX (which is a public domain <a class="reference external" href="https://en.wikipedia.org/wiki/Lexical_analysis">lexical analizer</a>) is installed on your
 machine. You can run <code class="docutils literal"><span class="pre">flex</span> <span class="pre">--version</span></code> and if it is installed you should see
 something like <code class="docutils literal"><span class="pre">flex</span> <span class="pre">2.6.0</span></code>. If instead you see something like <code class="docutils literal"><span class="pre">flex:</span>
 <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code> then it means that it is not installed and you&#8217;re going to
@@ -112,40 +133,70 @@ and <code class="docutils literal"><span class="pre">which</span> <span class="p
 you&#8217;re also going to have to install it manually. Again, a quick google search
 should tell you how to do it, although it is very rare that these packages
 aren&#8217;t installed.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">flex</span></code> and <code class="docutils literal"><span class="pre">yacc</span></code> have to do with <a class="reference external" href="https://en.wikipedia.org/wiki/Lexical_analysis">lexical analysis</a>
+and it&#8217;s not specially important to know exactly what they do. Suffices to
+say that they are used internally by the compiler to generate the executable
+file, but you will never have to use them directly when compiling/using KPP.
+<code class="docutils literal"><span class="pre">sed</span></code>, however, is a very useful <a class="reference external" href="https://en.wikipedia.org/wiki/Sed">text manipulation tool</a>,
+but you also won&#8217;t need to use it
+while running KPP.</p>
+</div>
 </div>
 <div class="section" id="telling-your-system-where-kpp-is">
 <h2>Telling your system where KPP is<a class="headerlink" href="#telling-your-system-where-kpp-is" title="Permalink to this headline">¶</a></h2>
 <p>Now that we have the dependecies installed, we need to make sure that your
 computer knows where KPP is in your system. We do that by altering a file
-called <code class="docutils literal"><span class="pre">.bashrc</span></code>, which sets some configurations for your terminal (if you&#8217;re
-using a Bash terminal; other shells have slightly different files but the
-process is the same!).  This is a text file and we simply need to add some
-lines. We&#8217;ll do that step by step.</p>
+called <code class="docutils literal"><span class="pre">.bashrc</span></code>. This file is a simple text file (so can you easily open and
+read it, as you&#8217;ll see) with some very simple commands. Every time you start a
+terminal that file is &#8220;read&#8221; internally by the terminal and executed. So inside
+that file you can put any command that you could type in the terminal. Thus,
+generally, if you want to change something in your terminal so that the change
+takes place every time you start it (so you don&#8217;t have to re-change it over and
+over again every time you open it), that&#8217;s the place to do it. For our purposes
+we simply need to add a couple of lines. We&#8217;ll do that step by step.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you&#8217;re using a terminal other than Bash the <code class="docutils literal"><span class="pre">.bashrc</span></code> file will probably
+have a slightly different name (like <code class="docutils literal"><span class="pre">.cshrc</span></code> e.g.) and the commands might
+also differ a bit, but the process and the ideas are the same! You&#8217;ll just have
+to probably do some quick googling.</p>
+</div>
 <p>First, in the directory where you unpacked KPP, run the command <code class="docutils literal"><span class="pre">pwd</span></code> to
 print the present working directory and copy its output. You&#8217;ll need this for
 the next steps.</p>
-<p>Now you need to open and edit <code class="docutils literal"><span class="pre">.bashrc</span></code> which can be done with many programs.
-The best option would be to try <code class="docutils literal"><span class="pre">gedit</span></code>, <code class="docutils literal"><span class="pre">geany</span></code>, <code class="docutils literal"><span class="pre">pluma</span></code> or <code class="docutils literal"><span class="pre">abiword</span></code>,
-which all have graphical user interfaces (GUI). You can try all of these in the
-command <code class="docutils literal"><span class="pre">gedit</span> <span class="pre">~/.bashrc</span></code>, or <code class="docutils literal"><span class="pre">geany</span> <span class="pre">~/.bashrc</span></code> and so forth with the
-others. If any of those work, great! If not, you&#8217;re probably going to have to
-use Nano by running the command <code class="docutils literal"><span class="pre">nano</span> <span class="pre">~/.bashrc</span></code>, which runs on the terminal
-itself.</p>
+<p>Now you need to open and edit <code class="docutils literal"><span class="pre">.bashrc</span></code> which can be done with many programs,
+it really depends on what is installed for your (or what you would like to
+install).  The best options would be an editor that runs with a GUI. For
+Windows users the best option is probably <code class="docutils literal"><span class="pre">notepad++</span></code>, while for Linux users
+<code class="docutils literal"><span class="pre">gedit</span></code> is generally the default GUI option. You can try these (and any other
+GUI plain text editors you know) with the commands <code class="docutils literal"><span class="pre">gedit</span> <span class="pre">~/.bashrc</span></code>, or
+<code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">~/.bashrc</span></code> and so forth with the others.</p>
+<p>If any of those work, great!, you can edit the file in an intuitive GUI editor.
+If not, you&#8217;re either going to have to install a GUI text editor, or use Nano
+by running the command <code class="docutils literal"><span class="pre">nano</span> <span class="pre">~/.bashrc</span></code>. Nano is a very handy text editor
+which runs on the terminal itself, however, it&#8217;s not as eye-pleasing and not as
+intuitive as the GUI-based ones.</p>
 <div class="figure align-center" id="id1">
 <span id="nano-ex"></span><a class="reference internal image-reference" href="_images/nano_example.png"><img alt="Example of .bashrc file opened with Nano" src="_images/nano_example.png" style="width: 716.4px; height: 463.5px;" /></a>
-<p class="caption"><span class="caption-text">Nano editor example.</span></p>
+<p class="caption"><span class="caption-text">.bashrc example.</span></p>
 </div>
-<p>With Nano, you&#8217;re going to see something like Fig. <a class="reference internal" href="#nano-ex"><span class="std std-ref">Nano editor example.</span></a> after you
-open it. If you&#8217;re using something else you&#8217;ll probably see something more
-friendly, but with the same lines of code. You can ignore all those codes and
-jump to the last line of the file. After the last line you&#8217;ll include the
-following</p>
+<p>If you&#8217;re forced to use Nano, you should probably read this very quick
+<a class="reference external" href="http://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/">tutorial</a>
+to learn how to open, save and close files. It&#8217;s not as intuitive, but it&#8217;s
+very easy.</p>
+<p>Once you open <code class="docutils literal"><span class="pre">.bashrc</span></code>, you&#8217;re going to see something like Fig.
+<a class="reference internal" href="#nano-ex"><span class="std std-ref">.bashrc example.</span></a> (in this case open with Nano). Don&#8217;t worry about the lines of
+code. They&#8217;re probably going to be different for you and that&#8217;s OK; it really
+varies a lot from system to system. You can ignore all those codes and jump to
+the last line of the file. After the last line you&#8217;ll include the following</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">KPP_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/kpp-2.2.3
 <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$KPP_HOME</span>/bin
 </pre></div>
 </div>
 <p>except that you should replace <code class="docutils literal"><span class="pre">$HOME/kpp</span></code> with the output of your <code class="docutils literal"><span class="pre">pwd</span></code> command.
-For example, if the output of <code class="docutils literal"><span class="pre">pwd</span></code> was <code class="docutils literal"><span class="pre">/home/user/Downloads/kpp-2.2.3</span></code> you
+For example, if the output of <code class="docutils literal"><span class="pre">pwd</span></code> was <code class="docutils literal"><span class="pre">/home/myuser/Downloads/kpp-2.2.3</span></code> you
 should write</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">KPP_HOME</span><span class="o">=</span>/home/user/Downloads/kpp-2.2.3
 <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$KPP_HOME</span>/bin
@@ -166,7 +217,7 @@ step, which is telling your system how to compile KPP.</p>
 <div class="section" id="specifying-how-to-compile">
 <h2>Specifying how to compile<a class="headerlink" href="#specifying-how-to-compile" title="Permalink to this headline">¶</a></h2>
 <p>Now we actually compile (which is a way of installing) KPP. First, type
-<code class="docutils literal"><span class="pre">locate</span> <span class="pre">libfl.a</span></code> and save the output. If that is no output, use <code class="docutils literal"><span class="pre">locate</span>
+<code class="docutils literal"><span class="pre">locate</span> <span class="pre">libfl.a</span></code> and save the output. If there is no output, use <code class="docutils literal"><span class="pre">locate</span>
 <span class="pre">libfl.sh</span></code> and save the output of that. These commands tell you where the Flex
 library is, which we assured was installed somewhere in the system during the
 last section. In my case the output was <code class="docutils literal"><span class="pre">/usr/lib/x86_64-linux-gnu/libfl.a</span></code>.</p>
@@ -221,7 +272,8 @@ the followinf command:</p>
 </pre></div>
 </div>
 <p>Try this command and then try <code class="docutils literal"><span class="pre">kpp</span> <span class="pre">test</span></code> again. You should get the correct
-output this time, meaning that the system could find KPP successfully.</p>
+output this time, meaning that the system could find KPP successfully.
+g</p>
 </div>
 </div>
 
@@ -304,7 +356,7 @@ output this time, meaning that the system could find KPP successfully.</p>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, Tomas Chor.
-      Last updated on 2016-11-05.
+      Last updated on 2016-11-15.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
     </div>
   </body>

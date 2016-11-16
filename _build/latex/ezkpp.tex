@@ -32,7 +32,7 @@
 
 
 \title{An easy guide for KPP}
-\date{Nov 02, 2016}
+\date{Nov 15, 2016}
 \release{0.1}
 \author{Tomas Chor}
 \newcommand{\sphinxlogo}{\sphinxincludegraphics{wheat_field.jpg}\par}
@@ -285,23 +285,43 @@ One of the first things to be said is: most of the commands we will use will
 only work if you're in the right directory (which we will always tell what it
 is). So when you open a terminal, that terminal is ``running'' in some directory
 in your computer.  You can find out which directory that is by entering the
-command \sphinxtitleref{pwd} which stands for ``Print Working Directory''. That will show you
-exactly where you are on your computer. You can also enter \sphinxtitleref{ls}, which will
-``list'' everything you have on that directory. To change directories, you can
-use the command \sphinxtitleref{cd}, which stands for ``Change Directory''. So if you want to go
-to your downloads directory, you can type \sphinxtitleref{cd Downloads}, or \sphinxtitleref{cd
-/home/user/Downloads} depending on where you are on your terminal (the first is
-a relative and the second is an \href{https://jeremywsherman.com/blog/2011/09/26/absolute-and-relative-paths/}{absolute or full path}).
+command \sphinxcode{pwd} which stands for ``Print Working Directory''. That will show you
+exactly where you are on your computer.
+
+\begin{notice}{note}{Note:}
+You can also use the \sphinxcode{ls} command, which will ``list'' everything you have on
+that directory to get a better sense of where you are. Also, you can use the
+command \sphinxcode{tree -d {}`pwd{}`}, which shows you your current directory on top, and
+the subdirectories in it in a tree-like structure. Try it! This can also be used
+to make you get a sense of where you are and what directories are ``around you''.
+\end{notice}
+
+To change directories, you can
+use the command \sphinxcode{cd}, which stands for ``Change Directory''. So if you want to
+go to your downloads directory, you can type \sphinxcode{cd Downloads}, or \sphinxcode{cd
+/home/myuser/Downloads} depending on where you are on your terminal (the first
+is a relative path (to your current location) and the second is an absolute or
+full path; you can read more about relative and absolute paths \href{https://jeremywsherman.com/blog/2011/09/26/absolute-and-relative-paths/}{here}).
+
+\begin{notice}{note}{Note:}
+Throughout this document, we'll generally use \sphinxcode{myuser} to refer to
+your username in the system. This generally comes right after \sphinxcode{/home/}
+and you should change according to your case. So if your user name is \sphinxcode{john}
+you'd replace \sphinxcode{/home/myuser} with \sphinxcode{/home/john} in every occasion.
+\end{notice}
 
 If you prefer to download KPP through its website manually and unpack it
 somewhere, you'll have to go there with your terminal. So, if I unpack it in my
-home directory, as soon as I open my terminal I'll have to use \sphinxtitleref{cd
-/home/myname/kpp-2.2.3}. This command will only work if the path is correct (it
-might not work on Windows, for example, which does not have a \sphinxtitleref{/home} location.
+home directory, as soon as I open my terminal I'll have to use \sphinxcode{cd
+/home/myuser/kpp-2.2.3}. This command will only work if the path is correct (it
+might not work on Windows, for example, which does not have a \sphinxcode{/home} location.
 If you're using Bash on Windows it's better to go with the following
 alternative.
 
-Alternatively, you can open a terminal and run
+However, if you're insecure with navigating your directories using your
+terminal, it's best to do everything via this second, more straightfoward,
+option. It uses solely commands but it's easier. First, as soon as you open the
+terminal run the following commands
 
 \begin{Verbatim}[commandchars=\\\{\}]
 wget http://people.cs.vt.edu/\PYGZti{}asandu/Software/Kpp/Download/kpp\PYGZhy{}2.2.3\PYGZus{}Nov.2012.zip
@@ -309,8 +329,10 @@ unzip kpp\PYGZhy{}2.2.3\PYGZus{}Nov.2012.zip
 \PYG{n+nb}{cd} kpp\PYGZhy{}2.2.3
 \end{Verbatim}
 
-which will automatically download the software, unpack it and move to the
-correct directory (which was created when unpacking).
+Line one will automatically download the software to your current directory and
+line two will unpack it.  This will create a new directory with all the
+contants of the \sphinxcode{.zip} file, so the last command line will move to the
+recently-created directory.
 
 Make sure you're in the correct directory by entering \sphinxcode{pwd}, which should show
 you that you're on the \sphinxtitleref{kpp-2.2.3} directory. You can also type \sphinxtitleref{ls}, which should
@@ -326,52 +348,93 @@ show you a list of everything that was in the zip file:
 \section{Making sure dependecies are installed}
 \label{compiling:making-sure-dependecies-are-installed}
 Now we are going to set-up the environment to compile KPP. The first step is to
-make sure that you have the necessary software.
+make sure that you have the necessary software. These are called the
+dependencies of a program: it is everything the program needs to be available
+in the system (softwares, libraries, etc.) before it's installed.
 
-Be sure that FLEX (public domain lexical analizer) is installed on your
+Be sure that FLEX (which is a public domain \href{https://en.wikipedia.org/wiki/Lexical\_analysis}{lexical analizer}) is installed on your
 machine. You can run \sphinxcode{flex -{-}version} and if it is installed you should see
 something like \sphinxcode{flex 2.6.0}. If instead you see something like \sphinxcode{flex:
 command not found} then it means that it is not installed and you're going to
 have to install it by running \sphinxcode{sudo apt update \&\& sudo apt install flex} if
-you're running Linux natively or by manually installing downloading and
-installing the file if you're emulating (with Cygwin, for example).
+you're running Linux natively (depending on your Linux distribution) or by
+manually installing downloading and installing the file if you're emulating
+(with Cygwin, for example). A quick google search should tell you how to
+install it easily. Note: if \sphinxcode{flex} isn't available for you, you might need to
+install the Flex-dev package with \sphinxcode{sudo apt install flex-devel.x86\_64}.
 
 Be also sure that \sphinxcode{yacc} and \sphinxcode{sed} are installed by typing \sphinxcode{which yacc}
 and \sphinxcode{which sed}. If you see something like \sphinxcode{/usr/bin/sed} or
 \sphinxcode{/usr/lib/yacc} then they are installed. If you see an error message, then
-you're going to have to install it.
+you're also going to have to install it manually. Again, a quick google search
+should tell you how to do it, although it is very rare that these packages
+aren't installed.
+
+\begin{notice}{note}{Note:}
+\sphinxcode{flex} and \sphinxcode{yacc} have to do with \href{https://en.wikipedia.org/wiki/Lexical\_analysis}{lexical analysis}
+and it's not specially important to know exactly what they do. Suffices to
+say that they are used internally by the compiler to generate the executable
+file, but you will never have to use them directly when compiling/using KPP.
+\sphinxcode{sed}, however, is a very useful \href{https://en.wikipedia.org/wiki/Sed}{text manipulation tool},
+but you also won't need to use it
+while running KPP.
+\end{notice}
 
 
 \section{Telling your system where KPP is}
 \label{compiling:telling-your-system-where-kpp-is}
-Now that Flex is installed, we need to make sure that the system knows where KPP
-is in your system. We do that by altering a file called \sphinxcode{.bashrc}, which
-sets some configurations for your terminal (if you're using a Bash terminal).
-This is a text file and we simply need to add some lines. We'll do that step by step.
+Now that we have the dependecies installed, we need to make sure that your
+computer knows where KPP is in your system. We do that by altering a file
+called \sphinxcode{.bashrc}. This file is a simple text file (so can you easily open and
+read it, as you'll see) with some very simple commands. Every time you start a
+terminal that file is ``read'' internally by the terminal and executed. So inside
+that file you can put any command that you could type in the terminal. Thus,
+generally, if you want to change something in your terminal so that the change
+takes place every time you start it (so you don't have to re-change it over and
+over again every time you open it), that's the place to do it. For our purposes
+we simply need to add a couple of lines. We'll do that step by step.
+
+\begin{notice}{note}{Note:}
+If you're using a terminal other than Bash the \sphinxcode{.bashrc} file will probably
+have a slightly different name (like \sphinxcode{.cshrc} e.g.) and the commands might
+also differ a bit, but the process and the ideas are the same! You'll just have
+to probably do some quick googling.
+\end{notice}
 
 First, in the directory where you unpacked KPP, run the command \sphinxcode{pwd} to
-print the present working directory and copy its output. You'll need this to
-tell your terminal where KPP is.
+print the present working directory and copy its output. You'll need this for
+the next steps.
 
-Now you need to open and edit \sphinxcode{.bashrc} which can be done with many programs.
-The best option would be to try \sphinxcode{gedit}, \sphinxcode{geany}, \sphinxcode{pluma} or \sphinxcode{abiword},
-which all have graphical user interfaces (GUI). You can try all of these in the
-command \sphinxcode{gedit \textasciitilde{}/.bashrc}, or \sphinxcode{geany \textasciitilde{}/.bashrc} and so forth with the
-others. If any of those work, great! If not, you're probably going to have to
-use Nano by running the command \sphinxcode{nano \textasciitilde{}/.bashrc}, which runs on the terminal
-itself.
+Now you need to open and edit \sphinxcode{.bashrc} which can be done with many programs,
+it really depends on what is installed for your (or what you would like to
+install).  The best options would be an editor that runs with a GUI. For
+Windows users the best option is probably \sphinxcode{notepad++}, while for Linux users
+\sphinxcode{gedit} is generally the default GUI option. You can try these (and any other
+GUI plain text editors you know) with the commands \sphinxcode{gedit \textasciitilde{}/.bashrc}, or
+\sphinxcode{notepad++ \textasciitilde{}/.bashrc} and so forth with the others.
+
+If any of those work, great!, you can edit the file in an intuitive GUI editor.
+If not, you're either going to have to install a GUI text editor, or use Nano
+by running the command \sphinxcode{nano \textasciitilde{}/.bashrc}. Nano is a very handy text editor
+which runs on the terminal itself, however, it's not as eye-pleasing and not as
+intuitive as the GUI-based ones.
 \begin{figure}[htbp]
 \centering
 \capstart
 
 \noindent\scalebox{0.900000}{\sphinxincludegraphics{{nano_example}.png}}
-\caption{Nano editor example.}\label{compiling:nano-ex}\label{compiling:id1}\end{figure}
+\caption{.bashrc example.}\label{compiling:nano-ex}\label{compiling:id1}\end{figure}
 
-With Nano, you're going to see something like Fig. {\hyperref[compiling:nano\string-ex]{\sphinxcrossref{\DUrole{std,std-ref}{Nano editor example.}}}} after you
-open it. If you're using something else you'll probably see something more
-friendly, but with the same lines of code. You can ignore all those codes and
-jump to the last line of the file. After the last line you'll include the
-following
+If you're forced to use Nano, you should probably read this very quick
+\href{http://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/}{tutorial}
+to learn how to open, save and close files. It's not as intuitive, but it's
+very easy.
+
+Once you open \sphinxcode{.bashrc}, you're going to see something like Fig.
+{\hyperref[compiling:nano\string-ex]{\sphinxcrossref{\DUrole{std,std-ref}{.bashrc example.}}}} (in this case open with Nano). Don't worry about the lines of
+code. They're probably going to be different for you and that's OK; it really
+varies a lot from system to system. You can ignore all those codes and jump to
+the last line of the file. After the last line you'll include the following
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{n+nb}{export} \PYG{n+nv}{KPP\PYGZus{}HOME}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}HOME}/kpp\PYGZhy{}2.2.3
@@ -379,7 +442,7 @@ following
 \end{Verbatim}
 
 except that you should replace \sphinxcode{\$HOME/kpp} with the output of your \sphinxcode{pwd} command.
-For example, if the output of \sphinxcode{pwd} was \sphinxcode{/home/user/Downloads/kpp-2.2.3} you
+For example, if the output of \sphinxcode{pwd} was \sphinxcode{/home/myuser/Downloads/kpp-2.2.3} you
 should write
 
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -388,37 +451,38 @@ should write
 \end{Verbatim}
 
 After this is done, you are going to save and exit. If you're using any option
-with a GUI this should be straightforward. With Nano you can do it by pressing
-control X, choosing the ``yes'' option (by only pressing y) when it asks you to
-save, and then pressing enter when asked to confirm to name of the file to save
-to.
+with a GUI this should be straightforward. With Nano you can save and exit by
+pressing control X, choosing the ``yes'' option (by hitting the ``y'' key) when it
+asks you to save, and then pressing enter when asked to confirm to name of the
+file to save to.
 
 Now your terminal will know where KPP is the next times you start it. But for
 the changes to make effect you need to close this terminal and open another
 one. So just close the terminal you were working with, open a new one. Now, if
 everything worked properly, you should be able to type \sphinxcode{cd \$KPP\_HOME} and go
-automatically to your KPP directory.
+automatically to your KPP directory. If this worked, we are ready for the next
+step, which is telling your system how to compile KPP.
 
 
 \section{Specifying how to compile}
 \label{compiling:specifying-how-to-compile}
-If this worked, we are ready for the next step, which is telling your system
-how to compile KPP. First, type \sphinxcode{locate libfl.a} and save the output. If that
-is no output, use \sphinxcode{locate libfl.sh} and save the output of that. In my case
-the output was \sphinxcode{/usr/lib/x86\_64-linux-gnu/libfl.a}. If neither of those
-commands gave you an output, you might need to install the Flex-dev package
-with \sphinxcode{sudo apt install flex-devel.x86\_64}.
+Now we actually compile (which is a way of installing) KPP. First, type
+\sphinxcode{locate libfl.a} and save the output. If there is no output, use \sphinxcode{locate
+libfl.sh} and save the output of that. These commands tell you where the Flex
+library is, which we assured was installed somewhere in the system during the
+last section. In my case the output was \sphinxcode{/usr/lib/x86\_64-linux-gnu/libfl.a}.
 
 Now in your KPP directory, use the same text editor as before to open a file
 called \sphinxcode{Makefile.defs}, which sets how Bash is going to make the executable
-code for KPP. So type \sphinxcode{gedit Makefile.defs}, or \sphinxcode{nano Makefile.defs} and so
+code for KPP (i.e., it only gives instructions to your computer on how to
+compile it). So type \sphinxcode{gedit Makefile.defs}, or \sphinxcode{nano Makefile.defs} and so
 on, depending on the editor you're using.
 
 Once again, you'll see a lot of lines with comments, and the only lines that
-matter are those that don't start with \sphinxcode{\#}. Look for the 5 items to complete
-in this file. The first one is \sphinxcode{CC}, which sets the compiler. In this guide
-we will use the Gnu Compiler Collection, \sphinxcode{gcc}. So make sure that the line
-which starts with \sphinxcode{CC} reads \sphinxcode{CC=gcc}.
+matter are those that don't start with \sphinxcode{\#}. There should be 5 lines like this
+in this file. The first one starts with \sphinxcode{CC}, which sets the C Compiler. In
+this guide we will use the Gnu Compiler Collection, \sphinxcode{gcc}. So make sure that
+the line which starts with \sphinxcode{CC} reads \sphinxcode{CC=gcc}.
 
 Next, since we made sure that Flex was installed, make sure the next important
 line reads \sphinxcode{FLEX=flex}. On the third step, set the next variable
@@ -427,15 +491,16 @@ my case the output saved was \sphinxcode{/usr/lib/x86\_64-linux-gnu/libfl.a}, so
 will read \sphinxcode{FLEX\_LIB\_DIR=/usr/lib/x86\_64-linux-gnu}. You should, of course,
 replace your line accordingly.
 
-The next two items defines the options of the compiler and extra directory
-to include in the compilation. We will not worry about those, which unless
-maybe when debugging. Now you can save and close/exit the file.
+The next two items define some possible extra options for the compilation and
+extra directories also to include in the compilation. We will don't have to
+worry about those, unless maybe if we need to debug the program for some
+reason. Now you can save and close/exit the file.
 
 If we did everything correctly we can compile KPP simply by running the
-\sphinxcode{make} command. Many warnings are going to appear on the screen, but as long
-as no error appears, the compilation will be successful. You can be sure it
-was successsful by once again running \sphinxcode{ls} and seeing that there is now one
-extra file on the KPP directory called \sphinxcode{bin}:
+\sphinxcode{make} command. Many warnings are going to appear on the screen (that's
+normal), but as long as no error appears, the compilation will be successful.
+You can be sure it was successsful by once again running \sphinxcode{ls} and seeing that
+there is now one extra entry on the KPP directory called \sphinxcode{bin}:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 bin           doc       gpl                 Makefile       readme     util
@@ -454,8 +519,8 @@ Now let's test it by running \sphinxcode{kpp test}. If the output is something l
 \end{Verbatim}
 
 then we know it worked. This tells you the version of KPP and that it couldn't
-file any file to work with, which is fine because we didn't give it any yet. If
-this worked, you can skip to the next section.
+find any file to work with, which is fine because we didn't give it any yet. If
+this works, you can skip to the next section.
 
 If, however you get an output similar to \sphinxcode{kpp: command not found...} then
 chances are that \sphinxcode{bin} is a binary executable file, while it should be a
@@ -470,6 +535,7 @@ mv bin kpp \PYG{o}{\PYGZam{}\PYGZam{}} mkdir bin \PYG{o}{\PYGZam{}\PYGZam{}} mv 
 
 Try this command and then try \sphinxcode{kpp test} again. You should get the correct
 output this time, meaning that the system could find KPP successfully.
+g
 
 
 \chapter{Running KPP}
@@ -481,10 +547,10 @@ to make sure it works!
 \section{The first test case}
 \label{running:the-first-test-case}
 We now follow the manual and begin running the Chapman stratospheric mechanism
-as a test case. This will allow us to illustrate some key feature when running
+as a test case. This will allow us to illustrate some key features when running
 KPP.
 
-In order to run, our example needs three things:
+In order to run a simulation on KPP, it needs three things:
 \begin{itemize}
 \item {} 
 a \sphinxcode{.kpp} file (from the KPP directory, type \sphinxcode{ls examples} to see some examples of those)
@@ -527,7 +593,7 @@ correct model, since the \sphinxcode{small\_strato} model is located in the \sph
 directory, in the KPP home directory. We test this by running KPP on our
 recently created file with \sphinxcode{kpp small\_strato.kpp}.
 
-You should see a line saying \sphinxcode{KPP has succesfully created the model
+You should see many lines appear onscreen, the last one of them saying \sphinxcode{KPP has succesfully created the model
 "small\_strato"}, which means you were sucessfull. Now if you type \sphinxcode{ls},
 you'll see many new files:
 
@@ -546,10 +612,14 @@ you'll see many new files:
 \PYG{n}{small\PYGZus{}strato\PYGZus{}Main}\PYG{o}{.}\PYG{n}{f90}           \PYG{n}{small\PYGZus{}strato\PYGZus{}Util}\PYG{o}{.}\PYG{n}{f90}
 \end{Verbatim}
 
-These are going to be used to compile the code generated by KPP. Let's focus
-for now on the \sphinxcode{Makefile\_small\_strato}. This tells which Fortran compiler to
-use and etc.
-Open the \sphinxcode{Makefile\_small\_strato} file and find where it says
+Most of them end with a \sphinxcode{.f90} extension, which tells us they are Fortran
+codes. These codes have to compiled into an executable file which is what will
+actually process and run the kinetic model. So the next step is to compile
+every one of those code together into one executable and run it.
+
+Let's focus for now on the \sphinxcode{Makefile\_small\_strato}. This tells your computer
+which Fortran compiler to use to compile, some options and etc. Open the
+\sphinxcode{Makefile\_small\_strato} file and find where it says
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{}COMPILER = G95}
@@ -560,12 +630,18 @@ Open the \sphinxcode{Makefile\_small\_strato} file and find where it says
 \PYG{c+c1}{\PYGZsh{}COMPILER = GFORTRAN}
 \end{Verbatim}
 
-This tells the computer to use the intel Fortran compiler, \sphinxcode{ifort}. If you
-are using \sphinxcode{ifort}, you should leave it as it is. If you are using another
-compiler, put the \sphinxcode{\#} in front of the \sphinxcode{INTEL} and take it out of the line
-which has the name of your compiler. If you don't know which compiler you have,
-chances are you have gfortran, which is what we will use here. So, assuming
-gfortran, make it read
+Each of the lines is a different Fortran compiler, and your computer is only
+going to see the line that doens't start with a \sphinxcode{\#}. So, currently, these
+lines are telling the computer to use the intel Fortran compiler, \sphinxcode{ifort}.
+
+If you are using \sphinxcode{ifort}, you should leave it as it is. Since \sphinxcode{ifort} is
+paid, chances are you are using another compiler. If this is the case, put the
+\sphinxcode{\#} in front of the \sphinxcode{INTEL} options and take it out of the line which has
+the name of your compiler. If you don't know which compiler you have, chances
+are you have gfortran, which is free and what we will use here. You can also
+install gfortran with \sphinxcode{sudo apt install gfortran}.
+
+So, assuming you're using gfortran, make the lines read
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{}COMPILER = G95}
@@ -579,11 +655,26 @@ gfortran, make it read
 Save and exit the file.
 
 Now all you have to do is run \sphinxcode{make -fMakefile\_small\_strato}, which will
-compile your fortran code into an executable. Now you'll see many more new
-files, including one called \sphinxcode{small\_strato.exe}, which is your executable
-file. To test, run \sphinxcode{./small\_strato.exe}, which will run the executable.
-You should see some output on the screen with concentrations, telling you that
-your run was successfull and that everything worked well!
+compile your fortran code into an executable using the options we just set.
+You should see a lot on lines appearing on screen starting with \sphinxcode{gfortran}
+and if no error messages appear the compilation was successful.
+
+Now you'll see many more new files, including one called \sphinxcode{small\_strato.exe},
+which is your executable file (run \sphinxcode{ls} again to see that). This is the
+executable that will actually calculate the concentrations using the model.
+
+To test if it works, run \sphinxcode{./small\_strato.exe}, which will run the executable.
+You should see some output on the screen with concentrations, like Fig. {\hyperref[running:test1\string-output]{\sphinxcrossref{\DUrole{std,std-ref}{Output concentrations of the first test case.}}}}
+\begin{figure}[htbp]
+\centering
+\capstart
+
+\noindent\scalebox{0.900000}{\sphinxincludegraphics{{test1_output}.png}}
+\caption{Output concentrations of the first test case.}\label{running:test1-output}\label{running:id1}\end{figure}
+
+If this is the case, then your run was successfull and everything worked well!
+You just calculated the concetrations of the compounds in the \sphinxcode{small\_strato}
+model with the pre-defined initial conditions.
 
 
 \section{Understanding and improving on the test case}

@@ -12,23 +12,43 @@ only work if you're in the right directory (which we will always tell what it
 is). So when you open a terminal, that terminal is "running" in some directory
 in your computer.  You can find out which directory that is by entering the
 command ``pwd`` which stands for "Print Working Directory". That will show you
-exactly where you are on your computer. You can also enter ``ls``, which will
-"list" everything you have on that directory. To change directories, you can
-use the command ``cd``, which stands for "Change Directory". So if you want to go
-to your downloads directory, you can type ``cd Downloads``, or ``cd
-/home/user/Downloads`` depending on where you are on your terminal (the first is
-a relative and the second is an `absolute or full path
+exactly where you are on your computer.
+
+.. note::
+
+ You can also use the ``ls`` command, which will "list" everything you have on 
+ that directory to get a better sense of where you are. Also, you can use the
+ command ``tree -d `pwd```, which shows you your current directory on top, and
+ the subdirectories in it in a tree-like structure. Try it! This can also be used
+ to make you get a sense of where you are and what directories are "around you".
+
+To change directories, you can
+use the command ``cd``, which stands for "Change Directory". So if you want to
+go to your downloads directory, you can type ``cd Downloads``, or ``cd
+/home/myuser/Downloads`` depending on where you are on your terminal (the first
+is a relative path (to your current location) and the second is an absolute or
+full path; you can read more about relative and absolute paths `here
 <https://jeremywsherman.com/blog/2011/09/26/absolute-and-relative-paths/>`_).
+
+.. note::
+
+   Throughout this document, we'll generally use ``myuser`` to refer to
+   your username in the system. This generally comes right after ``/home/``
+   and you should change according to your case. So if your user name is ``john``
+   you'd replace ``/home/myuser`` with ``/home/john`` in every occasion.
 
 If you prefer to download KPP through its website manually and unpack it
 somewhere, you'll have to go there with your terminal. So, if I unpack it in my
 home directory, as soon as I open my terminal I'll have to use ``cd
-/home/myname/kpp-2.2.3``. This command will only work if the path is correct (it
-might not work on Windows, for example, which does not have a `/home` location.
+/home/myuser/kpp-2.2.3``. This command will only work if the path is correct (it
+might not work on Windows, for example, which does not have a ``/home`` location.
 If you're using Bash on Windows it's better to go with the following
 alternative.
 
-Alternatively, you can open a terminal and run
+However, if you're insecure with navigating your directories using your
+terminal, it's best to do everything via this second, more straightfoward,
+option. It uses solely commands but it's easier. First, as soon as you open the
+terminal run the following commands
 
 ..  code-block:: bash
 
@@ -36,8 +56,10 @@ Alternatively, you can open a terminal and run
  unzip kpp-2.2.3_Nov.2012.zip
  cd kpp-2.2.3
 
-which will automatically download the software, unpack it and move to the
-correct directory (which was created when unpacking).
+Line one will automatically download the software to your current directory and
+line two will unpack it.  This will create a new directory with all the
+contants of the ``.zip`` file, so the last command line will move to the
+recently-created directory.
 
 Make sure you're in the correct directory by entering ``pwd``, which should show
 you that you're on the `kpp-2.2.3` directory. You can also type `ls`, which should
@@ -56,7 +78,7 @@ make sure that you have the necessary software. These are called the
 dependencies of a program: it is everything the program needs to be available
 in the system (softwares, libraries, etc.) before it's installed.
 
-Be sure that FLEX (public domain lexical analizer) is installed on your
+Be sure that FLEX (which is a public domain `lexical analizer <https://en.wikipedia.org/wiki/Lexical_analysis>`_) is installed on your
 machine. You can run ``flex --version`` and if it is installed you should see
 something like ``flex 2.6.0``. If instead you see something like ``flex:
 command not found`` then it means that it is not installed and you're going to
@@ -74,27 +96,55 @@ you're also going to have to install it manually. Again, a quick google search
 should tell you how to do it, although it is very rare that these packages
 aren't installed.
 
+.. note::
+
+   ``flex`` and ``yacc`` have to do with `lexical analysis <https://en.wikipedia.org/wiki/Lexical_analysis>`_
+   and it's not specially important to know exactly what they do. Suffices to
+   say that they are used internally by the compiler to generate the executable
+   file, but you will never have to use them directly when compiling/using KPP.
+   ``sed``, however, is a very useful `text manipulation tool <https://en.wikipedia.org/wiki/Sed>`_,
+   but you also won't need to use it
+   while running KPP.
+
 Telling your system where KPP is
 --------------------------------
 
 Now that we have the dependecies installed, we need to make sure that your
 computer knows where KPP is in your system. We do that by altering a file
-called ``.bashrc``, which sets some configurations for your terminal (if you're
-using a Bash terminal; other shells have slightly different files but the
-process is the same!).  This is a text file and we simply need to add some
-lines. We'll do that step by step.
+called ``.bashrc``. This file is a simple text file (so can you easily open and
+read it, as you'll see) with some very simple commands. Every time you start a
+terminal that file is "read" internally by the terminal and executed. So inside
+that file you can put any command that you could type in the terminal. Thus,
+generally, if you want to change something in your terminal so that the change
+takes place every time you start it (so you don't have to re-change it over and
+over again every time you open it), that's the place to do it. For our purposes
+we simply need to add a couple of lines. We'll do that step by step.
+
+.. note::
+
+   If you're using a terminal other than Bash the ``.bashrc`` file will probably 
+   have a slightly different name (like ``.cshrc`` e.g.) and the commands might 
+   also differ a bit, but the process and the ideas are the same! You'll just have
+   to probably do some quick googling. 
+
 
 First, in the directory where you unpacked KPP, run the command ``pwd`` to
 print the present working directory and copy its output. You'll need this for
 the next steps.
 
-Now you need to open and edit ``.bashrc`` which can be done with many programs.
-The best option would be to try ``gedit``, ``geany``, ``pluma`` or ``abiword``,
-which all have graphical user interfaces (GUI). You can try all of these in the
-command ``gedit ~/.bashrc``, or ``geany ~/.bashrc`` and so forth with the
-others. If any of those work, great! If not, you're probably going to have to
-use Nano by running the command ``nano ~/.bashrc``, which runs on the terminal
-itself.
+Now you need to open and edit ``.bashrc`` which can be done with many programs,
+it really depends on what is installed for your (or what you would like to
+install).  The best options would be an editor that runs with a GUI. For
+Windows users the best option is probably ``notepad++``, while for Linux users
+``gedit`` is generally the default GUI option. You can try these (and any other
+GUI plain text editors you know) with the commands ``gedit ~/.bashrc``, or
+``notepad++ ~/.bashrc`` and so forth with the others.
+
+If any of those work, great!, you can edit the file in an intuitive GUI editor.
+If not, you're either going to have to install a GUI text editor, or use Nano
+by running the command ``nano ~/.bashrc``. Nano is a very handy text editor
+which runs on the terminal itself, however, it's not as eye-pleasing and not as
+intuitive as the GUI-based ones.
 
 .. _nano-ex:
 
@@ -103,14 +153,19 @@ itself.
    :scale: 90 %
    :alt: Example of .bashrc file opened with Nano
 
-   Nano editor example.
+   .bashrc example.
 
 
-With Nano, you're going to see something like Fig. :ref:`nano-ex` after you
-open it. If you're using something else you'll probably see something more
-friendly, but with the same lines of code. You can ignore all those codes and
-jump to the last line of the file. After the last line you'll include the
-following
+If you're forced to use Nano, you should probably read this very quick
+`tutorial <http://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/>`_
+to learn how to open, save and close files. It's not as intuitive, but it's
+very easy.
+
+Once you open ``.bashrc``, you're going to see something like Fig.
+:ref:`nano-ex` (in this case open with Nano). Don't worry about the lines of
+code. They're probably going to be different for you and that's OK; it really
+varies a lot from system to system. You can ignore all those codes and jump to
+the last line of the file. After the last line you'll include the following
 
 .. code-block:: bash
 
@@ -118,7 +173,7 @@ following
  export PATH=$PATH:$KPP_HOME/bin
 
 except that you should replace ``$HOME/kpp`` with the output of your ``pwd`` command.
-For example, if the output of ``pwd`` was ``/home/user/Downloads/kpp-2.2.3`` you
+For example, if the output of ``pwd`` was ``/home/myuser/Downloads/kpp-2.2.3`` you
 should write
 
 .. code-block:: bash
@@ -143,7 +198,7 @@ Specifying how to compile
 -------------------------
 
 Now we actually compile (which is a way of installing) KPP. First, type
-``locate libfl.a`` and save the output. If that is no output, use ``locate
+``locate libfl.a`` and save the output. If there is no output, use ``locate
 libfl.sh`` and save the output of that. These commands tell you where the Flex
 library is, which we assured was installed somewhere in the system during the
 last section. In my case the output was ``/usr/lib/x86_64-linux-gnu/libfl.a``.
@@ -214,4 +269,4 @@ the followinf command:
 
 Try this command and then try ``kpp test`` again. You should get the correct
 output this time, meaning that the system could find KPP successfully.
-
+g
