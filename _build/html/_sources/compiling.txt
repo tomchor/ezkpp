@@ -52,32 +52,41 @@ Making sure dependecies are installed
 -------------------------------------
 
 Now we are going to set-up the environment to compile KPP. The first step is to
-make sure that you have the necessary software.
+make sure that you have the necessary software. These are called the
+dependencies of a program: it is everything the program needs to be available
+in the system (softwares, libraries, etc.) before it's installed.
 
 Be sure that FLEX (public domain lexical analizer) is installed on your
 machine. You can run ``flex --version`` and if it is installed you should see
 something like ``flex 2.6.0``. If instead you see something like ``flex:
 command not found`` then it means that it is not installed and you're going to
 have to install it by running ``sudo apt update && sudo apt install flex`` if
-you're running Linux natively or by manually installing downloading and
-installing the file if you're emulating (with Cygwin, for example).
+you're running Linux natively (depending on your Linux distribution) or by
+manually installing downloading and installing the file if you're emulating
+(with Cygwin, for example). A quick google search should tell you how to
+install it easily. Note: if ``flex`` isn't available for you, you might need to
+install the Flex-dev package with ``sudo apt install flex-devel.x86_64``.
 
 Be also sure that ``yacc`` and ``sed`` are installed by typing ``which yacc``
 and ``which sed``. If you see something like ``/usr/bin/sed`` or
 ``/usr/lib/yacc`` then they are installed. If you see an error message, then
-you're going to have to install it.
+you're also going to have to install it manually. Again, a quick google search
+should tell you how to do it, although it is very rare that these packages
+aren't installed.
 
 Telling your system where KPP is
 --------------------------------
 
-Now that Flex is installed, we need to make sure that the system knows where KPP
-is in your system. We do that by altering a file called ``.bashrc``, which
-sets some configurations for your terminal (if you're using a Bash terminal).
-This is a text file and we simply need to add some lines. We'll do that step by step.
+Now that we have the dependecies installed, we need to make sure that your
+computer knows where KPP is in your system. We do that by altering a file
+called ``.bashrc``, which sets some configurations for your terminal (if you're
+using a Bash terminal; other shells have slightly different files but the
+process is the same!).  This is a text file and we simply need to add some
+lines. We'll do that step by step.
 
 First, in the directory where you unpacked KPP, run the command ``pwd`` to
-print the present working directory and copy its output. You'll need this to
-tell your terminal where KPP is.
+print the present working directory and copy its output. You'll need this for
+the next steps.
 
 Now you need to open and edit ``.bashrc`` which can be done with many programs.
 The best option would be to try ``gedit``, ``geany``, ``pluma`` or ``abiword``,
@@ -118,37 +127,39 @@ should write
  export PATH=$PATH:$KPP_HOME/bin
 
 After this is done, you are going to save and exit. If you're using any option
-with a GUI this should be straightforward. With Nano you can do it by pressing
-control X, choosing the "yes" option (by only pressing y) when it asks you to
-save, and then pressing enter when asked to confirm to name of the file to save
-to.
+with a GUI this should be straightforward. With Nano you can save and exit by
+pressing control X, choosing the "yes" option (by hitting the "y" key) when it
+asks you to save, and then pressing enter when asked to confirm to name of the
+file to save to.
 
 Now your terminal will know where KPP is the next times you start it. But for
 the changes to make effect you need to close this terminal and open another
 one. So just close the terminal you were working with, open a new one. Now, if
 everything worked properly, you should be able to type ``cd $KPP_HOME`` and go
-automatically to your KPP directory.
+automatically to your KPP directory. If this worked, we are ready for the next
+step, which is telling your system how to compile KPP.
 
 Specifying how to compile
 -------------------------
 
-If this worked, we are ready for the next step, which is telling your system
-how to compile KPP. First, type ``locate libfl.a`` and save the output. If that
-is no output, use ``locate libfl.sh`` and save the output of that. In my case
-the output was ``/usr/lib/x86_64-linux-gnu/libfl.a``. If neither of those
-commands gave you an output, you might need to install the Flex-dev package
-with ``sudo apt install flex-devel.x86_64``.
+Now we actually compile (which is a way of installing) KPP. First, type
+``locate libfl.a`` and save the output. If that is no output, use ``locate
+libfl.sh`` and save the output of that. These commands tell you where the Flex
+library is, which we assured was installed somewhere in the system during the
+last section. In my case the output was ``/usr/lib/x86_64-linux-gnu/libfl.a``.
+
 
 Now in your KPP directory, use the same text editor as before to open a file
 called ``Makefile.defs``, which sets how Bash is going to make the executable
-code for KPP. So type ``gedit Makefile.defs``, or ``nano Makefile.defs`` and so
+code for KPP (i.e., it only gives instructions to your computer on how to
+compile it). So type ``gedit Makefile.defs``, or ``nano Makefile.defs`` and so
 on, depending on the editor you're using.
 
 Once again, you'll see a lot of lines with comments, and the only lines that
-matter are those that don't start with ``#``. Look for the 5 items to complete
-in this file. The first one is ``CC``, which sets the compiler. In this guide
-we will use the Gnu Compiler Collection, ``gcc``. So make sure that the line
-which starts with ``CC`` reads ``CC=gcc``.
+matter are those that don't start with ``#``. There should be 5 lines like this
+in this file. The first one starts with ``CC``, which sets the C Compiler. In
+this guide we will use the Gnu Compiler Collection, ``gcc``. So make sure that
+the line which starts with ``CC`` reads ``CC=gcc``.
 
 Next, since we made sure that Flex was installed, make sure the next important
 line reads ``FLEX=flex``. On the third step, set the next variable
@@ -157,15 +168,16 @@ my case the output saved was ``/usr/lib/x86_64-linux-gnu/libfl.a``, so the line
 will read ``FLEX_LIB_DIR=/usr/lib/x86_64-linux-gnu``. You should, of course,
 replace your line accordingly.
 
-The next two items defines the options of the compiler and extra directory
-to include in the compilation. We will not worry about those, which unless
-maybe when debugging. Now you can save and close/exit the file.
+The next two items define some possible extra options for the compilation and
+extra directories also to include in the compilation. We will don't have to
+worry about those, unless maybe if we need to debug the program for some
+reason. Now you can save and close/exit the file.
 
 If we did everything correctly we can compile KPP simply by running the
-``make`` command. Many warnings are going to appear on the screen, but as long
-as no error appears, the compilation will be successful. You can be sure it
-was successsful by once again running ``ls`` and seeing that there is now one
-extra file on the KPP directory called ``bin``:
+``make`` command. Many warnings are going to appear on the screen (that's
+normal), but as long as no error appears, the compilation will be successful.
+You can be sure it was successsful by once again running ``ls`` and seeing that
+there is now one extra entry on the KPP directory called ``bin``:
 
 .. code-block:: bash
 
@@ -185,8 +197,8 @@ Now let's test it by running ``kpp test``. If the output is something like
  Program aborted
 
 then we know it worked. This tells you the version of KPP and that it couldn't
-file any file to work with, which is fine because we didn't give it any yet. If
-this worked, you can skip to the next section.
+find any file to work with, which is fine because we didn't give it any yet. If
+this works, you can skip to the next section.
 
 
 If, however you get an output similar to ``kpp: command not found...`` then
