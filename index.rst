@@ -6,6 +6,9 @@
 Easy guide to compiling and running KPP
 =======================================
 
+You can download this guide in pdf 
+`here <https://github.com/tomchor/ezkpp/raw/gh-pages/ezkpp.pdf`_.
+
 Contents:
 
 .. toctree::
