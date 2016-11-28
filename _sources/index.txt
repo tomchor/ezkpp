@@ -20,7 +20,7 @@ Contents:
    bash
    compiling
    running
-   output
+   improving
 
 Indices and tables
 ==================

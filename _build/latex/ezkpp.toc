@@ -13,6 +13,10 @@
 \contentsline {section}{\numberline {3.4}Specifying how to compile}{8}{section.3.4}
 \contentsline {chapter}{\numberline {4}Running KPP}{10}{chapter.4}
 \contentsline {section}{\numberline {4.1}The first test case}{10}{section.4.1}
-\contentsline {section}{\numberline {4.2}Understanding and improving on the test case}{12}{section.4.2}
-\contentsline {chapter}{\numberline {5}Understanding the output}{13}{chapter.5}
-\contentsline {chapter}{\numberline {6}Indices and tables}{14}{chapter.6}
+\contentsline {section}{\numberline {4.2}Understanding the test case}{12}{section.4.2}
+\contentsline {chapter}{\numberline {5}Modifying and improving the example}{15}{chapter.5}
+\contentsline {section}{\numberline {5.1}Increasing the length of the simulation}{15}{section.5.1}
+\contentsline {section}{\numberline {5.2}Change in the initial conditions}{16}{section.5.2}
+\contentsline {section}{\numberline {5.3}Modifying the reactions}{17}{section.5.3}
+\contentsline {section}{\numberline {5.4}Creating a model from scratch}{19}{section.5.4}
+\contentsline {chapter}{\numberline {6}Indices and tables}{22}{chapter.6}

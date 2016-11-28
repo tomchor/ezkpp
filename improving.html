@@ -1,0 +1,402 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Modifying and improving the example &mdash; ezkpp 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ezkpp 0.1 documentation" href="index.html" />
+    <link rel="prev" title="Running KPP" href="running.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="running.html" title="Running KPP"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">KPP guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="modifying-and-improving-the-example">
+<h1>Modifying and improving the example<a class="headerlink" href="#modifying-and-improving-the-example" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="increasing-the-length-of-the-simulation">
+<h2>Increasing the length of the simulation<a class="headerlink" href="#increasing-the-length-of-the-simulation" title="Permalink to this headline">¶</a></h2>
+<p>There are two ways to make modifications on the model. The first, which works
+for simple changes, is to modify the Fortran code itself. The second is to
+change the KPP model itself (the <code class="docutils literal"><span class="pre">.def</span></code> files etc.) before it gets compiled.
+This latter method is more general, so this is the one we will focus on this
+guide.  Since all we want for now is to increase the total time, we will base
+ourselves in the original <code class="docutils literal"><span class="pre">small_strato</span></code> model and only modify this
+parameter.</p>
+<p>First, create another directory (anywhere you want) called <code class="docutils literal"><span class="pre">test2</span></code> (with
+<code class="docutils literal"><span class="pre">mkdir</span> <span class="pre">test2</span></code>) and enter it (with <code class="docutils literal"><span class="pre">cd</span> <span class="pre">test2</span></code>). Now create a file called
+<code class="docutils literal"><span class="pre">my_strato.kpp</span></code> (with <code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">my_strato.kpp</span></code> or <code class="docutils literal"><span class="pre">gedit</span> <span class="pre">my_strato.kpp</span></code>
+or whichever text editor you ended up using) and paste the following lines in
+the file</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="c1">#MODEL      my_strato</span>
+<span class="c1">#LANGUAGE   Fortran90</span>
+<span class="c1">#INTEGRATOR rosenbrock</span>
+</pre></div>
+</div>
+<p>At this point if you run <code class="docutils literal"><span class="pre">kpp</span> <span class="pre">my_strato.kpp</span></code> you should get an error saying
+<code class="docutils literal"><span class="pre">&quot;Fatal</span> <span class="pre">error</span> <span class="pre">:</span> <span class="pre">my_strato.def:</span> <span class="pre">Can't</span> <span class="pre">read</span> <span class="pre">file&quot;</span></code>. Which appears because we
+instructed KPP to search for the file <code class="docutils literal"><span class="pre">my_strato.def</span></code>, which doesn&#8217;t exist in
+the models directory. So we first must create the <code class="docutils literal"><span class="pre">my_strato.def</span></code> file, which
+ultimately defines the <code class="docutils literal"><span class="pre">my_strato</span></code> model.</p>
+<p>Let us define our model based on <code class="docutils literal"><span class="pre">small_strato</span></code>, since for now all we want to
+do is to modify the time length of the simulation. In order to preserve the
+original <code class="docutils literal"><span class="pre">small_strato.def</span></code> we&#8217;ll copy it and call it <code class="docutils literal"><span class="pre">my_strato.def</span></code>, this
+way we can do any modification on <code class="docutils literal"><span class="pre">my_strato</span></code> and the original
+<code class="docutils literal"><span class="pre">small_strato</span></code> will be safe. You can copy the file in the <code class="docutils literal"><span class="pre">models</span></code>
+directory by issuing the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>cp $KPP_HOME/models/small_strato.def $KPP_HOME/models/my_strato.def
+</pre></div>
+</div>
+<p>Now you should open the file we just created (for example with <code class="docutils literal"><span class="pre">notepad++</span></code>)
+and find the lines that look like</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="c1">#INLINE F90_INIT</span>
+        <span class="n">TSTART</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="o">*</span><span class="mi">3600</span><span class="p">)</span>
+        <span class="n">TEND</span> <span class="o">=</span> <span class="n">TSTART</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">3600</span><span class="p">)</span>
+        <span class="n">DT</span> <span class="o">=</span> <span class="mf">0.25</span><span class="o">*</span><span class="mi">3600</span>
+        <span class="n">TEMP</span> <span class="o">=</span> <span class="mi">270</span>
+<span class="c1">#ENDINLINE</span>
+</pre></div>
+</div>
+<p>These are the lines that define the start, end, time step and global
+temperature of the model. For now, we&#8217;ll change only the end time. Notice that
+they are given in seconds. For example, <code class="docutils literal"><span class="pre">3*24*3600</span></code> is the amount of seconds
+in 3 days, meaning that at the moment the simulation is set to run for 3 days,
+which we saw is not enough.  Let us then replace <code class="docutils literal"><span class="pre">3</span></code> with <code class="docutils literal"><span class="pre">30</span></code>, meaning we
+will run it for 30 days, to be sure that equilibrium is reached. Now that line
+should read <code class="docutils literal"><span class="pre">TEND</span> <span class="pre">=</span> <span class="pre">TSTART</span> <span class="pre">+</span> <span class="pre">(30*24*3600)</span></code>.</p>
+<p>After this small change we are ready to test run the model. Run <code class="docutils literal"><span class="pre">kpp</span>
+<span class="pre">my_strato.kpp</span></code>, which should end with a <code class="docutils literal"><span class="pre">succesfully</span> <span class="pre">created</span> <span class="pre">the</span> <span class="pre">model</span></code>
+message. Now, just like with the previous example, open again the file
+<code class="docutils literal"><span class="pre">Makefile_my_strato</span></code> and uncomment the line that says <code class="docutils literal"><span class="pre">COMPILER</span> <span class="pre">=</span>
+<span class="pre">GFORTRAN</span></code>, so we can use Gfortran instead of Intel. After this is done compile
+the model with <code class="docutils literal"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">Makefile_my_strato</span></code>. Again, if everything goes well,
+the <code class="docutils literal"><span class="pre">my_strato.exe</span></code> file should be created.</p>
+<p>We can now run the model with <code class="docutils literal"><span class="pre">./my_strato.exe</span></code>, which should now take 10
+times longer to complete, since we are running it for 10 times as long as
+before.  We can use the Python code given in the last section to read the
+results. We just need to adjust the name of the file inside the code from
+<code class="docutils literal"><span class="pre">small_strato</span></code> to <code class="docutils literal"><span class="pre">my_strato</span></code>.</p>
+<p>The plot of the results is</p>
+<div class="figure align-center" id="test2-time">
+<a class="reference internal image-reference" href="_images/test2_time.png"><img alt="_images/test2_time.png" src="_images/test2_time.png" style="width: 640.0px; height: 480.0px;" /></a>
+</div>
+<p>Now we can see that the solution stabilizes after roughly 200 hours! This was a
+minor change in the model. Let us now change some other things and see how the
+model reacts.</p>
+</div>
+<div class="section" id="change-in-the-initial-conditions">
+<h2>Change in the initial conditions<a class="headerlink" href="#change-in-the-initial-conditions" title="Permalink to this headline">¶</a></h2>
+<p>We can use the same model as before (<code class="docutils literal"><span class="pre">my_strato</span></code>). Let&#8217;s open the <code class="docutils literal"><span class="pre">.def</span></code> file
+with located at <code class="docutils literal"><span class="pre">$KPP_HOME/models/my_strato.def</span></code> and consider an atmosphere with
+more NO (simulating a polluted condition). Where it says <code class="docutils literal"><span class="pre">NO</span>&nbsp; <span class="pre">=</span> <span class="pre">8.725E+08</span> <span class="pre">;</span></code>, we make it
+read <code class="docutils literal"><span class="pre">NO</span>&nbsp; <span class="pre">=</span> <span class="pre">9.00E+09</span></code>, which is roughly a 10 times increase in the NO concentration. Let us
+also change the O3 initial condition and make the O3 line read <code class="docutils literal"><span class="pre">O3</span>&nbsp; <span class="pre">=</span> <span class="pre">5.00E+10</span> <span class="pre">;</span></code>, simulating
+an atmosphere that has a lower initial O3 concentration.</p>
+<p>Let us also change the line that reads</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="c1">#LOOKATALL          {File Output}</span>
+</pre></div>
+</div>
+<p>We will make it read</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="c1">#LOOKAT O3; NO; NO2; {File Output}</span>
+</pre></div>
+</div>
+<p>This latter change makes the program write only time, O3, NO and NO2 into the
+output file, in that order. This simplifies the reading process and saves
+space, since we are assuming that we&#8217;re not interested in the other species.</p>
+<p>We again go through the same steps: run it with <code class="docutils literal"><span class="pre">kpp</span> <span class="pre">my_strato.kpp</span></code>, change the compiler
+to gfortran, compile if with <code class="docutils literal"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">Makefile_my_strato</span></code> and run it with <code class="docutils literal"><span class="pre">./my_strato.exe</span></code>.
+This time, since the output file changed, we have to change the code to read it correctly:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">concs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;my_strato.dat&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">concs</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">]</span>
+<span class="n">concs</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Hours since noon&#39;</span>
+<span class="n">concs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mf">1.e8</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">logy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">],</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;test21_time.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This code produces the following plot:</p>
+<div class="figure align-center" id="test21-time">
+<a class="reference internal image-reference" href="_images/test21_time.png"><img alt="_images/test21_time.png" src="_images/test21_time.png" style="width: 640.0px; height: 480.0px;" /></a>
+</div>
+<p>From which we can see that the concentration of ozone stabilized more quickly
+in this case. As you can see, we can play around with the initial conditions
+as much as we want and analyse that result of model. In fact, we encourage you
+to do so. However, let us focus this guide on the next step and modify some more
+fundamental aspects of the model: the reaction rates.</p>
+</div>
+<div class="section" id="modifying-the-reactions">
+<h2>Modifying the reactions<a class="headerlink" href="#modifying-the-reactions" title="Permalink to this headline">¶</a></h2>
+<p>Now we will alter the reaction rates of some reactions in the model. Keep in
+mind that these alterations do not are not realistic. They are simply done here
+for the sake of learning how the model works.</p>
+<p>Begin again by creating a <code class="docutils literal"><span class="pre">test3</span></code> directory anywhere and going into it (<code class="docutils literal"><span class="pre">mkdir</span> <span class="pre">test3</span>
+<span class="pre">&amp;&amp;</span> <span class="pre">cd</span> <span class="pre">test3</span></code>). In this directory, create a file called <code class="docutils literal"><span class="pre">strato3.kpp</span></code> with the following
+contents:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#MODEL      strato3</span>
+<span class="c1">#LANGUAGE   Fortran90</span>
+<span class="c1">#INTEGRATOR rosenbrock</span>
+<span class="c1">#DRIVER     general</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Note that in this kpp file we are forced (for some reason) to include another line
+defining the driver for the <code class="docutils literal"><span class="pre">strato3</span></code> model.</p>
+</div>
+<p>This file tells KPP to look for the <code class="docutils literal"><span class="pre">strato3.def</span></code> file in its <code class="docutils literal"><span class="pre">models</span></code>
+directory. So let us create this file by copying the <code class="docutils literal"><span class="pre">my_strato.def</span></code> file.
+You can do that with <code class="docutils literal"><span class="pre">cp</span> <span class="pre">$KPP_HOME/models/my_strato.def</span> <span class="pre">$KPP_HOME/models/strato3.def</span></code>.
+Open the file (<code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">$KPP_HOME/models/strato3.def</span></code>) and find the first two lines
+which originally read</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="c1">#include small_strato.spc</span>
+<span class="c1">#include small_strato.eqn</span>
+</pre></div>
+</div>
+<p>Which still tells KPP to look for the original <code class="docutils literal"><span class="pre">small_strato</span></code> model files
+when defining the species (<code class="docutils literal"><span class="pre">.spc</span></code>) and chemical equations (<code class="docutils literal"><span class="pre">.eqn</span></code>). You
+should modify these lines to the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#include strato3.spc</span>
+<span class="c1">#include strato3.eqn</span>
+</pre></div>
+</div>
+<p>If you try to run KPP now you&#8217;ll again get an error because those
+files still don&#8217;t exist. Let&#8217;s create them by copying the original <code class="docutils literal"><span class="pre">small_strato</span></code>
+files, which can the following commands:</p>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span>cp $KPP_HOME/models/small_strato.spc $KPP_HOME/models/strato3.spc
+cp $KPP_HOME/models/small_strato.eqn $KPP_HOME/models/strato3.eqn
+</pre></div>
+</div>
+<p>If you check the <code class="docutils literal"><span class="pre">strato3.spc</span></code> file you&#8217;ll see that it only the definitions
+of the species used, which wouldn&#8217;t make much sense to change for now, so we
+will leave it how it is. Now we focus on the <code class="docutils literal"><span class="pre">strato3.eqn</span></code> file. If you
+open it you&#8217;ll find the following lines:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#EQUATIONS { Small Stratospheric Mechanism }</span>
+
+<span class="o">&lt;</span><span class="n">R1</span><span class="o">&gt;</span>  <span class="n">O2</span>   <span class="o">+</span> <span class="n">hv</span> <span class="o">=</span> <span class="mi">2</span><span class="n">O</span>            <span class="p">:</span> <span class="p">(</span><span class="mf">2.643E-10</span><span class="p">)</span> <span class="o">*</span> <span class="n">SUN</span><span class="o">*</span><span class="n">SUN</span><span class="o">*</span><span class="n">SUN</span><span class="p">;</span>
+<span class="o">&lt;</span><span class="n">R2</span><span class="o">&gt;</span>  <span class="n">O</span>    <span class="o">+</span> <span class="n">O2</span> <span class="o">=</span> <span class="n">O3</span>            <span class="p">:</span> <span class="p">(</span><span class="mf">8.018E-17</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R3</span><span class="o">&gt;</span>  <span class="n">O3</span>   <span class="o">+</span> <span class="n">hv</span> <span class="o">=</span> <span class="n">O</span>   <span class="o">+</span> <span class="n">O2</span>      <span class="p">:</span> <span class="p">(</span><span class="mf">6.120E-04</span><span class="p">)</span> <span class="o">*</span> <span class="n">SUN</span><span class="p">;</span>
+<span class="o">&lt;</span><span class="n">R4</span><span class="o">&gt;</span>  <span class="n">O</span>    <span class="o">+</span> <span class="n">O3</span> <span class="o">=</span> <span class="mi">2</span><span class="n">O2</span>           <span class="p">:</span> <span class="p">(</span><span class="mf">1.576E-15</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R5</span><span class="o">&gt;</span>  <span class="n">O3</span>   <span class="o">+</span> <span class="n">hv</span> <span class="o">=</span> <span class="n">O1D</span> <span class="o">+</span> <span class="n">O2</span>      <span class="p">:</span> <span class="p">(</span><span class="mf">1.070E-03</span><span class="p">)</span> <span class="o">*</span> <span class="n">SUN</span><span class="o">*</span><span class="n">SUN</span><span class="p">;</span>
+<span class="o">&lt;</span><span class="n">R6</span><span class="o">&gt;</span>  <span class="n">O1D</span>  <span class="o">+</span> <span class="n">M</span>  <span class="o">=</span> <span class="n">O</span>   <span class="o">+</span> <span class="n">M</span>       <span class="p">:</span> <span class="p">(</span><span class="mf">7.110E-11</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R7</span><span class="o">&gt;</span>  <span class="n">O1D</span>  <span class="o">+</span> <span class="n">O3</span> <span class="o">=</span> <span class="mi">2</span><span class="n">O2</span>           <span class="p">:</span> <span class="p">(</span><span class="mf">1.200E-10</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R8</span><span class="o">&gt;</span>  <span class="n">NO</span>   <span class="o">+</span> <span class="n">O3</span> <span class="o">=</span> <span class="n">NO2</span> <span class="o">+</span> <span class="n">O2</span>      <span class="p">:</span> <span class="p">(</span><span class="mf">6.062E-15</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R9</span><span class="o">&gt;</span>  <span class="n">NO2</span>  <span class="o">+</span> <span class="n">O</span>  <span class="o">=</span> <span class="n">NO</span>  <span class="o">+</span> <span class="n">O2</span>      <span class="p">:</span> <span class="p">(</span><span class="mf">1.069E-11</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R10</span><span class="o">&gt;</span> <span class="n">NO2</span>  <span class="o">+</span> <span class="n">hv</span> <span class="o">=</span> <span class="n">NO</span>  <span class="o">+</span> <span class="n">O</span>       <span class="p">:</span> <span class="p">(</span><span class="mf">1.289E-02</span><span class="p">)</span> <span class="o">*</span> <span class="n">SUN</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Just for the sake of learning, let us change the photolysis rate (last
+reaction) to make it a lot slower. We will make the last line read:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">R10</span><span class="o">&gt;</span> <span class="n">NO2</span>  <span class="o">+</span> <span class="n">hv</span> <span class="o">=</span> <span class="n">NO</span>  <span class="o">+</span> <span class="n">O</span>       <span class="p">:</span> <span class="p">(</span><span class="mf">1.289E-06</span><span class="p">)</span> <span class="o">*</span> <span class="n">SUN</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>..note</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>This is 4 orders of magnitude slower than it previously was and is not realistic!
+We only made this change for the sake of illustration, so that the output change
+is easier to see.
+</pre></div>
+</div>
+<p>Now we go through the same steps of running <code class="docutils literal"><span class="pre">kpp</span> <span class="pre">strato3.kpp</span></code>, changing the
+compiler to gfortran and running <code class="docutils literal"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">Makefile_strato3</span></code>. If everything
+goes well, we&#8217;ll see the <code class="docutils literal"><span class="pre">strato3.exe</span></code> created. After running
+<code class="docutils literal"><span class="pre">./strato3.exe</span></code> sure enough <code class="docutils literal"><span class="pre">strato3.dat</span></code> is created, which we can plot
+with the same python code from the last example (only changing the name of the
+file of course):</p>
+<div class="figure align-center" id="test3-time">
+<a class="reference internal image-reference" href="_images/test3_time.png"><img alt="_images/test3_time.png" src="_images/test3_time.png" style="width: 640.0px; height: 480.0px;" /></a>
+</div>
+<p>We can see that once again the final result changed. This time, since NO2 is
+photolizing a lot slower, we see less NO in comparison with the previous plot.</p>
+<p>Now that we have modified the <code class="docutils literal"><span class="pre">small_strato</span></code> example in (almost) every way
+possible, let us create a new model from scratch.</p>
+</div>
+<div class="section" id="creating-a-model-from-scratch">
+<h2>Creating a model from scratch<a class="headerlink" href="#creating-a-model-from-scratch" title="Permalink to this headline">¶</a></h2>
+<p>Now we do our last step and create a completely new model with our own
+reactions.  Basically for our new model to be complete we should give it the
+initial conditions, numerical constraints, species and reactions list. Let us
+start with the latter: the reactions.</p>
+<p>We will try to simulate a very small tropospheric model, which we will call
+<code class="docutils literal"><span class="pre">ttropo</span></code> (meaning tiny tropo; let&#8217;s write it like that just because it&#8217;s
+easier). First we create an equations (reactions) file in KPP&#8217;s <code class="docutils literal"><span class="pre">models</span></code>
+directory. We do that with <code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">$KPP_HOME/models/ttropo.eqn</span></code> (or
+<code class="docutils literal"><span class="pre">gedit</span> <span class="pre">$KPP_HOME/models/ttropo.eqn</span></code> or whatever editor you choose). Now in
+that file we will put our reactions following the syntax that we saw in the
+previous example. The reactions we choose are:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#EQUATIONS { Tiny Tropospheric Mechanism }</span>
+
+<span class="o">&lt;</span><span class="n">R1</span><span class="o">&gt;</span>  <span class="n">NO2</span>  <span class="o">+</span> <span class="n">hv</span>  <span class="o">=</span> <span class="n">NO</span>  <span class="o">+</span> <span class="n">O</span>       <span class="p">:</span> <span class="p">(</span><span class="mf">8.3E-03</span><span class="p">)</span> <span class="o">*</span> <span class="n">SUN</span><span class="p">;</span>
+<span class="o">&lt;</span><span class="n">R2</span><span class="o">&gt;</span>  <span class="n">O</span>    <span class="o">+</span> <span class="n">O2</span>  <span class="o">=</span> <span class="n">O3</span>            <span class="p">:</span> <span class="p">(</span><span class="mf">8.018E-17</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R3</span><span class="o">&gt;</span>  <span class="n">NO</span>   <span class="o">+</span> <span class="n">O3</span>  <span class="o">=</span> <span class="n">NO2</span> <span class="o">+</span> <span class="n">O2</span>      <span class="p">:</span> <span class="p">(</span><span class="mf">6.062E-15</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R41</span><span class="o">&gt;</span> <span class="n">O3</span>   <span class="o">+</span> <span class="n">hv</span>  <span class="o">=</span> <span class="n">O</span>   <span class="o">+</span> <span class="n">O2</span>      <span class="p">:</span> <span class="p">(</span><span class="mf">6.120E-04</span><span class="p">)</span> <span class="o">*</span> <span class="n">SUN</span><span class="p">;</span>
+<span class="o">&lt;</span><span class="n">R42</span><span class="o">&gt;</span> <span class="n">O3</span>   <span class="o">+</span> <span class="n">hv</span>  <span class="o">=</span> <span class="n">O1D</span> <span class="o">+</span> <span class="n">O2</span>      <span class="p">:</span> <span class="p">(</span><span class="mf">1.070E-03</span><span class="p">)</span> <span class="o">*</span> <span class="n">SUN</span><span class="o">*</span><span class="n">SUN</span><span class="p">;</span>
+<span class="o">&lt;</span><span class="n">R5</span><span class="o">&gt;</span>  <span class="n">O1D</span>  <span class="o">+</span> <span class="n">M</span>   <span class="o">=</span> <span class="n">O</span>   <span class="o">+</span> <span class="n">M</span>       <span class="p">:</span> <span class="p">(</span><span class="mf">7.110E-11</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R6</span><span class="o">&gt;</span>  <span class="n">O1D</span> <span class="o">+</span> <span class="n">H2O</span>  <span class="o">=</span> <span class="mi">2</span><span class="n">OH</span>           <span class="p">:</span> <span class="p">(</span><span class="mf">2.2E-10</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R7</span><span class="o">&gt;</span>  <span class="n">CO</span><span class="o">+</span> <span class="n">OH</span><span class="o">+</span> <span class="n">M</span>  <span class="o">=</span> <span class="n">CO2</span> <span class="o">+</span> <span class="n">H</span> <span class="o">+</span> <span class="n">M</span>   <span class="p">:</span> <span class="p">(</span><span class="mf">2.2E-13</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R8</span><span class="o">&gt;</span>  <span class="n">H</span> <span class="o">+</span> <span class="n">O2</span> <span class="o">+</span> <span class="n">M</span> <span class="o">=</span> <span class="n">HO2</span> <span class="o">+</span> <span class="n">M</span>       <span class="p">:</span> <span class="p">();</span>
+<span class="o">&lt;</span><span class="n">R9</span><span class="o">&gt;</span>  <span class="n">HO2</span>  <span class="o">+</span> <span class="n">NO</span>  <span class="o">=</span> <span class="n">OH</span>  <span class="o">+</span> <span class="n">NO2</span>     <span class="p">:</span> <span class="p">(</span><span class="mf">8.3E-12</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R10</span><span class="o">&gt;</span> <span class="n">OH</span>  <span class="o">+</span> <span class="n">NO2</span>  <span class="o">=</span> <span class="n">HNO3</span>          <span class="p">:</span> <span class="p">(</span><span class="mf">1.1E-11</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R11</span><span class="o">&gt;</span> <span class="n">HO2</span> <span class="o">+</span> <span class="n">HO2</span>  <span class="o">=</span> <span class="n">H2O2</span>          <span class="p">:</span> <span class="p">(</span><span class="mf">5.6E-12</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R12</span><span class="o">&gt;</span> <span class="n">O3</span>  <span class="o">+</span> <span class="n">HO2</span>  <span class="o">=</span> <span class="n">OH</span> <span class="o">+</span> <span class="mi">2</span><span class="n">O2</span>      <span class="p">:</span> <span class="p">(</span><span class="mf">2.0E-15</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R13</span><span class="o">&gt;</span> <span class="n">H2O2</span> <span class="o">+</span> <span class="n">hv</span>  <span class="o">=</span> <span class="mi">2</span><span class="n">OH</span>           <span class="p">:</span> <span class="p">(</span><span class="mf">1.366E-5</span><span class="p">)</span> <span class="o">*</span> <span class="n">SUN</span><span class="p">;</span>
+<span class="o">&lt;</span><span class="n">R14</span><span class="o">&gt;</span> <span class="n">H2O2</span>       <span class="o">=</span> <span class="n">H2O2aq</span>        <span class="p">:</span> <span class="p">(</span><span class="mf">3.3000e-01</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">R15</span><span class="o">&gt;</span> <span class="n">HNO3</span>       <span class="o">=</span> <span class="n">HNO3aq</span>        <span class="p">:</span> <span class="p">(</span><span class="mf">2.4000e-01</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Now we create the species file which bla bla bla</p>
+<p>After these are create, we create the <code class="docutils literal"><span class="pre">.def</span></code> with <code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">$KPP_HOME/models/ttropo.def</span></code>.
+In that file you will write the followinf lines:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#include ttropo.spc</span>
+<span class="c1">#include ttropo.eqn</span>
+
+<span class="c1">#JACOBIAN SPARSE_LU_ROW      {Use Sparse DATA STRUCTURES}</span>
+<span class="c1">#DRIVER general</span>
+
+<span class="c1">#LOOKAT O3; NO; NO2;           {File Output}</span>
+<span class="c1">#MONITOR O3;N;O2;O;NO;O1D;NO2; {Screen Output}</span>
+
+<span class="c1">#CHECK O; N;                   {Check Mass Balance}</span>
+
+<span class="c1">#INITVALUES                    {Initial Values}</span>
+
+<span class="n">CFACTOR</span> <span class="o">=</span> <span class="mf">1.</span>    <span class="p">;</span>              <span class="p">{</span><span class="n">Conversion</span> <span class="n">Factor</span><span class="p">}</span>
+<span class="n">O1D</span> <span class="o">=</span> <span class="mf">9.906E+01</span> <span class="p">;</span>
+<span class="n">O</span>   <span class="o">=</span> <span class="mf">6.624E+08</span> <span class="p">;</span>
+<span class="n">O3</span>  <span class="o">=</span> <span class="mf">5.00E+10</span> <span class="p">;</span>
+<span class="n">O2</span>  <span class="o">=</span> <span class="mf">1.697E+19</span> <span class="p">;</span>
+<span class="n">NO</span>  <span class="o">=</span> <span class="mf">9.00E+09</span> <span class="p">;</span>
+<span class="n">NO2</span> <span class="o">=</span> <span class="mf">2.240E+08</span> <span class="p">;</span>
+<span class="n">M</span>   <span class="o">=</span> <span class="mf">8.120E+16</span> <span class="p">;</span>
+<span class="n">H2O2</span>   <span class="o">=</span><span class="p">;</span>
+<span class="n">H2O2aq</span> <span class="o">=</span><span class="p">;</span>
+<span class="n">HNO3</span>   <span class="o">=</span><span class="p">;</span>
+<span class="n">HNO3aq</span> <span class="o">=</span><span class="p">;</span>
+<span class="n">HO2</span>    <span class="o">=</span><span class="p">;</span>
+<span class="n">OH</span>     <span class="o">=</span><span class="p">;</span>
+<span class="n">CO</span>     <span class="o">=</span> <span class="p">;</span>
+<span class="n">H2O</span>    <span class="o">=</span> <span class="mf">3.9E17</span> <span class="p">;</span>
+<span class="n">CO2</span>    <span class="o">=</span> <span class="p">;</span>
+
+
+<span class="c1">#INLINE F90_INIT</span>
+       <span class="n">TSTART</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="o">*</span><span class="mi">3600</span><span class="p">)</span>
+       <span class="n">TEND</span> <span class="o">=</span> <span class="n">TSTART</span> <span class="o">+</span> <span class="p">(</span><span class="mi">30</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">3600</span><span class="p">)</span>
+       <span class="n">DT</span> <span class="o">=</span> <span class="mf">0.25</span><span class="o">*</span><span class="mi">3600</span>
+       <span class="n">TEMP</span> <span class="o">=</span> <span class="mi">270</span>
+<span class="c1">#ENDINLINE</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/wheat_field.jpg" alt="Logo"/>
+            </a></p>
+<h3><a href="index.html">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash.html">About bash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling KPP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running.html">Running KPP</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Modifying and improving the example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#increasing-the-length-of-the-simulation">Increasing the length of the simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#change-in-the-initial-conditions">Change in the initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modifying-the-reactions">Modifying the reactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-model-from-scratch">Creating a model from scratch</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/improving.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Modifying and improving the example</a><ul>
+<li><a class="reference internal" href="#increasing-the-length-of-the-simulation">Increasing the length of the simulation</a></li>
+<li><a class="reference internal" href="#change-in-the-initial-conditions">Change in the initial conditions</a></li>
+<li><a class="reference internal" href="#modifying-the-reactions">Modifying the reactions</a></li>
+<li><a class="reference internal" href="#creating-a-model-from-scratch">Creating a model from scratch</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="running.html"
+                        title="previous chapter">Running KPP</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="running.html" title="Running KPP"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">KPP guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Tomas Chor.
+      Last updated on 2016-11-23.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
+    </div>
+  </body>
+</html>
