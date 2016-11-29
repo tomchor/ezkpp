@@ -330,15 +330,11 @@ In that file you will write the following lines::
  #ENDINLINE
 
 
+Now create a ``test4`` directory anywhere you want and go into it with ``mkdir
+test4 && cd test4``.  Now inside ``test4`` you should create the ``.kpp`` file
+with ``notepad++ ttropo.kpp`` (or, again, any other editor). Write the
+following lines inside that file:
 
-
-Now create a ``test4`` directory anywhere you want and go into it with ``mkdir test4 && cd test4``.
-Now inside ``test4`` you should create the ``.kpp`` file with ``notepad++ ttropo.kpp``
-(or, again, any other editor). Write the following lines inside that file::
-
- #MODEL      ttropo
- #LANGUAGE   Fortran90
- #INTEGRATOR rosenbrock
-
-
+.. include:: test4/ttropo.kpp
+   :literal:
 

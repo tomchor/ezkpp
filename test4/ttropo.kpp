@@ -1,0 +1,4 @@
+#MODEL      ttropo
+#LANGUAGE   Fortran90
+#INTEGRATOR rosenbrock
+#DRIVER     general
