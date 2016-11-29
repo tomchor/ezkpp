@@ -32,8 +32,8 @@
 
 
 \title{An easy guide for KPP}
-\date{Nov 23, 2016}
-\release{0.1}
+\date{Nov 28, 2016}
+\release{1.0}
 \author{Tomas Chor}
 \newcommand{\sphinxlogo}{\sphinxincludegraphics{wheat_field.jpg}\par}
 \renewcommand{\releasename}{Release}
@@ -144,40 +144,55 @@
 \phantomsection\label{index::doc}
 
 
-You can download this guide in pdf
-\href{https://github.com/tomchor/ezkpp/raw/gh-pages/ezkpp.pdf}{here}.
-
-You can acces the html version \href{https://tomchor.github.io/ezkpp/}{here}.
-
-Contents:
-
 
 \chapter{Introduction}
 \label{README:introduction}\label{README:easy-guide-to-compiling-and-running-kpp}\label{README::doc}
-This is an unofficial guide is aimed at providing additional information not
-covered by the official KPP manual. We focus on the latest version of the
-software, release 2.2.3, which can be freely downloaded at its \href{http://people.cs.vt.edu/~asandu/Software/Kpp/}{official
-webpage}.
+This is an unofficial guide aimed at providing additional information not
+covered by the official KPP manual. Specifically, we aiming at making things
+more comprehensive for the user with few or no experience running command
+lines. We focus on the latest version of the software, release 2.2.3, which can
+be freely downloaded at its \href{http://people.cs.vt.edu/~asandu/Software/Kpp/}{official webpage}. We recommend any person
+reading this guide to keep a copy of the original manual since this guide is
+not meant to replace the original manual, but as a supplement to it.
+
+In this guide our aim is to teach an inexperienced user to download, compile,
+and run KPP. Furthermore, besides teaching how to run the example case in the
+manual, we also instruct the user on how to modify any already-existent model
+and to create new models.
 
 The source for the documentation can be found at its \href{https://github.com/tomchor/ezkpp}{github page} and the online html version can be
-accessed \href{https://tomchor.github.io/ezkpp/}{here}.
+accessed \href{https://tomchor.github.io/ezkpp/}{here}. You can also download this
+guide in pdf \href{https://github.com/tomchor/ezkpp/raw/gh-pages/ezkpp.pdf}{here}.
 
-We recommend any person reading this guide to keep a copy of the original
-manual (which can be downloaded \href{http://people.cs.vt.edu/~asandu/Software/Kpp/}{here}) since this guide is not
-meant to replace the original manual, but to supplement it.
+Most (if not all) of the codes created here as an example are available in its
+Github repository. The directions in this guide have been tested in as broad a
+range of operational systems as was possible, but some errors are likely to
+arise when applying them to other system. If that is the case, feedback is
+encouraged, either by email, in person, or by creating a Github issue in our
+page.
+
+You can also contribute to this guide yourself. If you find the need to
+correct, improve or add something, feel free to download/fork the project on
+Github and modify it. We appreciate if the projects could then be merged back
+after that, but that is entirely up to you.
+
+This guide was primarily typed and uploaded by Tomas Chor, but has had
+substantial help from Prof. Suzanne Paulson and Dr. Paul Griffiths,
+particularly for chemistry-related issues.
 
 
 \chapter{About bash}
 \label{bash:about-bash}\label{bash::doc}
 The official KPP manual is entirely based on Unix Shell, which is command
-language which most of the Linux distrobutions use to interact with the system
+language which most of the Linux distributions use to interact with the system
 without a Graphical User Interface. The manual, however, assumes a non-trivial
-knowledge of this tool, which makes it difficult for users not experienced with
-terminals and command line interfaces (which includes bash, C shell, MS-DOS,
-PowerShell, ksh etc.) to install and run the simulations effectively. The
-approach adopted in this guide will be to go through the steps necessary to
-compile and run KPP, as stated in the manual, but taking the time to explain
-them a little better how to do them, and what exactly it is that they do.
+knowledge of this tool, which makes it difficult for users that are not
+experienced with terminals and command line interfaces (which includes bash, C
+shell, MS-DOS, PowerShell, ksh etc.) to install and run the simulations
+effectively. The approach adopted in this guide will be to go through the steps
+necessary to compile and run KPP, as stated in the manual, but taking the time
+to explain them a little better how to do them, and what exactly it is that
+they do.
 
 We will first go over a few basic notions necessary to understand what is going
 to be done in the guide. If you are familiar with the concepts of system shells,
@@ -187,7 +202,7 @@ you may skip the next sections.
 \section{What is Bash?}
 \label{bash:what-is-bash}
 But what is a shell? A system shell is the name what computer engineers use to
-refer to the outter layer of an Operaional System (OS). It is said outter layer
+refer to the outer layer of an Operational System (OS). It is said outer layer
 because it separates the user (you) from the core of your OS. So it separates
 you from the intricate group of codes that ultimately governs your machine and
 lets you interact with your computer using a human-readable language (and not,
@@ -212,7 +227,7 @@ the Linux systems and some Mac OSs. Some other shells can be used to perform
 the same tasks (the KPP manual itself also gives some commands in C Shell,
 which is another Unix Shell), but we focus on Bash here because it is the most
 common and most easily accessible.  Most of Linux distributions use it, and
-some Mac OSs use it as well. Furthermore, it can be nativelly installed into
+some Mac OSs use it as well. Furthermore, it can be natively installed into
 Windows 10, as we will explain in the next section.
 
 
@@ -223,7 +238,7 @@ operational system that supports it natively. Various emulators exist (Cygwin,
 cmder, MinGW, etc.) but they are not recommended because some of them contain
 many bugs. If you would like to try those anyway, chances are that it'll work,
 since we're going to be doing simple tasks and many people use those. However,
-running it natively is a always a garantee of no bugs, so (in the spirit of
+running it natively is a always a guarantee of no bugs, so (in the spirit of
 keeping it general) that's why it's the most recommended option for this guide.
 
 We will briefly go through your options for each of the 3 most common
@@ -237,7 +252,7 @@ options.
 
 If you're using Windows 10, you can natively install the Ubuntu 14.04 inside
 your Windows machine with the Windows 10 anniversary update, which is available
-for every up-to-date Windows 10 computer. Directions to do this are very somple
+for every up-to-date Windows 10 computer. Directions to do this are very simple
 and are given in many places (such as \href{http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/}{here})
 so for now we will not explain them in detail. This will give you Bash running
 natively on Windows. But only works for up-to-date Windows 10 computers.
@@ -247,7 +262,7 @@ emulators for Windows or you can install a Linux virtual machine inside your
 Windows computer.  You can do that using \href{https://www.virtualbox.org/wiki/Downloads}{Virtual Box} and installing a Ubuntu-based
 distribution (we recommend installing either a recent version of Ubuntu or
 Linux Mint 18 (or greater), since these two are most suited for beginners in
-Linux). Again, directions on how to do this are straightfoward and exist all
+Linux). Again, directions on how to do this are straightforward and exist all
 over the internet, so we will not spend time on steps on how to do that.
 
 
@@ -264,7 +279,7 @@ have to translate some (which should be easy with the help of Google).
 
 If you're running another terminal and would like to try Bash, you can either
 get an Bash emulator for Mac, install a Linux virtual machine (as described in
-the Windows section) or change your terminal to Bash. The most recomended here
+the Windows section) or change your terminal to Bash. The most recommended here
 is to change your Shell to Bash. Instructions on how to do this are easy and
 can again be found in many places, including \href{http://osxdaily.com/2012/03/21/change-shell-mac-os-x/}{here}.
 
@@ -575,9 +590,10 @@ follow the manual and create a file called \sphinxcode{small\_strato.kpp} with t
 following contents:
 
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+cp}{\PYGZsh{}MODEL      small\PYGZus{}strato}
-\PYG{c+cp}{\PYGZsh{}LANGUAGE   Fortran90}
-\PYG{c+cp}{\PYGZsh{}INTEGRATOR rosenbrock}
+\PYG{c+c1}{\PYGZsh{}MODEL      small\PYGZus{}strato}
+\PYG{c+c1}{\PYGZsh{}LANGUAGE   Fortran90}
+\PYG{c+c1}{\PYGZsh{}INTEGRATOR rosenbrock}
+\PYG{c+c1}{\PYGZsh{}DRIVER     general}
 \end{Verbatim}
 
 You can do this by typing \sphinxcode{nano small\_strato.kpp} in the \sphinxcode{test1} directory,
@@ -795,6 +811,7 @@ to plot the concentrations as a function of the hour of the day
 \PYG{n}{concs}\PYG{o}{.}\PYG{n}{index}\PYG{o}{.}\PYG{n}{name} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Hours since noon}\PYG{l+s+s1}{\PYGZsq{}}
 \PYG{n}{concs}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{ylim}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mf}{1.e8}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{]}\PYG{p}{,} \PYG{n}{logy}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{y}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{O3}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NO}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NO2}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,} \PYG{n}{grid}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
 \PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{test1\PYGZus{}time.png}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
 \end{Verbatim}
 
 \begin{notice}{note}{Note:}
@@ -807,9 +824,9 @@ to read with by other means.
 \end{notice}
 
 If you have ever seen python before, this code should be pretty intuitive. If
-you haven't you can still use it easily (maybe you just have to download
-python's \sphinxcode{pandas} package).  This code generates the following plot of the
-concentrations:
+you haven't you can still use it easily (depending on how you got python, you
+might have to install python's \sphinxcode{pandas} package).  This code generates the
+following plot of the concentrations:
 \phantomsection\label{running:test1-time}\begin{figure}[htbp]
 \centering
 
@@ -847,6 +864,7 @@ the file
 \PYG{c+c1}{\PYGZsh{}MODEL      my\PYGZus{}strato}
 \PYG{c+c1}{\PYGZsh{}LANGUAGE   Fortran90}
 \PYG{c+c1}{\PYGZsh{}INTEGRATOR rosenbrock}
+\PYG{c+c1}{\PYGZsh{}DRIVER     general}
 \end{Verbatim}
 
 At this point if you run \sphinxcode{kpp my\_strato.kpp} you should get an error saying
@@ -982,11 +1000,6 @@ contents:
 \PYG{c+c1}{\PYGZsh{}DRIVER     general}
 \end{Verbatim}
 
-\begin{notice}{note}{Note:}
-Note that in this kpp file we are forced (for some reason) to include another line
-defining the driver for the \sphinxcode{strato3} model.
-\end{notice}
-
 This file tells KPP to look for the \sphinxcode{strato3.def} file in its \sphinxcode{models}
 directory. So let us create this file by copying the \sphinxcode{my\_strato.def} file.
 You can do that with \sphinxcode{cp \$KPP\_HOME/models/my\_strato.def \$KPP\_HOME/models/strato3.def}.
@@ -1043,13 +1056,11 @@ reaction) to make it a lot slower. We will make the last line read:
 \PYG{o}{\PYGZlt{}}\PYG{n}{R10}\PYG{o}{\PYGZgt{}} \PYG{n}{NO2}  \PYG{o}{+} \PYG{n}{hv} \PYG{o}{=} \PYG{n}{NO}  \PYG{o}{+} \PYG{n}{O}       \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{1.289E\PYGZhy{}06}\PYG{p}{)} \PYG{o}{*} \PYG{n}{SUN}\PYG{p}{;}
 \end{Verbatim}
 
-..note
-
-\begin{Verbatim}[commandchars=\\\{\}]
-This is 4 orders of magnitude slower than it previously was and is not realistic!
-We only made this change for the sake of illustration, so that the output change
-is easier to see.
-\end{Verbatim}
+\begin{notice}{note}{Note:}
+This is 4 orders of magnitude slower than it previously was and is probably
+not realistic! We only made this change for the sake of illustration, so that
+the output change is easier to see.
+\end{notice}
 
 Now we go through the same steps of running \sphinxcode{kpp strato3.kpp}, changing the
 compiler to gfortran and running \sphinxcode{make -f Makefile\_strato3}. If everything
@@ -1078,8 +1089,8 @@ initial conditions, numerical constraints, species and reactions list. Let us
 start with the latter: the reactions.
 
 We will try to simulate a very small tropospheric model, which we will call
-\sphinxcode{ttropo} (meaning tiny tropo; let's write it like that just because it's
-easier). First we create an equations (reactions) file in KPP's \sphinxcode{models}
+\sphinxcode{ttropo} (meaning tiny tropospheric; let's write it like that just because
+it's easier). First we create an equations (reactions) file in KPP's \sphinxcode{models}
 directory. We do that with \sphinxcode{notepad++ \$KPP\_HOME/models/ttropo.eqn} (or
 \sphinxcode{gedit \$KPP\_HOME/models/ttropo.eqn} or whatever editor you choose). Now in
 that file we will put our reactions following the syntax that we saw in the
@@ -1106,10 +1117,38 @@ previous example. The reactions we choose are:
 \PYG{o}{\PYGZlt{}}\PYG{n}{R15}\PYG{o}{\PYGZgt{}} \PYG{n}{HNO3}       \PYG{o}{=} \PYG{n}{HNO3aq}        \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{2.4000e\PYGZhy{}01}\PYG{p}{)}\PYG{p}{;}
 \end{Verbatim}
 
-Now we create the species file which bla bla bla
+\begin{notice}{warning}{Warning:}
+COMPLETE THIS
+\end{notice}
+
+Now we create the species file which bla bla bla:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}include atoms}
+
+\PYG{c+c1}{\PYGZsh{}DEFVAR}
+\PYG{n}{O}   \PYG{o}{=} \PYG{n}{O}\PYG{p}{;}            \PYG{p}{\PYGZob{}} \PYG{n}{Oxygen} \PYG{n}{atomic} \PYG{n}{ground} \PYG{n}{state} \PYG{p}{\PYGZcb{}}
+\PYG{n}{O1D} \PYG{o}{=} \PYG{n}{O}\PYG{p}{;}            \PYG{p}{\PYGZob{}} \PYG{n}{Oxygen} \PYG{n}{atomic} \PYG{n}{excited} \PYG{n}{state} \PYG{p}{\PYGZcb{}}
+\PYG{n}{O3}  \PYG{o}{=} \PYG{n}{O} \PYG{o}{+} \PYG{n}{O} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}    \PYG{p}{\PYGZob{}} \PYG{n}{Ozone} \PYG{p}{\PYGZcb{}}
+\PYG{n}{NO}  \PYG{o}{=} \PYG{n}{N} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}        \PYG{p}{\PYGZob{}} \PYG{n}{Nitric} \PYG{n}{oxide} \PYG{p}{\PYGZcb{}}
+\PYG{n}{NO2} \PYG{o}{=} \PYG{n}{N} \PYG{o}{+} \PYG{n}{O} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}    \PYG{p}{\PYGZob{}} \PYG{n}{Nitrogen} \PYG{n}{dioxide} \PYG{p}{\PYGZcb{}}
+\PYG{n}{HNO3} \PYG{o}{=} \PYG{n}{H} \PYG{o}{+} \PYG{n}{N} \PYG{o}{+} \PYG{n}{O}\PYG{o}{+}\PYG{n}{O}\PYG{o}{+}\PYG{n}{O}\PYG{p}{;}
+\PYG{n}{H2O2} \PYG{o}{=} \PYG{n}{H}\PYG{o}{+}\PYG{n}{H} \PYG{o}{+} \PYG{n}{O}\PYG{o}{+}\PYG{n}{O}\PYG{p}{;}
+\PYG{n}{OH}   \PYG{o}{=} \PYG{n}{O} \PYG{o}{+} \PYG{n}{H}\PYG{p}{;}
+\PYG{n}{CO}   \PYG{o}{=} \PYG{n}{C} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}
+\PYG{n}{CO2}  \PYG{o}{=} \PYG{n}{C} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}
+\PYG{n}{HO2}  \PYG{o}{=} \PYG{n}{H} \PYG{o}{+} \PYG{n}{O} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}
+\PYG{n}{H2O2aq} \PYG{o}{=} \PYG{n}{IGNORE}\PYG{p}{;}
+\PYG{n}{HNO3aq} \PYG{o}{=} \PYG{n}{IGNORE}\PYG{p}{;}
+
+\PYG{c+c1}{\PYGZsh{}DEFFIX}
+\PYG{n}{M}   \PYG{o}{=} \PYG{n}{O} \PYG{o}{+} \PYG{n}{O} \PYG{o}{+} \PYG{n}{N} \PYG{o}{+} \PYG{n}{N}\PYG{p}{;}\PYG{p}{\PYGZob{}} \PYG{n}{Atmospheric} \PYG{n}{generic} \PYG{n}{molecule} \PYG{p}{\PYGZcb{}}
+\PYG{n}{O2}  \PYG{o}{=} \PYG{n}{O} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}        \PYG{p}{\PYGZob{}} \PYG{n}{Molecular} \PYG{n}{oxygen} \PYG{p}{\PYGZcb{}}
+\PYG{n}{H2O} \PYG{o}{=} \PYG{n}{H} \PYG{o}{+} \PYG{n}{H} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}    \PYG{p}{\PYGZob{}} \PYG{n}{Water} \PYG{p}{\PYGZcb{}}
+\end{Verbatim}
 
 After these are create, we create the \sphinxcode{.def} with \sphinxcode{notepad++ \$KPP\_HOME/models/ttropo.def}.
-In that file you will write the followinf lines:
+In that file you will write the following lines:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{}include ttropo.spc}
@@ -1152,19 +1191,15 @@ In that file you will write the followinf lines:
 \PYG{c+c1}{\PYGZsh{}ENDINLINE}
 \end{Verbatim}
 
+Now create a \sphinxcode{test4} directory anywhere you want and go into it with \sphinxcode{mkdir test4 \&\& cd test4}.
+Now inside \sphinxcode{test4} you should create the \sphinxcode{.kpp} file with \sphinxcode{notepad++ ttropo.kpp}
+(or, again, any other editor). Write the following lines inside that file:
 
-\chapter{Indices and tables}
-\label{index:indices-and-tables}\begin{itemize}
-\item {} 
-\DUrole{xref,std,std-ref}{genindex}
-
-\item {} 
-\DUrole{xref,std,std-ref}{modindex}
-
-\item {} 
-\DUrole{xref,std,std-ref}{search}
-
-\end{itemize}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}MODEL      ttropo}
+\PYG{c+c1}{\PYGZsh{}LANGUAGE   Fortran90}
+\PYG{c+c1}{\PYGZsh{}INTEGRATOR rosenbrock}
+\end{Verbatim}
 
 
 

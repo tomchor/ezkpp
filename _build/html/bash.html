@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>About bash &mdash; ezkpp 0.1 documentation</title>
+    <title>About bash &mdash; ezkpp 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1',
+        VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="ezkpp 0.1 documentation" href="index.html" />
+    <link rel="top" title="ezkpp 1.0 documentation" href="index.html" />
     <link rel="next" title="Compiling KPP" href="compiling.html" />
     <link rel="prev" title="Introduction" href="README.html" /> 
   </head>
@@ -52,21 +52,22 @@
   <div class="section" id="about-bash">
 <h1>About bash<a class="headerlink" href="#about-bash" title="Permalink to this headline">¶</a></h1>
 <p>The official KPP manual is entirely based on Unix Shell, which is command
-language which most of the Linux distrobutions use to interact with the system
+language which most of the Linux distributions use to interact with the system
 without a Graphical User Interface. The manual, however, assumes a non-trivial
-knowledge of this tool, which makes it difficult for users not experienced with
-terminals and command line interfaces (which includes bash, C shell, MS-DOS,
-PowerShell, ksh etc.) to install and run the simulations effectively. The
-approach adopted in this guide will be to go through the steps necessary to
-compile and run KPP, as stated in the manual, but taking the time to explain
-them a little better how to do them, and what exactly it is that they do.</p>
+knowledge of this tool, which makes it difficult for users that are not
+experienced with terminals and command line interfaces (which includes bash, C
+shell, MS-DOS, PowerShell, ksh etc.) to install and run the simulations
+effectively. The approach adopted in this guide will be to go through the steps
+necessary to compile and run KPP, as stated in the manual, but taking the time
+to explain them a little better how to do them, and what exactly it is that
+they do.</p>
 <p>We will first go over a few basic notions necessary to understand what is going
 to be done in the guide. If you are familiar with the concepts of system shells,
 you may skip the next sections.</p>
 <div class="section" id="what-is-bash">
 <h2>What is Bash?<a class="headerlink" href="#what-is-bash" title="Permalink to this headline">¶</a></h2>
 <p>But what is a shell? A system shell is the name what computer engineers use to
-refer to the outter layer of an Operaional System (OS). It is said outter layer
+refer to the outer layer of an Operational System (OS). It is said outer layer
 because it separates the user (you) from the core of your OS. So it separates
 you from the intricate group of codes that ultimately governs your machine and
 lets you interact with your computer using a human-readable language (and not,
@@ -88,7 +89,7 @@ the Linux systems and some Mac OSs. Some other shells can be used to perform
 the same tasks (the KPP manual itself also gives some commands in C Shell,
 which is another Unix Shell), but we focus on Bash here because it is the most
 common and most easily accessible.  Most of Linux distributions use it, and
-some Mac OSs use it as well. Furthermore, it can be nativelly installed into
+some Mac OSs use it as well. Furthermore, it can be natively installed into
 Windows 10, as we will explain in the next section.</p>
 </div>
 <div class="section" id="accessing-bash">
@@ -98,7 +99,7 @@ operational system that supports it natively. Various emulators exist (Cygwin,
 cmder, MinGW, etc.) but they are not recommended because some of them contain
 many bugs. If you would like to try those anyway, chances are that it&#8217;ll work,
 since we&#8217;re going to be doing simple tasks and many people use those. However,
-running it natively is a always a garantee of no bugs, so (in the spirit of
+running it natively is a always a guarantee of no bugs, so (in the spirit of
 keeping it general) that&#8217;s why it&#8217;s the most recommended option for this guide.</p>
 <p>We will briefly go through your options for each of the 3 most common
 operational systems.</p>
@@ -108,7 +109,7 @@ operational systems.</p>
 options.</p>
 <p>If you&#8217;re using Windows 10, you can natively install the Ubuntu 14.04 inside
 your Windows machine with the Windows 10 anniversary update, which is available
-for every up-to-date Windows 10 computer. Directions to do this are very somple
+for every up-to-date Windows 10 computer. Directions to do this are very simple
 and are given in many places (such as <a class="reference external" href="http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/">here</a>)
 so for now we will not explain them in detail. This will give you Bash running
 natively on Windows. But only works for up-to-date Windows 10 computers.</p>
@@ -117,7 +118,7 @@ emulators for Windows or you can install a Linux virtual machine inside your
 Windows computer.  You can do that using <a class="reference external" href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a> and installing a Ubuntu-based
 distribution (we recommend installing either a recent version of Ubuntu or
 Linux Mint 18 (or greater), since these two are most suited for beginners in
-Linux). Again, directions on how to do this are straightfoward and exist all
+Linux). Again, directions on how to do this are straightforward and exist all
 over the internet, so we will not spend time on steps on how to do that.</p>
 </div>
 <div class="section" id="from-mac-os">
@@ -132,7 +133,7 @@ Most commands should be the same, but if you want to use this shell you might
 have to translate some (which should be easy with the help of Google).</p>
 <p>If you&#8217;re running another terminal and would like to try Bash, you can either
 get an Bash emulator for Mac, install a Linux virtual machine (as described in
-the Windows section) or change your terminal to Bash. The most recomended here
+the Windows section) or change your terminal to Bash. The most recommended here
 is to change your Shell to Bash. Instructions on how to do this are easy and
 can again be found in many places, including <a class="reference external" href="http://osxdaily.com/2012/03/21/change-shell-mac-os-x/">here</a>.</p>
 </div>
@@ -166,7 +167,7 @@ information on that in many places, such as <a class="reference external" href="
 </li>
 <li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling KPP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running KPP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="output.html">Understanding the output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="improving.html">Modifying and improving the example</a></li>
 </ul>
 
   <div role="note" aria-label="source link">
@@ -227,7 +228,7 @@ information on that in many places, such as <a class="reference external" href="
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, Tomas Chor.
-      Last updated on 2016-11-02.
+      Last updated on 2016-11-28.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
     </div>
   </body>

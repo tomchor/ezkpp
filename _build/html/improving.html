@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Modifying and improving the example &mdash; ezkpp 0.1 documentation</title>
+    <title>Modifying and improving the example &mdash; ezkpp 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1',
+        VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="ezkpp 0.1 documentation" href="index.html" />
+    <link rel="top" title="ezkpp 1.0 documentation" href="index.html" />
     <link rel="prev" title="Running KPP" href="running.html" /> 
   </head>
   <body role="document">
@@ -246,8 +246,8 @@ reactions.  Basically for our new model to be complete we should give it the
 initial conditions, numerical constraints, species and reactions list. Let us
 start with the latter: the reactions.</p>
 <p>We will try to simulate a very small tropospheric model, which we will call
-<code class="docutils literal"><span class="pre">ttropo</span></code> (meaning tiny tropo; let&#8217;s write it like that just because it&#8217;s
-easier). First we create an equations (reactions) file in KPP&#8217;s <code class="docutils literal"><span class="pre">models</span></code>
+<code class="docutils literal"><span class="pre">ttropo</span></code> (meaning tiny tropospheric; let&#8217;s write it like that just because
+it&#8217;s easier). First we create an equations (reactions) file in KPP&#8217;s <code class="docutils literal"><span class="pre">models</span></code>
 directory. We do that with <code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">$KPP_HOME/models/ttropo.eqn</span></code> (or
 <code class="docutils literal"><span class="pre">gedit</span> <span class="pre">$KPP_HOME/models/ttropo.eqn</span></code> or whatever editor you choose). Now in
 that file we will put our reactions following the syntax that we saw in the
@@ -301,7 +301,7 @@ previous example. The reactions we choose are:</p>
 </pre></div>
 </div>
 <p>After these are create, we create the <code class="docutils literal"><span class="pre">.def</span></code> with <code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">$KPP_HOME/models/ttropo.def</span></code>.
-In that file you will write the followinf lines:</p>
+In that file you will write the following lines:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#include ttropo.spc</span>
 <span class="c1">#include ttropo.eqn</span>
 
@@ -344,7 +344,7 @@ In that file you will write the followinf lines:</p>
 </div>
 <p>Now create a <code class="docutils literal"><span class="pre">test4</span></code> directory anywhere you want and go into it with <code class="docutils literal"><span class="pre">mkdir</span> <span class="pre">test4</span> <span class="pre">&amp;&amp;</span> <span class="pre">cd</span> <span class="pre">test4</span></code>.
 Now inside <code class="docutils literal"><span class="pre">test4</span></code> you should create the <code class="docutils literal"><span class="pre">.kpp</span></code> file with <code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">ttropo.kpp</span></code>
-(or, again, any other editor). Write the followinf lines inside that file:</p>
+(or, again, any other editor). Write the following lines inside that file:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#MODEL      ttropo</span>
 <span class="c1">#LANGUAGE   Fortran90</span>
 <span class="c1">#INTEGRATOR rosenbrock</span>

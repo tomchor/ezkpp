@@ -6,12 +6,6 @@
 Easy guide to compiling and running KPP
 =======================================
 
-You can download this guide in pdf 
-`here <https://github.com/tomchor/ezkpp/raw/gh-pages/ezkpp.pdf>`_.
-
-You can acces the html version `here <https://tomchor.github.io/ezkpp/>`_.
-
-Contents:
 
 .. toctree::
    :maxdepth: 2
@@ -22,10 +16,4 @@ Contents:
    running
    improving
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 

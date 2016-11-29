@@ -230,8 +230,8 @@ initial conditions, numerical constraints, species and reactions list. Let us
 start with the latter: the reactions.
 
 We will try to simulate a very small tropospheric model, which we will call
-``ttropo`` (meaning tiny tropo; let's write it like that just because it's
-easier). First we create an equations (reactions) file in KPP's ``models``
+``ttropo`` (meaning tiny tropospheric; let's write it like that just because
+it's easier). First we create an equations (reactions) file in KPP's ``models``
 directory. We do that with ``notepad++ $KPP_HOME/models/ttropo.eqn`` (or
 ``gedit $KPP_HOME/models/ttropo.eqn`` or whatever editor you choose). Now in
 that file we will put our reactions following the syntax that we saw in the
@@ -288,7 +288,7 @@ Now we create the species file which bla bla bla::
 
 
 After these are create, we create the ``.def`` with ``notepad++ $KPP_HOME/models/ttropo.def``.
-In that file you will write the followinf lines::
+In that file you will write the following lines::
 
  #include ttropo.spc
  #include ttropo.eqn
@@ -334,7 +334,7 @@ In that file you will write the followinf lines::
 
 Now create a ``test4`` directory anywhere you want and go into it with ``mkdir test4 && cd test4``.
 Now inside ``test4`` you should create the ``.kpp`` file with ``notepad++ ttropo.kpp``
-(or, again, any other editor). Write the followinf lines inside that file::
+(or, again, any other editor). Write the following lines inside that file::
 
  #MODEL      ttropo
  #LANGUAGE   Fortran90
