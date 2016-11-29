@@ -61,9 +61,10 @@ parameter.</p>
 <code class="docutils literal"><span class="pre">my_strato.kpp</span></code> (with <code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">my_strato.kpp</span></code> or <code class="docutils literal"><span class="pre">gedit</span> <span class="pre">my_strato.kpp</span></code>
 or whichever text editor you ended up using) and paste the following lines in
 the file</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="c1">#MODEL      my_strato</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#MODEL      my_strato</span>
 <span class="c1">#LANGUAGE   Fortran90</span>
 <span class="c1">#INTEGRATOR rosenbrock</span>
+<span class="c1">#DRIVER     general</span>
 </pre></div>
 </div>
 <p>At this point if you run <code class="docutils literal"><span class="pre">kpp</span> <span class="pre">my_strato.kpp</span></code> you should get an error saying
@@ -139,7 +140,7 @@ space, since we are assuming that we&#8217;re not interested in the other specie
 <p>We again go through the same steps: run it with <code class="docutils literal"><span class="pre">kpp</span> <span class="pre">my_strato.kpp</span></code>, change the compiler
 to gfortran, compile if with <code class="docutils literal"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">Makefile_my_strato</span></code> and run it with <code class="docutils literal"><span class="pre">./my_strato.exe</span></code>.
 This time, since the output file changed, we have to change the code to read it correctly:</p>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="n">concs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;my_strato.dat&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
 <span class="n">concs</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">]</span>
@@ -171,11 +172,6 @@ contents:</p>
 <span class="c1">#INTEGRATOR rosenbrock</span>
 <span class="c1">#DRIVER     general</span>
 </pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Note that in this kpp file we are forced (for some reason) to include another line
-defining the driver for the <code class="docutils literal"><span class="pre">strato3</span></code> model.</p>
 </div>
 <p>This file tells KPP to look for the <code class="docutils literal"><span class="pre">strato3.def</span></code> file in its <code class="docutils literal"><span class="pre">models</span></code>
 directory. So let us create this file by copying the <code class="docutils literal"><span class="pre">my_strato.def</span></code> file.
@@ -223,11 +219,11 @@ reaction) to make it a lot slower. We will make the last line read:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">R10</span><span class="o">&gt;</span> <span class="n">NO2</span>  <span class="o">+</span> <span class="n">hv</span> <span class="o">=</span> <span class="n">NO</span>  <span class="o">+</span> <span class="n">O</span>       <span class="p">:</span> <span class="p">(</span><span class="mf">1.289E-06</span><span class="p">)</span> <span class="o">*</span> <span class="n">SUN</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>..note</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>This is 4 orders of magnitude slower than it previously was and is not realistic!
-We only made this change for the sake of illustration, so that the output change
-is easier to see.
-</pre></div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is 4 orders of magnitude slower than it previously was and is probably
+not realistic! We only made this change for the sake of illustration, so that
+the output change is easier to see.</p>
 </div>
 <p>Now we go through the same steps of running <code class="docutils literal"><span class="pre">kpp</span> <span class="pre">strato3.kpp</span></code>, changing the
 compiler to gfortran and running <code class="docutils literal"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">Makefile_strato3</span></code>. If everything
@@ -276,7 +272,34 @@ previous example. The reactions we choose are:</p>
 <span class="o">&lt;</span><span class="n">R15</span><span class="o">&gt;</span> <span class="n">HNO3</span>       <span class="o">=</span> <span class="n">HNO3aq</span>        <span class="p">:</span> <span class="p">(</span><span class="mf">2.4000e-01</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Now we create the species file which bla bla bla</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">COMPLETE THIS</p>
+</div>
+<p>Now we create the species file which bla bla bla:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#include atoms</span>
+
+<span class="c1">#DEFVAR</span>
+<span class="n">O</span>   <span class="o">=</span> <span class="n">O</span><span class="p">;</span>            <span class="p">{</span> <span class="n">Oxygen</span> <span class="n">atomic</span> <span class="n">ground</span> <span class="n">state</span> <span class="p">}</span>
+<span class="n">O1D</span> <span class="o">=</span> <span class="n">O</span><span class="p">;</span>            <span class="p">{</span> <span class="n">Oxygen</span> <span class="n">atomic</span> <span class="n">excited</span> <span class="n">state</span> <span class="p">}</span>
+<span class="n">O3</span>  <span class="o">=</span> <span class="n">O</span> <span class="o">+</span> <span class="n">O</span> <span class="o">+</span> <span class="n">O</span><span class="p">;</span>    <span class="p">{</span> <span class="n">Ozone</span> <span class="p">}</span>
+<span class="n">NO</span>  <span class="o">=</span> <span class="n">N</span> <span class="o">+</span> <span class="n">O</span><span class="p">;</span>        <span class="p">{</span> <span class="n">Nitric</span> <span class="n">oxide</span> <span class="p">}</span>
+<span class="n">NO2</span> <span class="o">=</span> <span class="n">N</span> <span class="o">+</span> <span class="n">O</span> <span class="o">+</span> <span class="n">O</span><span class="p">;</span>    <span class="p">{</span> <span class="n">Nitrogen</span> <span class="n">dioxide</span> <span class="p">}</span>
+<span class="n">HNO3</span> <span class="o">=</span> <span class="n">H</span> <span class="o">+</span> <span class="n">N</span> <span class="o">+</span> <span class="n">O</span><span class="o">+</span><span class="n">O</span><span class="o">+</span><span class="n">O</span><span class="p">;</span>
+<span class="n">H2O2</span> <span class="o">=</span> <span class="n">H</span><span class="o">+</span><span class="n">H</span> <span class="o">+</span> <span class="n">O</span><span class="o">+</span><span class="n">O</span><span class="p">;</span>
+<span class="n">OH</span>   <span class="o">=</span> <span class="n">O</span> <span class="o">+</span> <span class="n">H</span><span class="p">;</span>
+<span class="n">CO</span>   <span class="o">=</span> <span class="n">C</span> <span class="o">+</span> <span class="n">O</span><span class="p">;</span>
+<span class="n">CO2</span>  <span class="o">=</span> <span class="n">C</span> <span class="o">+</span> <span class="n">O</span><span class="p">;</span>
+<span class="n">HO2</span>  <span class="o">=</span> <span class="n">H</span> <span class="o">+</span> <span class="n">O</span> <span class="o">+</span> <span class="n">O</span><span class="p">;</span>
+<span class="n">H2O2aq</span> <span class="o">=</span> <span class="n">IGNORE</span><span class="p">;</span>
+<span class="n">HNO3aq</span> <span class="o">=</span> <span class="n">IGNORE</span><span class="p">;</span>
+
+<span class="c1">#DEFFIX</span>
+<span class="n">M</span>   <span class="o">=</span> <span class="n">O</span> <span class="o">+</span> <span class="n">O</span> <span class="o">+</span> <span class="n">N</span> <span class="o">+</span> <span class="n">N</span><span class="p">;{</span> <span class="n">Atmospheric</span> <span class="n">generic</span> <span class="n">molecule</span> <span class="p">}</span>
+<span class="n">O2</span>  <span class="o">=</span> <span class="n">O</span> <span class="o">+</span> <span class="n">O</span><span class="p">;</span>        <span class="p">{</span> <span class="n">Molecular</span> <span class="n">oxygen</span> <span class="p">}</span>
+<span class="n">H2O</span> <span class="o">=</span> <span class="n">H</span> <span class="o">+</span> <span class="n">H</span> <span class="o">+</span> <span class="n">O</span><span class="p">;</span>    <span class="p">{</span> <span class="n">Water</span> <span class="p">}</span>
+</pre></div>
+</div>
 <p>After these are create, we create the <code class="docutils literal"><span class="pre">.def</span></code> with <code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">$KPP_HOME/models/ttropo.def</span></code>.
 In that file you will write the followinf lines:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#include ttropo.spc</span>
@@ -317,6 +340,14 @@ In that file you will write the followinf lines:</p>
        <span class="n">DT</span> <span class="o">=</span> <span class="mf">0.25</span><span class="o">*</span><span class="mi">3600</span>
        <span class="n">TEMP</span> <span class="o">=</span> <span class="mi">270</span>
 <span class="c1">#ENDINLINE</span>
+</pre></div>
+</div>
+<p>Now create a <code class="docutils literal"><span class="pre">test4</span></code> directory anywhere you want and go into it with <code class="docutils literal"><span class="pre">mkdir</span> <span class="pre">test4</span> <span class="pre">&amp;&amp;</span> <span class="pre">cd</span> <span class="pre">test4</span></code>.
+Now inside <code class="docutils literal"><span class="pre">test4</span></code> you should create the <code class="docutils literal"><span class="pre">.kpp</span></code> file with <code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">ttropo.kpp</span></code>
+(or, again, any other editor). Write the followinf lines inside that file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#MODEL      ttropo</span>
+<span class="c1">#LANGUAGE   Fortran90</span>
+<span class="c1">#INTEGRATOR rosenbrock</span>
 </pre></div>
 </div>
 </div>
@@ -395,7 +426,7 @@ In that file you will write the followinf lines:</p>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, Tomas Chor.
-      Last updated on 2016-11-23.
+      Last updated on 2016-11-28.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
     </div>
   </body>

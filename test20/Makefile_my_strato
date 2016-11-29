@@ -1,0 +1,178 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# User: Set here the F90 compiler and options
+#       Pedefined compilers: INTEL, PGF, HPUX, LAHEY
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#COMPILER = G95
+#COMPILER = LAHEY
+COMPILER = INTEL
+#COMPILER = PGF
+#COMPILER = HPUX
+COMPILER = GFORTRAN
+
+FC_G95     = g95
+FOPT_G95   = -cpp -O -pg -fbounds-check -fimplicit-none  -Wall -ftrace=full
+
+FC_LAHEY   = lf95
+# More aggressive for production runs:
+#FOPT_LAHEY = -Cpp --pca -O
+# More checking for debugging:
+FOPT_LAHEY = -Cpp --chk a,e,s,u --pca --ap -O0 -g --trap --trace --chkglobal
+
+FC_INTEL   = ifort 
+# More aggressive for production runs:
+#FOPT_INTEL = -cpp -O -fp-model precise -pc80 -prec_div
+# More checking for debugging:
+FOPT_INTEL = -cpp -O0 -fp-model strict -implicitnone -ftrapuv \
+              -debug all -check all -warn all
+
+FC_PGF     = pgf90
+# More aggressive for production runs:
+FOPT_PGF   = -Mpreprocess -O -fast -pc 80 -Kieee
+# More checking for debugging:
+#FOPT_PGF   = -Mpreprocess -O0 -Mbounds -Mchkfpstk -Mchkptr -Mchkstk \
+#             -Ktrap=fp -pc 80 -Kieee
+
+FC_HPUX    = f90
+FOPT_HPUX  = -O -u +Oall +check=on
+
+FC_GFORTRAN     = gfortran
+FOPT_GFORTRAN   = -cpp -O
+
+# define FULL_ALGEBRA for non-sparse integration
+FC   = $(FC_$(COMPILER))
+FOPT = $(FOPT_$(COMPILER)) # -DFULL_ALGEBRA
+
+LIBS =
+#LIBS = -llapack -lblas
+
+# Command to create Matlab mex gateway routines 
+# Note: use $(FC) as the mex Fortran compiler
+MEX  = mex
+
+GENSRC = my_strato_Precision.f90  \
+	 my_strato_Parameters.f90     \
+	 my_strato_Global.f90  
+
+GENOBJ = my_strato_Precision.o    \
+	 my_strato_Parameters.o       \
+	 my_strato_Global.o     
+
+FUNSRC = my_strato_Function.f90 
+FUNOBJ = my_strato_Function.o 
+
+JACSRC = my_strato_JacobianSP.f90  my_strato_Jacobian.f90
+JACOBJ = my_strato_JacobianSP.o    my_strato_Jacobian.o
+
+HESSRC = my_strato_HessianSP.f90   my_strato_Hessian.f90
+HESOBJ = my_strato_HessianSP.o     my_strato_Hessian.o
+
+STMSRC = my_strato_StoichiomSP.f90 my_strato_Stoichiom.f90 
+STMOBJ = my_strato_StoichiomSP.o   my_strato_Stoichiom.o
+
+UTLSRC = my_strato_Rates.f90 my_strato_Util.f90 my_strato_Monitor.f90
+UTLOBJ = my_strato_Rates.o   my_strato_Util.o   my_strato_Monitor.o
+
+LASRC  = my_strato_LinearAlgebra.f90 
+LAOBJ  = my_strato_LinearAlgebra.o   
+
+STOCHSRC = my_strato_Stochastic.f90 
+STOCHOBJ = my_strato_Stochastic.o 
+
+MAINSRC = my_strato_Main.f90   my_strato_Initialize.f90   my_strato_Integrator.f90 my_strato_Model.f90
+MAINOBJ = my_strato_Main.o     my_strato_Initialize.o     my_strato_Integrator.o   my_strato_Model.o 
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# User: modify the line below to include only the
+#       objects needed by your application
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ALLOBJ = $(GENOBJ) $(FUNOBJ) $(JACOBJ) $(HESOBJ) $(STMOBJ) \
+	 $(UTLOBJ) $(LAOBJ)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# User: modify the line below to include only the
+#       executables needed by your application
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+all:    exe
+
+exe:	$(ALLOBJ) $(MAINOBJ) 
+	$(FC) $(FOPT) $(ALLOBJ) $(MAINOBJ) $(LIBS) -o my_strato.exe
+
+stochastic:$(ALLOBJ) $(STOCHOBJ) $(MAINOBJ)
+	$(FC) $(FOPT) $(ALLOBJ) $(STOCHOBJ) $(MAINOBJ) $(LIBS) \
+	-o my_strato_stochastic.exe
+
+mex:    $(ALLOBJ)
+	$(MEX) FC#$(FC) -fortran -O my_strato_mex_Fun.f90     $(ALLOBJ)
+	$(MEX) FC#$(FC) -fortran -O my_strato_mex_Jac_SP.f90  $(ALLOBJ)
+	$(MEX) FC#$(FC) -fortran -O my_strato_mex_Hessian.f90 $(ALLOBJ)
+
+clean:
+	rm -f my_strato*.o my_strato*.mod \
+	my_strato*.dat my_strato.exe my_strato*.mexglx \
+	my_strato.map
+
+distclean:
+	rm -f my_strato*.o my_strato*.mod \
+	my_strato*.dat my_strato.exe my_strato.map \
+	my_strato*.f90 my_strato_*.mexglx
+
+my_strato_Precision.o: my_strato_Precision.f90 
+	$(FC) $(FOPT) -c $<
+
+my_strato_Parameters.o: my_strato_Parameters.f90 \
+	            my_strato_Precision.o
+	$(FC) $(FOPT) -c $<
+
+my_strato_Monitor.o: my_strato_Monitor.f90 \
+	             my_strato_Precision.o
+	$(FC) $(FOPT) -c $<
+
+my_strato_Global.o: my_strato_Global.f90 \
+	            my_strato_Parameters.o my_strato_Precision.o
+	$(FC) $(FOPT) -c $<
+
+my_strato_Initialize.o: my_strato_Initialize.f90  $(GENOBJ) 
+	$(FC) $(FOPT) -c $<
+
+my_strato_Function.o: my_strato_Function.f90  $(GENOBJ) 
+	$(FC) $(FOPT) -c $<
+
+my_strato_Stochastic.o: my_strato_Stochastic.f90  $(GENOBJ) 
+	$(FC) $(FOPT) -c $<
+
+my_strato_JacobianSP.o: my_strato_JacobianSP.f90 $(GENOBJ)
+	$(FC) $(FOPT) -c $<
+
+my_strato_Jacobian.o: my_strato_Jacobian.f90  $(GENOBJ) my_strato_JacobianSP.o
+	$(FC) $(FOPT) -c $<
+
+my_strato_LinearAlgebra.o: my_strato_LinearAlgebra.f90 $(GENOBJ) my_strato_JacobianSP.o
+	$(FC) $(FOPT) -c $<
+
+my_strato_Rates.o: my_strato_Rates.f90  $(GENOBJ) 
+	$(FC) $(FOPT) -c $<
+
+my_strato_HessianSP.o: my_strato_HessianSP.f90  $(GENOBJ)
+	$(FC) $(FOPT) -c $<
+
+my_strato_Hessian.o:  my_strato_Hessian.f90 $(GENOBJ) my_strato_HessianSP.o
+	$(FC) $(FOPT) -c $<
+
+my_strato_StoichiomSP.o: my_strato_StoichiomSP.f90 $(GENOBJ)
+	$(FC) $(FOPT) -c $<
+
+my_strato_Stoichiom.o: my_strato_Stoichiom.f90  $(GENOBJ) my_strato_StoichiomSP.o
+	$(FC) $(FOPT) -c $<
+
+my_strato_Util.o: my_strato_Util.f90  $(GENOBJ) my_strato_Monitor.o
+	$(FC) $(FOPT) -c $<
+
+my_strato_Main.o: my_strato_Main.f90  $(ALLOBJ) my_strato_Initialize.o my_strato_Model.o my_strato_Integrator.o
+	$(FC) $(FOPT) -c $<
+
+my_strato_Model.o: my_strato_Model.f90  $(ALLOBJ) my_strato_Integrator.o
+	$(FC) $(FOPT) -c $<
+
+my_strato_Integrator.o: my_strato_Integrator.f90  $(ALLOBJ)
+	$(FC) $(FOPT) -c $<

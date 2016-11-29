@@ -18,11 +18,8 @@ First, create another directory (anywhere you want) called ``test2`` (with
 or whichever text editor you ended up using) and paste the following lines in
 the file
 
-.. code::
-
- #MODEL      my_strato
- #LANGUAGE   Fortran90
- #INTEGRATOR rosenbrock
+.. include:: test2/my_strato.kpp
+   :literal:
 
 At this point if you run ``kpp my_strato.kpp`` you should get an error saying
 ``"Fatal error : my_strato.def: Can't read file"``. Which appears because we
@@ -77,7 +74,7 @@ The plot of the results is
 
 .. _test2_time:
 
-.. figure:: test2_time.png
+.. figure:: test20/test2_time.png
    :align: center
    :scale: 80 %
 
@@ -115,21 +112,14 @@ We again go through the same steps: run it with ``kpp my_strato.kpp``, change th
 to gfortran, compile if with ``make -f Makefile_my_strato`` and run it with ``./my_strato.exe``.
 This time, since the output file changed, we have to change the code to read it correctly:
 
-.. code:: python
-
- import pandas as pd
- from matplotlib import pyplot as plt
- concs = pd.read_csv('my_strato.dat', index_col=0, delim_whitespace=True, header=None, dtype=None).apply(pd.to_numeric, errors='coerce')
- concs.columns = ['O3', 'NO', 'NO2']
- concs.index.name = 'Hours since noon'
- concs.plot(ylim=[1.e8, None], logy=True, y=['O3', 'NO', 'NO2'], grid=True)
- plt.savefig('test21_time.png')
+.. include:: test2/plot_test21.py
+   :literal:
 
 This code produces the following plot:
 
 .. _test21_time:
 
-.. figure:: test21_time.png
+.. figure:: test2/test21_time.png
    :align: center
    :scale: 80 %
 
@@ -149,17 +139,10 @@ for the sake of learning how the model works.
 
 Begin again by creating a ``test3`` directory anywhere and going into it (``mkdir test3
 && cd test3``). In this directory, create a file called ``strato3.kpp`` with the following
-contents::
+contents:
 
- #MODEL      strato3
- #LANGUAGE   Fortran90
- #INTEGRATOR rosenbrock
- #DRIVER     general
-
-.. note::
-
- Note that in this kpp file we are forced (for some reason) to include another line
- defining the driver for the ``strato3`` model.
+.. include:: test3/strato3.kpp
+   :literal:
 
 This file tells KPP to look for the ``strato3.def`` file in its ``models``
 directory. So let us create this file by copying the ``my_strato.def`` file.
@@ -211,11 +194,11 @@ reaction) to make it a lot slower. We will make the last line read::
 
  <R10> NO2  + hv = NO  + O       : (1.289E-06) * SUN;
 
-..note ::
+.. note::
 
- This is 4 orders of magnitude slower than it previously was and is not realistic!
- We only made this change for the sake of illustration, so that the output change
- is easier to see.
+ This is 4 orders of magnitude slower than it previously was and is probably
+ not realistic! We only made this change for the sake of illustration, so that
+ the output change is easier to see.
 
 Now we go through the same steps of running ``kpp strato3.kpp``, changing the
 compiler to gfortran and running ``make -f Makefile_strato3``. If everything
@@ -227,7 +210,7 @@ file of course):
 
 .. _test3_time:
 
-.. figure:: test3_time.png
+.. figure:: test3/test3_time.png
    :align: center
    :scale: 80 %
 
@@ -247,8 +230,8 @@ initial conditions, numerical constraints, species and reactions list. Let us
 start with the latter: the reactions.
 
 We will try to simulate a very small tropospheric model, which we will call
-``ttropo`` (meaning tiny tropo; let's write it like that just because it's
-easier). First we create an equations (reactions) file in KPP's ``models``
+``ttropo`` (meaning tiny tropospheric; let's write it like that just because
+it's easier). First we create an equations (reactions) file in KPP's ``models``
 directory. We do that with ``notepad++ $KPP_HOME/models/ttropo.eqn`` (or
 ``gedit $KPP_HOME/models/ttropo.eqn`` or whatever editor you choose). Now in
 that file we will put our reactions following the syntax that we saw in the
@@ -305,7 +288,7 @@ Now we create the species file which bla bla bla::
 
 
 After these are create, we create the ``.def`` with ``notepad++ $KPP_HOME/models/ttropo.def``.
-In that file you will write the followinf lines::
+In that file you will write the following lines::
 
  #include ttropo.spc
  #include ttropo.eqn
@@ -351,7 +334,7 @@ In that file you will write the followinf lines::
 
 Now create a ``test4`` directory anywhere you want and go into it with ``mkdir test4 && cd test4``.
 Now inside ``test4`` you should create the ``.kpp`` file with ``notepad++ ttropo.kpp``
-(or, again, any other editor). Write the followinf lines inside that file::
+(or, again, any other editor). Write the following lines inside that file::
 
  #MODEL      ttropo
  #LANGUAGE   Fortran90

@@ -24,11 +24,8 @@ be created anywhere!). We then go to that directory with ``cd test1``. Let's
 follow the manual and create a file called ``small_strato.kpp`` with the
 following contents:
 
-.. code-block:: fortran
-
- #MODEL      small_strato
- #LANGUAGE   Fortran90
- #INTEGRATOR rosenbrock
+.. include:: test1/small_strato.kpp
+   :literal:
 
 You can do this by typing ``nano small_strato.kpp`` in the ``test1`` directory,
 if using Nano, or by using another editor of your choice (replace ``nano`` with
@@ -178,7 +175,6 @@ You should see some output on the screen with concentrations, like Fig. :ref:`te
    Output concentrations of the first test case.
 
 
-
 If this is the case, then your run was successful and everything worked well!
 You just calculated the concentrations of the compounds in the ``small_strato``
 model with the pre-defined initial conditions.
@@ -241,15 +237,8 @@ started. In this case it was at noon.
 We can read that data in many ways. I present below a quick python script
 to plot the concentrations as a function of the hour of the day
 
-.. code:: python
-
- import pandas as pd
- from matplotlib import pyplot as plt
- concs = pd.read_csv('small_strato.dat', index_col=0, delim_whitespace=True, header=None).apply(pd.to_numeric, errors='coerce')
- concs.columns = ['O1D', 'O', 'O3', 'NO', 'NO2', 'M', 'O2']
- concs.index.name = 'Hours since noon'
- concs.plot(ylim=[1.e8, None], logy=True, y=['O3', 'NO', 'NO2'], grid=True)
- plt.savefig('test1_time.png')
+.. include:: test1/plot_test1.py
+   :literal:
 
 .. note::
 
@@ -261,14 +250,14 @@ to plot the concentrations as a function of the hour of the day
  to read with by other means.
 
 If you have ever seen python before, this code should be pretty intuitive. If
-you haven't you can still use it easily (maybe you just have to download
-python's ``pandas`` package).  This code generates the following plot of the
-concentrations:
+you haven't you can still use it easily (depending on how you got python, you
+might have to install python's ``pandas`` package).  This code generates the
+following plot of the concentrations:
 
 
 .. _test1_time:
 
-.. figure:: test1_time.png
+.. figure:: test1/test1_time.png
    :align: center
    :scale: 80 %
 

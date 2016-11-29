@@ -69,9 +69,10 @@ directory <code class="docutils literal"><span class="pre">test1</span></code> a
 be created anywhere!). We then go to that directory with <code class="docutils literal"><span class="pre">cd</span> <span class="pre">test1</span></code>. Let&#8217;s
 follow the manual and create a file called <code class="docutils literal"><span class="pre">small_strato.kpp</span></code> with the
 following contents:</p>
-<div class="highlight-fortran"><div class="highlight"><pre><span></span><span class="cp">#MODEL      small_strato</span>
-<span class="cp">#LANGUAGE   Fortran90</span>
-<span class="cp">#INTEGRATOR rosenbrock</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#MODEL      small_strato</span>
+<span class="c1">#LANGUAGE   Fortran90</span>
+<span class="c1">#INTEGRATOR rosenbrock</span>
+<span class="c1">#DRIVER     general</span>
 </pre></div>
 </div>
 <p>You can do this by typing <code class="docutils literal"><span class="pre">nano</span> <span class="pre">small_strato.kpp</span></code> in the <code class="docutils literal"><span class="pre">test1</span></code> directory,
@@ -249,13 +250,14 @@ here, we need to keep track of the time of day the day that the simulation
 started. In this case it was at noon.</p>
 <p>We can read that data in many ways. I present below a quick python script
 to plot the concentrations as a function of the hour of the day</p>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="n">concs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;small_strato.dat&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
 <span class="n">concs</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;O1D&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;O2&#39;</span><span class="p">]</span>
 <span class="n">concs</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Hours since noon&#39;</span>
 <span class="n">concs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mf">1.e8</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">logy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">],</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;test1_time.png&#39;</span><span class="p">)</span>
+
 </pre></div>
 </div>
 <div class="admonition note">
@@ -268,9 +270,9 @@ this issue into consideration when reading the file, but you should pay attentio
 to read with by other means.</p>
 </div>
 <p>If you have ever seen python before, this code should be pretty intuitive. If
-you haven&#8217;t you can still use it easily (maybe you just have to download
-python&#8217;s <code class="docutils literal"><span class="pre">pandas</span></code> package).  This code generates the following plot of the
-concentrations:</p>
+you haven&#8217;t you can still use it easily (depending on how you got python, you
+might have to install python&#8217;s <code class="docutils literal"><span class="pre">pandas</span></code> package).  This code generates the
+following plot of the concentrations:</p>
 <div class="figure align-center" id="test1-time">
 <a class="reference internal image-reference" href="_images/test1_time.png"><img alt="_images/test1_time.png" src="_images/test1_time.png" style="width: 640.0px; height: 480.0px;" /></a>
 </div>
@@ -358,7 +360,7 @@ alter/create models.</p>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, Tomas Chor.
-      Last updated on 2016-11-23.
+      Last updated on 2016-11-28.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
     </div>
   </body>

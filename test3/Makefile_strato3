@@ -1,0 +1,178 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# User: Set here the F90 compiler and options
+#       Pedefined compilers: INTEL, PGF, HPUX, LAHEY
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#COMPILER = G95
+#COMPILER = LAHEY
+COMPILER = INTEL
+#COMPILER = PGF
+#COMPILER = HPUX
+COMPILER = GFORTRAN
+
+FC_G95     = g95
+FOPT_G95   = -cpp -O -pg -fbounds-check -fimplicit-none  -Wall -ftrace=full
+
+FC_LAHEY   = lf95
+# More aggressive for production runs:
+#FOPT_LAHEY = -Cpp --pca -O
+# More checking for debugging:
+FOPT_LAHEY = -Cpp --chk a,e,s,u --pca --ap -O0 -g --trap --trace --chkglobal
+
+FC_INTEL   = ifort 
+# More aggressive for production runs:
+#FOPT_INTEL = -cpp -O -fp-model precise -pc80 -prec_div
+# More checking for debugging:
+FOPT_INTEL = -cpp -O0 -fp-model strict -implicitnone -ftrapuv \
+              -debug all -check all -warn all
+
+FC_PGF     = pgf90
+# More aggressive for production runs:
+FOPT_PGF   = -Mpreprocess -O -fast -pc 80 -Kieee
+# More checking for debugging:
+#FOPT_PGF   = -Mpreprocess -O0 -Mbounds -Mchkfpstk -Mchkptr -Mchkstk \
+#             -Ktrap=fp -pc 80 -Kieee
+
+FC_HPUX    = f90
+FOPT_HPUX  = -O -u +Oall +check=on
+
+FC_GFORTRAN     = gfortran
+FOPT_GFORTRAN   = -cpp -O
+
+# define FULL_ALGEBRA for non-sparse integration
+FC   = $(FC_$(COMPILER))
+FOPT = $(FOPT_$(COMPILER)) # -DFULL_ALGEBRA
+
+LIBS =
+#LIBS = -llapack -lblas
+
+# Command to create Matlab mex gateway routines 
+# Note: use $(FC) as the mex Fortran compiler
+MEX  = mex
+
+GENSRC = strato3_Precision.f90  \
+	 strato3_Parameters.f90     \
+	 strato3_Global.f90  
+
+GENOBJ = strato3_Precision.o    \
+	 strato3_Parameters.o       \
+	 strato3_Global.o     
+
+FUNSRC = strato3_Function.f90 
+FUNOBJ = strato3_Function.o 
+
+JACSRC = strato3_JacobianSP.f90  strato3_Jacobian.f90
+JACOBJ = strato3_JacobianSP.o    strato3_Jacobian.o
+
+HESSRC = strato3_HessianSP.f90   strato3_Hessian.f90
+HESOBJ = strato3_HessianSP.o     strato3_Hessian.o
+
+STMSRC = strato3_StoichiomSP.f90 strato3_Stoichiom.f90 
+STMOBJ = strato3_StoichiomSP.o   strato3_Stoichiom.o
+
+UTLSRC = strato3_Rates.f90 strato3_Util.f90 strato3_Monitor.f90
+UTLOBJ = strato3_Rates.o   strato3_Util.o   strato3_Monitor.o
+
+LASRC  = strato3_LinearAlgebra.f90 
+LAOBJ  = strato3_LinearAlgebra.o   
+
+STOCHSRC = strato3_Stochastic.f90 
+STOCHOBJ = strato3_Stochastic.o 
+
+MAINSRC = strato3_Main.f90   strato3_Initialize.f90   strato3_Integrator.f90 strato3_Model.f90
+MAINOBJ = strato3_Main.o     strato3_Initialize.o     strato3_Integrator.o   strato3_Model.o 
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# User: modify the line below to include only the
+#       objects needed by your application
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ALLOBJ = $(GENOBJ) $(FUNOBJ) $(JACOBJ) $(HESOBJ) $(STMOBJ) \
+	 $(UTLOBJ) $(LAOBJ)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# User: modify the line below to include only the
+#       executables needed by your application
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+all:    exe
+
+exe:	$(ALLOBJ) $(MAINOBJ) 
+	$(FC) $(FOPT) $(ALLOBJ) $(MAINOBJ) $(LIBS) -o strato3.exe
+
+stochastic:$(ALLOBJ) $(STOCHOBJ) $(MAINOBJ)
+	$(FC) $(FOPT) $(ALLOBJ) $(STOCHOBJ) $(MAINOBJ) $(LIBS) \
+	-o strato3_stochastic.exe
+
+mex:    $(ALLOBJ)
+	$(MEX) FC#$(FC) -fortran -O strato3_mex_Fun.f90     $(ALLOBJ)
+	$(MEX) FC#$(FC) -fortran -O strato3_mex_Jac_SP.f90  $(ALLOBJ)
+	$(MEX) FC#$(FC) -fortran -O strato3_mex_Hessian.f90 $(ALLOBJ)
+
+clean:
+	rm -f strato3*.o strato3*.mod \
+	strato3*.dat strato3.exe strato3*.mexglx \
+	strato3.map
+
+distclean:
+	rm -f strato3*.o strato3*.mod \
+	strato3*.dat strato3.exe strato3.map \
+	strato3*.f90 strato3_*.mexglx
+
+strato3_Precision.o: strato3_Precision.f90 
+	$(FC) $(FOPT) -c $<
+
+strato3_Parameters.o: strato3_Parameters.f90 \
+	            strato3_Precision.o
+	$(FC) $(FOPT) -c $<
+
+strato3_Monitor.o: strato3_Monitor.f90 \
+	             strato3_Precision.o
+	$(FC) $(FOPT) -c $<
+
+strato3_Global.o: strato3_Global.f90 \
+	            strato3_Parameters.o strato3_Precision.o
+	$(FC) $(FOPT) -c $<
+
+strato3_Initialize.o: strato3_Initialize.f90  $(GENOBJ) 
+	$(FC) $(FOPT) -c $<
+
+strato3_Function.o: strato3_Function.f90  $(GENOBJ) 
+	$(FC) $(FOPT) -c $<
+
+strato3_Stochastic.o: strato3_Stochastic.f90  $(GENOBJ) 
+	$(FC) $(FOPT) -c $<
+
+strato3_JacobianSP.o: strato3_JacobianSP.f90 $(GENOBJ)
+	$(FC) $(FOPT) -c $<
+
+strato3_Jacobian.o: strato3_Jacobian.f90  $(GENOBJ) strato3_JacobianSP.o
+	$(FC) $(FOPT) -c $<
+
+strato3_LinearAlgebra.o: strato3_LinearAlgebra.f90 $(GENOBJ) strato3_JacobianSP.o
+	$(FC) $(FOPT) -c $<
+
+strato3_Rates.o: strato3_Rates.f90  $(GENOBJ) 
+	$(FC) $(FOPT) -c $<
+
+strato3_HessianSP.o: strato3_HessianSP.f90  $(GENOBJ)
+	$(FC) $(FOPT) -c $<
+
+strato3_Hessian.o:  strato3_Hessian.f90 $(GENOBJ) strato3_HessianSP.o
+	$(FC) $(FOPT) -c $<
+
+strato3_StoichiomSP.o: strato3_StoichiomSP.f90 $(GENOBJ)
+	$(FC) $(FOPT) -c $<
+
+strato3_Stoichiom.o: strato3_Stoichiom.f90  $(GENOBJ) strato3_StoichiomSP.o
+	$(FC) $(FOPT) -c $<
+
+strato3_Util.o: strato3_Util.f90  $(GENOBJ) strato3_Monitor.o
+	$(FC) $(FOPT) -c $<
+
+strato3_Main.o: strato3_Main.f90  $(ALLOBJ) strato3_Initialize.o strato3_Model.o strato3_Integrator.o
+	$(FC) $(FOPT) -c $<
+
+strato3_Model.o: strato3_Model.f90  $(ALLOBJ) strato3_Integrator.o
+	$(FC) $(FOPT) -c $<
+
+strato3_Integrator.o: strato3_Integrator.f90  $(ALLOBJ)
+	$(FC) $(FOPT) -c $<
