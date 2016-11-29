@@ -10,35 +10,35 @@
       INTEGER plhs(*), prhs(*)
       INTEGER mxGetPr, mxCreateFull, mxGetM, mxgetN
       INTEGER VPtr, FPtr, RPtr, JVSPtr
-      REAL(kind=dp) V(8), F(6), RCT(13)
-      REAL(kind=dp) JVS(20)
+      REAL(kind=dp) V(13), F(3), RCT(15)
+      REAL(kind=dp) JVS(48)
 
 ! Check for the right number of input arguments
       IF ( nrhs .ne. 3 ) THEN
          CALL mexErrMsgTxt('Jac_SP requires 3 input vectors: &
-     &V(8), F(6), RCT(13)')
+     &V(13), F(3), RCT(15)')
       END IF 
 ! Check for the right number of output arguments
       IF ( nlhs .ne. 1 ) THEN
          CALL mexErrMsgTxt('Jac_SP requires 1 output vector: &
-     &JVS(20)')
+     &JVS(48)')
       END IF 
 
-      plhs(1) = mxCreateDoubleMatrix(20,1,0)
+      plhs(1) = mxCreateDoubleMatrix(48,1,0)
 
       VPtr = mxGetPr(prhs(1))
-      CALL mxCopyPtrToReal8(VPtr,V,8)
+      CALL mxCopyPtrToReal8(VPtr,V,13)
       
       FPtr = mxGetPr(prhs(2))
-      CALL mxCopyPtrToReal8(FPtr,F,6)
+      CALL mxCopyPtrToReal8(FPtr,F,3)
       
       RPtr = mxGetPr(prhs(3))
-      CALL mxCopyPtrToReal8(RPtr,RCT,13)
+      CALL mxCopyPtrToReal8(RPtr,RCT,15)
 
       JVSPtr = mxGetPr(plhs(1))
 
       CALL Jac_SP( V, F, RCT, JVS )
 
-      CALL mxCopyReal8ToPtr(JVS, JVSPtr, 20)
+      CALL mxCopyReal8ToPtr(JVS, JVSPtr, 48)
 
  END SUBROUTINE mexFunction

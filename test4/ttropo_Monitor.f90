@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_Monitor.f90
-! Time                 : Tue Nov 29 13:15:32 2016
+! Time                 : Tue Nov 29 15:38:54 2016
 ! Working directory    : /home/tomaschor/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
@@ -25,23 +25,24 @@
 MODULE ttropo_Monitor
 
 
-  CHARACTER(LEN=15), PARAMETER, DIMENSION(14) :: SPC_NAMES = (/ &
-     'H2O2           ','HNO3           ','CO2            ', &
-     'O1D            ','O              ','NO2            ', &
-     'NO             ','O3             ','M              ', &
-     'O2             ','H2O            ','CO             ', &
-     'OH             ','HO2            ' /)
+  CHARACTER(LEN=15), PARAMETER, DIMENSION(16) :: SPC_NAMES = (/ &
+     'CO2            ','H2O2aq         ','HNO3aq         ', &
+     'HNO3           ','H2O2           ','CO             ', &
+     'O1D            ','O              ','OH             ', &
+     'HO2            ','NO             ','NO2            ', &
+     'O3             ','M              ','O2             ', &
+     'H2O            ' /)
 
-  INTEGER, PARAMETER, DIMENSION(4) :: LOOKAT = (/ &
-       6,  7,  8, 12 /)
+  INTEGER, PARAMETER, DIMENSION(7) :: LOOKAT = (/ &
+       4,  6,  9, 10, 11, 12, 13 /)
 
   INTEGER, PARAMETER, DIMENSION(5) :: MONITOR = (/ &
-       4,  5,  6,  7,  8 /)
+       7,  8, 11, 12, 13 /)
 
   CHARACTER(LEN=15), PARAMETER, DIMENSION(1) :: SMASS = (/ &
      'N              ' /)
 
-  CHARACTER(LEN=100), PARAMETER, DIMENSION(13) :: EQN_NAMES = (/ &
+  CHARACTER(LEN=100), PARAMETER, DIMENSION(15) :: EQN_NAMES = (/ &
      '   O + O2 --> O3                                                                                    ', &
      '      NO2 --> O + NO                                                                                ', &
      '  NO + O3 --> NO2 + O2                                                                              ', &
@@ -50,11 +51,13 @@ MODULE ttropo_Monitor
      '  O1D + M --> O + M                                                                                 ', &
      'O1D + H2O --> 2 OH                                                                                  ', &
      '  CO + OH --> CO2 + HO2                                                                             ', &
-     ' NO + HO2 --> NO2 + OH                                                                              ', &
-     ' NO2 + OH --> HNO3                                                                                  ', &
+     ' HO2 + NO --> OH + NO2                                                                              ', &
+     ' OH + NO2 --> HNO3                                                                                  ', &
      '    2 HO2 --> H2O2                                                                                  ', &
-     ' O3 + HO2 --> 2 O2 + OH                                                                             ', &
-     '     H2O2 --> 2 OH                                                                                  ' /)
+     ' HO2 + O3 --> OH + 2 O2                                                                             ', &
+     '     H2O2 --> 2 OH                                                                                  ', &
+     '     H2O2 --> H2O2aq                                                                                ', &
+     '     HNO3 --> HNO3aq                                                                                ' /)
 
 ! INLINED global variables
 

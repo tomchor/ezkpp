@@ -6,9 +6,14 @@ myFmt = mdates.DateFormatter('%H:%M')
 none = mdates.DateFormatter('')
 
 concs = pd.read_csv('ttropo.dat', index_col=0, delim_whitespace=True, header=None, dtype=None).apply(pd.to_numeric, errors='coerce')
-concs.columns = ['O3', 'NO2', 'NO', 'CO']
+concs.columns = ['HNO3','CO', 'OH', 'HO2', 'NO', 'NO2', 'O3']
 concs.index.name = 'Hours since noon'
-concs.plot(ylim=[1.e-8, None], logy=True, y=['O3', 'NO', 'NO2', 'CO'], grid=True)
+concs.plot(ylim=[1.e4, None], logy=True, y=['O3', 'NO', 'NO2', 'CO', 'HNO3', 'OH', 'HO2'], grid=True)
+
+if True:
+    import pickle
+    aux = plt.gcf()
+    pickle.dump(aux, open('interactive.p', 'w'))
 
 plt.savefig('test4_time.png')
 plt.show()

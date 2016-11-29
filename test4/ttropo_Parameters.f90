@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_Parameters.f90
-! Time                 : Tue Nov 29 13:15:32 2016
+! Time                 : Tue Nov 29 15:38:54 2016
 ! Working directory    : /home/tomaschor/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
@@ -30,31 +30,31 @@ MODULE ttropo_Parameters
 
 
 ! NSPEC - Number of chemical species
-  INTEGER, PARAMETER :: NSPEC = 14 
+  INTEGER, PARAMETER :: NSPEC = 16 
 ! NVAR - Number of Variable species
-  INTEGER, PARAMETER :: NVAR = 8 
+  INTEGER, PARAMETER :: NVAR = 13 
 ! NVARACT - Number of Active species
-  INTEGER, PARAMETER :: NVARACT = 6 
+  INTEGER, PARAMETER :: NVARACT = 10 
 ! NFIX - Number of Fixed species
-  INTEGER, PARAMETER :: NFIX = 6 
+  INTEGER, PARAMETER :: NFIX = 3 
 ! NREACT - Number of reactions
-  INTEGER, PARAMETER :: NREACT = 13 
+  INTEGER, PARAMETER :: NREACT = 15 
 ! NVARST - Starting of variables in conc. vect.
   INTEGER, PARAMETER :: NVARST = 1 
 ! NFIXST - Starting of fixed in conc. vect.
-  INTEGER, PARAMETER :: NFIXST = 9 
+  INTEGER, PARAMETER :: NFIXST = 14 
 ! NONZERO - Number of nonzero entries in Jacobian
-  INTEGER, PARAMETER :: NONZERO = 19 
+  INTEGER, PARAMETER :: NONZERO = 46 
 ! LU_NONZERO - Number of nonzero entries in LU factoriz. of Jacobian
-  INTEGER, PARAMETER :: LU_NONZERO = 20 
+  INTEGER, PARAMETER :: LU_NONZERO = 48 
 ! CNVAR - (NVAR+1) Number of elements in compressed row format
-  INTEGER, PARAMETER :: CNVAR = 9 
+  INTEGER, PARAMETER :: CNVAR = 14 
 ! CNEQN - (NREACT+1) Number stoicm elements in compressed col format
-  INTEGER, PARAMETER :: CNEQN = 14 
+  INTEGER, PARAMETER :: CNEQN = 16 
 ! NHESS - Length of Sparse Hessian
-  INTEGER, PARAMETER :: NHESS = 3 
+  INTEGER, PARAMETER :: NHESS = 19 
 ! NLOOKAT - Number of species to look at
-  INTEGER, PARAMETER :: NLOOKAT = 4 
+  INTEGER, PARAMETER :: NLOOKAT = 7 
 ! NMONITOR - Number of species to monitor
   INTEGER, PARAMETER :: NMONITOR = 5 
 ! NMASS - Number of atoms to check mass balance
@@ -63,24 +63,26 @@ MODULE ttropo_Parameters
 ! Index declaration for variable species in C and VAR
 !   VAR(ind_spc) = C(ind_spc)
 
-  INTEGER, PARAMETER :: ind_H2O2 = 1 
-  INTEGER, PARAMETER :: ind_HNO3 = 2 
-  INTEGER, PARAMETER :: ind_CO2 = 3 
-  INTEGER, PARAMETER :: ind_O1D = 4 
-  INTEGER, PARAMETER :: ind_O = 5 
-  INTEGER, PARAMETER :: ind_NO2 = 6 
-  INTEGER, PARAMETER :: ind_NO = 7 
-  INTEGER, PARAMETER :: ind_O3 = 8 
+  INTEGER, PARAMETER :: ind_CO2 = 1 
+  INTEGER, PARAMETER :: ind_H2O2aq = 2 
+  INTEGER, PARAMETER :: ind_HNO3aq = 3 
+  INTEGER, PARAMETER :: ind_HNO3 = 4 
+  INTEGER, PARAMETER :: ind_H2O2 = 5 
+  INTEGER, PARAMETER :: ind_CO = 6 
+  INTEGER, PARAMETER :: ind_O1D = 7 
+  INTEGER, PARAMETER :: ind_O = 8 
+  INTEGER, PARAMETER :: ind_OH = 9 
+  INTEGER, PARAMETER :: ind_HO2 = 10 
+  INTEGER, PARAMETER :: ind_NO = 11 
+  INTEGER, PARAMETER :: ind_NO2 = 12 
+  INTEGER, PARAMETER :: ind_O3 = 13 
 
 ! Index declaration for fixed species in C
 !   C(ind_spc)
 
-  INTEGER, PARAMETER :: ind_M = 9 
-  INTEGER, PARAMETER :: ind_O2 = 10 
-  INTEGER, PARAMETER :: ind_H2O = 11 
-  INTEGER, PARAMETER :: ind_CO = 12 
-  INTEGER, PARAMETER :: ind_OH = 13 
-  INTEGER, PARAMETER :: ind_HO2 = 14 
+  INTEGER, PARAMETER :: ind_M = 14 
+  INTEGER, PARAMETER :: ind_O2 = 15 
+  INTEGER, PARAMETER :: ind_H2O = 16 
 
 ! Index declaration for fixed species in FIX
 !    FIX(indf_spc) = C(ind_spc) = C(NVAR+indf_spc)
@@ -88,15 +90,12 @@ MODULE ttropo_Parameters
   INTEGER, PARAMETER :: indf_M = 1 
   INTEGER, PARAMETER :: indf_O2 = 2 
   INTEGER, PARAMETER :: indf_H2O = 3 
-  INTEGER, PARAMETER :: indf_CO = 4 
-  INTEGER, PARAMETER :: indf_OH = 5 
-  INTEGER, PARAMETER :: indf_HO2 = 6 
 
 ! NJVRP - Length of sparse Jacobian JVRP
-  INTEGER, PARAMETER :: NJVRP = 12 
+  INTEGER, PARAMETER :: NJVRP = 20 
 
 ! NSTOICM - Length of Sparse Stoichiometric Matrix
-  INTEGER, PARAMETER :: NSTOICM = 23 
+  INTEGER, PARAMETER :: NSTOICM = 38 
 
 END MODULE ttropo_Parameters
 

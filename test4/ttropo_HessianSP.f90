@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_HessianSP.f90
-! Time                 : Tue Nov 29 13:15:32 2016
+! Time                 : Tue Nov 29 15:38:54 2016
 ! Working directory    : /home/tomaschor/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
@@ -31,14 +31,17 @@ MODULE ttropo_HessianSP
 ! Hessian Sparse Data
 ! 
 
-  INTEGER, PARAMETER, DIMENSION(3) :: IHESS_I = (/ &
-       6,  7,  8 /)
+  INTEGER, PARAMETER, DIMENSION(19) :: IHESS_I = (/ &
+       1,  4,  5,  6,  9,  9,  9,  9, 10, 10, 10, 10, &
+      11, 11, 12, 12, 12, 13, 13 /)
 
-  INTEGER, PARAMETER, DIMENSION(3) :: IHESS_J = (/ &
-       7,  7,  7 /)
+  INTEGER, PARAMETER, DIMENSION(19) :: IHESS_J = (/ &
+       6,  9, 10,  6,  6,  9, 10, 10,  6, 10, 10, 10, &
+      10, 11,  9, 10, 11, 10, 11 /)
 
-  INTEGER, PARAMETER, DIMENSION(3) :: IHESS_K = (/ &
-       8,  8,  8 /)
+  INTEGER, PARAMETER, DIMENSION(19) :: IHESS_K = (/ &
+       9, 12, 10,  9,  9, 12, 11, 13,  9, 10, 11, 13, &
+      11, 13, 12, 11, 13, 13, 13 /)
 
 
 END MODULE ttropo_HessianSP

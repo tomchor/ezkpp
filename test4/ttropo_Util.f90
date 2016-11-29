@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_Util.f90
-! Time                 : Tue Nov 29 13:15:32 2016
+! Time                 : Tue Nov 29 15:38:54 2016
 ! Working directory    : /home/tomaschor/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
@@ -165,14 +165,19 @@ SUBROUTINE Shuffle_user2kpp ( V_USER, V )
 ! V - Concentrations of variable species (local)
   REAL(kind=dp) :: V(NVAR)
 
-  V(5) = V_USER(1)
-  V(4) = V_USER(2)
-  V(8) = V_USER(3)
-  V(7) = V_USER(4)
-  V(6) = V_USER(5)
-  V(2) = V_USER(6)
-  V(1) = V_USER(7)
-  V(3) = V_USER(8)
+  V(8) = V_USER(1)
+  V(7) = V_USER(2)
+  V(13) = V_USER(3)
+  V(11) = V_USER(4)
+  V(12) = V_USER(5)
+  V(4) = V_USER(6)
+  V(5) = V_USER(7)
+  V(1) = V_USER(8)
+  V(6) = V_USER(9)
+  V(9) = V_USER(10)
+  V(10) = V_USER(11)
+  V(2) = V_USER(12)
+  V(3) = V_USER(13)
       
 END SUBROUTINE Shuffle_user2kpp
 
@@ -196,14 +201,19 @@ SUBROUTINE Shuffle_kpp2user ( V, V_USER )
 ! V_USER - Concentration of variable species in USER's order
   REAL(kind=dp) :: V_USER(NVAR)
 
-  V_USER(1) = V(5)
-  V_USER(2) = V(4)
-  V_USER(3) = V(8)
-  V_USER(4) = V(7)
-  V_USER(5) = V(6)
-  V_USER(6) = V(2)
-  V_USER(7) = V(1)
-  V_USER(8) = V(3)
+  V_USER(1) = V(8)
+  V_USER(2) = V(7)
+  V_USER(3) = V(13)
+  V_USER(4) = V(11)
+  V_USER(5) = V(12)
+  V_USER(6) = V(4)
+  V_USER(7) = V(5)
+  V_USER(8) = V(1)
+  V_USER(9) = V(6)
+  V_USER(10) = V(9)
+  V_USER(11) = V(10)
+  V_USER(12) = V(2)
+  V_USER(13) = V(3)
       
 END SUBROUTINE Shuffle_kpp2user
 
@@ -227,7 +237,7 @@ SUBROUTINE GetMass ( CL, Mass )
 ! Mass - value of mass balance
   REAL(kind=dp) :: Mass(1)
 
-  Mass(1) = CL(2)+CL(6)+CL(7)+CL(9)+CL(9)
+  Mass(1) = CL(4)+CL(11)+CL(12)+CL(14)+CL(14)
       
 END SUBROUTINE GetMass
 
