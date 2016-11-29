@@ -11,27 +11,27 @@
       INTEGER plhs(*), prhs(*)
       INTEGER mxGetPr, mxCreateFull, mxGetM, mxgetN
       INTEGER VPtr, FPtr, RPtr, VdotPtr
-      REAL(kind=dp) V(11), F(3), RCT(13)
-      REAL(kind=dp) Vdot(11)
+      REAL(kind=dp) V(8), F(6), RCT(13)
+      REAL(kind=dp) Vdot(8)
 
 ! Check for the right number of input arguments
       IF ( nrhs .ne. 3 ) THEN
          CALL mexErrMsgTxt('Fun requires 3 input vectors: &
-     &V(11), F(3), RCT(13)')
+     &V(8), F(6), RCT(13)')
       END IF 
 ! Check for the right number of output arguments
       IF ( nlhs .ne. 1 ) THEN
          CALL mexErrMsgTxt('Fun requires 1 output vector: &
-     &Vdot(11)')
+     &Vdot(8)')
       END IF 
 
-      plhs(1) = mxCreateDoubleMatrix(11,1,0)
+      plhs(1) = mxCreateDoubleMatrix(8,1,0)
 
       VPtr = mxGetPr(prhs(1))
-      CALL mxCopyPtrToReal8(VPtr,V,11)
+      CALL mxCopyPtrToReal8(VPtr,V,8)
       
       FPtr = mxGetPr(prhs(2))
-      CALL mxCopyPtrToReal8(FPtr,F,3)
+      CALL mxCopyPtrToReal8(FPtr,F,6)
       
       RPtr = mxGetPr(prhs(3))
       CALL mxCopyPtrToReal8(RPtr,RCT,13)
@@ -40,6 +40,6 @@
 
       CALL Fun( V, F, RCT, Vdot )
 
-      CALL mxCopyReal8ToPtr(Vdot, VdotPtr, 11)
+      CALL mxCopyReal8ToPtr(Vdot, VdotPtr, 8)
 
  END SUBROUTINE mexFunction

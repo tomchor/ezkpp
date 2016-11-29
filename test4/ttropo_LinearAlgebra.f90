@@ -13,8 +13,8 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_LinearAlgebra.f90
-! Time                 : Tue Nov 29 09:15:36 2016
-! Working directory    : /home/tomas/ezkpp/test4
+! Time                 : Tue Nov 29 13:15:32 2016
+! Working directory    : /home/tomaschor/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
 ! 
@@ -646,22 +646,17 @@ SUBROUTINE KppSolve ( JVS, X )
 ! X - Vector for variables
   REAL(kind=dp) :: X(NVAR)
 
-  X(6) = X(6)-JVS(13)*X(5)
-  X(7) = X(7)-JVS(17)*X(3)-JVS(18)*X(4)-JVS(19)*X(5)
-  X(9) = X(9)-JVS(29)*X(4)-JVS(30)*X(7)-JVS(31)*X(8)
-  X(10) = X(10)-JVS(35)*X(6)-JVS(36)*X(8)-JVS(37)*X(9)
-  X(11) = X(11)-JVS(40)*X(7)-JVS(41)*X(8)-JVS(42)*X(9)-JVS(43)*X(10)
-  X(11) = X(11)/JVS(44)
-  X(10) = (X(10)-JVS(39)*X(11))/(JVS(38))
-  X(9) = (X(9)-JVS(33)*X(10)-JVS(34)*X(11))/(JVS(32))
-  X(8) = (X(8)-JVS(26)*X(9)-JVS(27)*X(10)-JVS(28)*X(11))/(JVS(25))
-  X(7) = (X(7)-JVS(21)*X(8)-JVS(22)*X(9)-JVS(23)*X(10)-JVS(24)*X(11))/(JVS(20))
-  X(6) = (X(6)-JVS(15)*X(10)-JVS(16)*X(11))/(JVS(14))
-  X(5) = (X(5)-JVS(12)*X(10))/(JVS(11))
-  X(4) = (X(4)-JVS(10)*X(7))/(JVS(9))
-  X(3) = (X(3)-JVS(8)*X(9))/(JVS(7))
-  X(2) = (X(2)-JVS(5)*X(4)-JVS(6)*X(7))/(JVS(4))
-  X(1) = (X(1)-JVS(2)*X(7)-JVS(3)*X(11))/(JVS(1))
+  X(5) = X(5)-JVS(7)*X(4)
+  X(7) = X(7)-JVS(14)*X(6)
+  X(8) = X(8)-JVS(17)*X(5)-JVS(18)*X(6)-JVS(19)*X(7)
+  X(8) = X(8)/JVS(20)
+  X(7) = (X(7)-JVS(16)*X(8))/(JVS(15))
+  X(6) = (X(6)-JVS(12)*X(7)-JVS(13)*X(8))/(JVS(11))
+  X(5) = (X(5)-JVS(9)*X(6)-JVS(10)*X(8))/(JVS(8))
+  X(4) = (X(4)-JVS(6)*X(8))/(JVS(5))
+  X(3) = X(3)/JVS(4)
+  X(2) = (X(2)-JVS(3)*X(6))/(JVS(2))
+  X(1) = X(1)/JVS(1)
       
 END SUBROUTINE KppSolve
 
@@ -689,25 +684,19 @@ SUBROUTINE KppSolveTR ( JVS, X, XX )
   REAL(kind=dp) :: XX(NVAR)
 
   XX(1) = X(1)/JVS(1)
-  XX(2) = X(2)/JVS(4)
-  XX(3) = X(3)/JVS(7)
-  XX(4) = (X(4)-JVS(5)*XX(2))/(JVS(9))
-  XX(5) = X(5)/JVS(11)
-  XX(6) = X(6)/JVS(14)
-  XX(7) = (X(7)-JVS(2)*XX(1)-JVS(6)*XX(2)-JVS(10)*XX(4))/(JVS(20))
-  XX(8) = (X(8)-JVS(21)*XX(7))/(JVS(25))
-  XX(9) = (X(9)-JVS(8)*XX(3)-JVS(22)*XX(7)-JVS(26)*XX(8))/(JVS(32))
-  XX(10) = (X(10)-JVS(12)*XX(5)-JVS(15)*XX(6)-JVS(23)*XX(7)-JVS(27)*XX(8)-JVS(33)*XX(9))/(JVS(38))
-  XX(11) = (X(11)-JVS(3)*XX(1)-JVS(16)*XX(6)-JVS(24)*XX(7)-JVS(28)*XX(8)-JVS(34)*XX(9)-JVS(39)*XX(10))/(JVS(44))
-  XX(11) = XX(11)
-  XX(10) = XX(10)-JVS(43)*XX(11)
-  XX(9) = XX(9)-JVS(37)*XX(10)-JVS(42)*XX(11)
-  XX(8) = XX(8)-JVS(31)*XX(9)-JVS(36)*XX(10)-JVS(41)*XX(11)
-  XX(7) = XX(7)-JVS(30)*XX(9)-JVS(40)*XX(11)
-  XX(6) = XX(6)-JVS(35)*XX(10)
-  XX(5) = XX(5)-JVS(13)*XX(6)-JVS(19)*XX(7)
-  XX(4) = XX(4)-JVS(18)*XX(7)-JVS(29)*XX(9)
-  XX(3) = XX(3)-JVS(17)*XX(7)
+  XX(2) = X(2)/JVS(2)
+  XX(3) = X(3)/JVS(4)
+  XX(4) = X(4)/JVS(5)
+  XX(5) = X(5)/JVS(8)
+  XX(6) = (X(6)-JVS(3)*XX(2)-JVS(9)*XX(5))/(JVS(11))
+  XX(7) = (X(7)-JVS(12)*XX(6))/(JVS(15))
+  XX(8) = (X(8)-JVS(6)*XX(4)-JVS(10)*XX(5)-JVS(13)*XX(6)-JVS(16)*XX(7))/(JVS(20))
+  XX(8) = XX(8)
+  XX(7) = XX(7)-JVS(19)*XX(8)
+  XX(6) = XX(6)-JVS(14)*XX(7)-JVS(18)*XX(8)
+  XX(5) = XX(5)-JVS(17)*XX(8)
+  XX(4) = XX(4)-JVS(7)*XX(5)
+  XX(3) = XX(3)
   XX(2) = XX(2)
   XX(1) = XX(1)
       

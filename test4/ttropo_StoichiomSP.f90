@@ -13,8 +13,8 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_StoichiomSP.f90
-! Time                 : Tue Nov 29 09:15:36 2016
-! Working directory    : /home/tomas/ezkpp/test4
+! Time                 : Tue Nov 29 13:15:32 2016
+! Working directory    : /home/tomaschor/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
 ! 
@@ -32,16 +32,14 @@ MODULE ttropo_StoichiomSP
 ! Row-compressed sparse data for the Jacobian of reaction products JVRP
 
   INTEGER, PARAMETER, DIMENSION(14) :: CROW_JVRP = (/ &
-       1,  2,  3,  5,  6,  7,  8,  9, 11, 13, 15, 16, &
-      18, 19 /)
+       1,  2,  3,  5,  6,  7,  8,  9,  9, 10, 11, 11, &
+      12, 13 /)
 
-  INTEGER, PARAMETER, DIMENSION(18) :: ICOL_JVRP = (/ &
-       6, 11,  8, 10, 10, 10,  5,  5,  4,  7,  8,  9, &
-       7, 11,  9,  9, 10,  3 /)
+  INTEGER, PARAMETER, DIMENSION(12) :: ICOL_JVRP = (/ &
+       5,  6,  7,  8,  8,  8,  4,  4,  7,  6,  8,  1 /)
 
-  INTEGER, PARAMETER, DIMENSION(18) :: IROW_JVRP = (/ &
-       1,  2,  3,  3,  4,  5,  6,  7,  8,  8,  9,  9, &
-      10, 10, 11, 12, 12, 13 /)
+  INTEGER, PARAMETER, DIMENSION(12) :: IROW_JVRP = (/ &
+       1,  2,  3,  3,  4,  5,  6,  7,  9, 10, 12, 13 /)
 
 
 
@@ -49,27 +47,23 @@ MODULE ttropo_StoichiomSP
 
 
   INTEGER, PARAMETER, DIMENSION(14) :: CCOL_STOICM = (/ &
-       1,  3,  6,  9, 11, 13, 15, 17, 21, 25, 28, 30, &
-      33, 35 /)
+       1,  3,  6,  9, 11, 13, 15, 16, 17, 19, 21, 22, &
+      23, 24 /)
 
-  INTEGER, PARAMETER, DIMENSION(34) :: IROW_STOICM = (/ &
-       6, 10,  6,  8, 11,  8, 10, 11,  6, 10,  5, 10, &
-       5,  6,  5,  7,  2,  4,  7,  9,  7,  8,  9, 11, &
-       1,  7, 11,  3,  9,  7,  9, 10,  3,  7 /)
+  INTEGER, PARAMETER, DIMENSION(23) :: IROW_STOICM = (/ &
+       5,  8,  5,  6,  7,  6,  7,  8,  5,  8,  4,  8, &
+       4,  5,  4,  3,  6,  7,  2,  6,  1,  8,  1 /)
 
-  INTEGER, PARAMETER, DIMENSION(34) :: ICOL_STOICM = (/ &
+  INTEGER, PARAMETER, DIMENSION(23) :: ICOL_STOICM = (/ &
        1,  1,  2,  2,  2,  3,  3,  3,  4,  4,  5,  5, &
-       6,  6,  7,  7,  8,  8,  8,  8,  9,  9,  9,  9, &
-      10, 10, 10, 11, 11, 12, 12, 12, 13, 13 /)
+       6,  6,  7,  8,  9,  9, 10, 10, 11, 12, 13 /)
 
-  REAL(kind=dp), PARAMETER, DIMENSION(34) :: STOICM = (/ &
-       -1.000000e+00_dp,  1.000000e+00_dp,  1.000000e+00_dp,  1.000000e+00_dp,  -1.000000e+00_dp, &
-       -1.000000e+00_dp,  -1.000000e+00_dp,  1.000000e+00_dp,  1.000000e+00_dp,  -1.000000e+00_dp, &
+  REAL(kind=dp), PARAMETER, DIMENSION(23) :: STOICM = (/ &
+       -1.000000e+00_dp,  1.000000e+00_dp,  1.000000e+00_dp,  -1.000000e+00_dp,  1.000000e+00_dp, &
        1.000000e+00_dp,  -1.000000e+00_dp,  -1.000000e+00_dp,  1.000000e+00_dp,  -1.000000e+00_dp, &
-       2.000000e+00_dp,  1.000000e+00_dp,  -1.000000e+00_dp,  -1.000000e+00_dp,  1.000000e+00_dp, &
-       1.000000e+00_dp,  -1.000000e+00_dp,  -1.000000e+00_dp,  1.000000e+00_dp,  1.000000e+00_dp, &
-       -1.000000e+00_dp,  -1.000000e+00_dp,  1.000000e+00_dp,  -2.000000e+00_dp,  1.000000e+00_dp, &
-       -1.000000e+00_dp,  -1.000000e+00_dp,  -1.000000e+00_dp,  2.000000e+00_dp /)
+       1.000000e+00_dp,  -1.000000e+00_dp,  -1.000000e+00_dp,  1.000000e+00_dp,  -1.000000e+00_dp, &
+       1.000000e+00_dp,  1.000000e+00_dp,  -1.000000e+00_dp,  1.000000e+00_dp,  -1.000000e+00_dp, &
+       1.000000e+00_dp,  -1.000000e+00_dp,  -1.000000e+00_dp /)
 
 
 END MODULE ttropo_StoichiomSP

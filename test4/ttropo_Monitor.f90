@@ -13,8 +13,8 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_Monitor.f90
-! Time                 : Tue Nov 29 09:15:36 2016
-! Working directory    : /home/tomas/ezkpp/test4
+! Time                 : Tue Nov 29 13:15:32 2016
+! Working directory    : /home/tomaschor/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
 ! 
@@ -26,17 +26,17 @@ MODULE ttropo_Monitor
 
 
   CHARACTER(LEN=15), PARAMETER, DIMENSION(14) :: SPC_NAMES = (/ &
-     'HNO3           ','CO2            ','H2O2           ', &
-     'CO             ','O1D            ','O              ', &
-     'OH             ','NO             ','HO2            ', &
-     'O3             ','NO2            ','M              ', &
-     'O2             ','H2O            ' /)
+     'H2O2           ','HNO3           ','CO2            ', &
+     'O1D            ','O              ','NO2            ', &
+     'NO             ','O3             ','M              ', &
+     'O2             ','H2O            ','CO             ', &
+     'OH             ','HO2            ' /)
 
-  INTEGER, PARAMETER, DIMENSION(6) :: LOOKAT = (/ &
-       1,  7,  8,  9, 10, 11 /)
+  INTEGER, PARAMETER, DIMENSION(4) :: LOOKAT = (/ &
+       6,  7,  8, 12 /)
 
   INTEGER, PARAMETER, DIMENSION(5) :: MONITOR = (/ &
-       5,  6,  8, 10, 11 /)
+       4,  5,  6,  7,  8 /)
 
   CHARACTER(LEN=15), PARAMETER, DIMENSION(1) :: SMASS = (/ &
      'N              ' /)
@@ -50,10 +50,10 @@ MODULE ttropo_Monitor
      '  O1D + M --> O + M                                                                                 ', &
      'O1D + H2O --> 2 OH                                                                                  ', &
      '  CO + OH --> CO2 + HO2                                                                             ', &
-     ' NO + HO2 --> OH + NO2                                                                              ', &
-     ' OH + NO2 --> HNO3                                                                                  ', &
+     ' NO + HO2 --> NO2 + OH                                                                              ', &
+     ' NO2 + OH --> HNO3                                                                                  ', &
      '    2 HO2 --> H2O2                                                                                  ', &
-     ' HO2 + O3 --> OH + 2 O2                                                                             ', &
+     ' O3 + HO2 --> 2 O2 + OH                                                                             ', &
      '     H2O2 --> 2 OH                                                                                  ' /)
 
 ! INLINED global variables

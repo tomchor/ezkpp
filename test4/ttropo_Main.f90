@@ -13,8 +13,8 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_Main.f90
-! Time                 : Tue Nov 29 09:15:36 2016
-! Working directory    : /home/tomas/ezkpp/test4
+! Time                 : Tue Nov 29 13:15:32 2016
+! Working directory    : /home/tomaschor/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
 ! 

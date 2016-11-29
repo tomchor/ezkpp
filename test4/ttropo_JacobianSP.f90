@@ -13,8 +13,8 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_JacobianSP.f90
-! Time                 : Tue Nov 29 09:15:36 2016
-! Working directory    : /home/tomas/ezkpp/test4
+! Time                 : Tue Nov 29 13:15:32 2016
+! Working directory    : /home/tomaschor/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
 ! 
@@ -31,23 +31,19 @@ MODULE ttropo_JacobianSP
 ! Sparse Jacobian Data
 
 
-  INTEGER, PARAMETER, DIMENSION(44) :: LU_IROW = (/ &
-       1,  1,  1,  2,  2,  2,  3,  3,  4,  4,  5,  5, &
-       6,  6,  6,  6,  7,  7,  7,  7,  7,  7,  7,  7, &
-       8,  8,  8,  8,  9,  9,  9,  9,  9,  9, 10, 10, &
-      10, 10, 10, 11, 11, 11, 11, 11 /)
+  INTEGER, PARAMETER, DIMENSION(20) :: LU_IROW = (/ &
+       1,  2,  2,  3,  4,  4,  5,  5,  5,  5,  6,  6, &
+       6,  7,  7,  7,  8,  8,  8,  8 /)
 
-  INTEGER, PARAMETER, DIMENSION(44) :: LU_ICOL = (/ &
-       1,  7, 11,  2,  4,  7,  3,  9,  4,  7,  5, 10, &
-       5,  6, 10, 11,  3,  4,  5,  7,  8,  9, 10, 11, &
-       8,  9, 10, 11,  4,  7,  8,  9, 10, 11,  6,  8, &
-       9, 10, 11,  7,  8,  9, 10, 11 /)
+  INTEGER, PARAMETER, DIMENSION(20) :: LU_ICOL = (/ &
+       1,  2,  6,  3,  4,  8,  4,  5,  6,  8,  6,  7, &
+       8,  6,  7,  8,  5,  6,  7,  8 /)
 
-  INTEGER, PARAMETER, DIMENSION(12) :: LU_CROW = (/ &
-       1,  4,  7,  9, 11, 13, 17, 25, 29, 35, 40, 45 /)
+  INTEGER, PARAMETER, DIMENSION(9) :: LU_CROW = (/ &
+       1,  2,  4,  5,  7, 11, 14, 17, 21 /)
 
-  INTEGER, PARAMETER, DIMENSION(12) :: LU_DIAG = (/ &
-       1,  4,  7,  9, 11, 14, 20, 25, 32, 38, 44, 45 /)
+  INTEGER, PARAMETER, DIMENSION(9) :: LU_DIAG = (/ &
+       1,  2,  4,  5,  8, 11, 15, 20, 21 /)
 
 
 END MODULE ttropo_JacobianSP
