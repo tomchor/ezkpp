@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_Monitor.f90
-! Time                 : Tue Nov 29 15:38:54 2016
+! Time                 : Wed Nov 30 11:03:15 2016
 ! Working directory    : /home/tomaschor/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
@@ -36,8 +36,8 @@ MODULE ttropo_Monitor
   INTEGER, PARAMETER, DIMENSION(7) :: LOOKAT = (/ &
        4,  6,  9, 10, 11, 12, 13 /)
 
-  INTEGER, PARAMETER, DIMENSION(5) :: MONITOR = (/ &
-       7,  8, 11, 12, 13 /)
+  INTEGER, PARAMETER, DIMENSION(2) :: MONITOR = (/ &
+       6, 13 /)
 
   CHARACTER(LEN=15), PARAMETER, DIMENSION(1) :: SMASS = (/ &
      'N              ' /)

@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_Parameters.f90
-! Time                 : Tue Nov 29 15:38:54 2016
+! Time                 : Wed Nov 30 11:03:15 2016
 ! Working directory    : /home/tomaschor/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
@@ -56,7 +56,7 @@ MODULE ttropo_Parameters
 ! NLOOKAT - Number of species to look at
   INTEGER, PARAMETER :: NLOOKAT = 7 
 ! NMONITOR - Number of species to monitor
-  INTEGER, PARAMETER :: NMONITOR = 5 
+  INTEGER, PARAMETER :: NMONITOR = 2 
 ! NMASS - Number of atoms to check mass balance
   INTEGER, PARAMETER :: NMASS = 1 
 
