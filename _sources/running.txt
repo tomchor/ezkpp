@@ -218,10 +218,11 @@ it is also writing them into a file called ``small_strato.dat``, which is a
 column-separated text file. This file can be used to see, plot, make
 calculations with the data and so on. However, you should be careful because
 the order of the concentrations that appear on screen isn't the same order KPP
-uses for the ``.dat`` file. You can check the correct order (and learn how to
-change it) at page 7 of the KPP manual. You can also figure out what the first
-line of the file looks like, since it should match the initial conditions you
-set.
+uses for the ``.dat`` file. You can learn about the ordering at page 7 of the
+KPP manual, but a good rule of thumb is to check the file with a ``.map``
+extension (in this case, ``small_strato.map``) and take a look at the
+``species`` section. The file output order is the ordering of the variable
+species followed by the species  on the fixed species. 
 
 In the case of ``small_strato`` the order printed on the file is 
 

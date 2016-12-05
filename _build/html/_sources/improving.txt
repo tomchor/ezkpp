@@ -206,16 +206,6 @@ open it you'll find the following lines::
  <R9>  NO2  + O  = NO  + O2      : (1.069E-11);
  <R10> NO2  + hv = NO  + O       : (1.289E-02) * SUN;
 
-.. note::
-
- This process of running KPP, then change the Makefile, then compiling, etc.,
- is pretty cumbersome and straightforward. So we included a file called
- ``updatenrun.sh`` in the directory ``test3`` that can be found in the `github
- repo <https://github.com/tomchor/ezkpp/tree/gh-pages/test3>`_. This is a bash
- script that does these steps automatically. To run it, you enter ``sh
- updatenrun.sh modelname``. In this case, for example it is ``sh updatenrun.sh
- strato3``.
-
 
 Just for the sake of learning, let us change the photolysis rate (last
 reaction) to make it a lot slower. We will make the last line read::
@@ -241,6 +231,16 @@ file of course):
 .. figure:: test3/test3_time.png
    :align: center
    :scale: 80 %
+
+.. note::
+
+ This process of running KPP, then change the Makefile, then compiling, etc.,
+ is pretty cumbersome and straightforward. So we included a file called
+ ``updatenrun.sh`` in the directory ``test3`` that can be found in the `github
+ repo <https://github.com/tomchor/ezkpp/tree/gh-pages/test3>`_. This is a bash
+ script that does these steps automatically. To run it, you enter ``sh
+ updatenrun.sh modelname``. In this case, for example it is ``sh updatenrun.sh
+ strato3``.
 
 We can see that once again the final result changed. This time, since NO2 is
 photolizing a lot slower, we see less NO in comparison with the previous plot.
