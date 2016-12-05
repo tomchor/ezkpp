@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : my_strato_Parameters.f90
-! Time                 : Mon Nov 28 17:30:39 2016
+! Time                 : Mon Dec  5 09:01:37 2016
 ! Working directory    : /home/tomas/ezkpp/test2
 ! Equation file        : my_strato.kpp
 ! Output root filename : my_strato

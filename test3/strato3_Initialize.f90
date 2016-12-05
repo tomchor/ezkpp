@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : strato3_Initialize.f90
-! Time                 : Mon Nov 28 17:45:59 2016
+! Time                 : Mon Dec  5 09:26:40 2016
 ! Working directory    : /home/tomas/ezkpp/test3
 ! Equation file        : strato3.kpp
 ! Output root filename : strato3

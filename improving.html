@@ -76,10 +76,18 @@ ultimately defines the <code class="docutils literal"><span class="pre">my_strat
 do is to modify the time length of the simulation. In order to preserve the
 original <code class="docutils literal"><span class="pre">small_strato.def</span></code> we&#8217;ll copy it and call it <code class="docutils literal"><span class="pre">my_strato.def</span></code>, this
 way we can do any modification on <code class="docutils literal"><span class="pre">my_strato</span></code> and the original
-<code class="docutils literal"><span class="pre">small_strato</span></code> will be safe. You can copy the file in the <code class="docutils literal"><span class="pre">models</span></code>
-directory by issuing the following command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>cp $KPP_HOME/models/small_strato.def $KPP_HOME/models/my_strato.def
+<code class="docutils literal"><span class="pre">small_strato</span></code> will be safe. You can copy the file from the <code class="docutils literal"><span class="pre">models</span></code>
+directory into our working directory (<code class="docutils literal"><span class="pre">test2</span></code>) by issuing the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>cp $KPP_HOME/models/small_strato.def my_strato.def
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When we run KPP from any directory (say, <code class="docutils literal"><span class="pre">test2</span></code>), KPP will first look for
+the files in the current directory and then in its home directory. So can
+either put our model files in our KPP &#8220;models&#8221; directory or in our current
+directory. In this guide we&#8217;ll always prefer to keep the model we create/modify
+in the current directory.</p>
 </div>
 <p>Now you should open the file we just created (for example with <code class="docutils literal"><span class="pre">notepad++</span></code>)
 and find the lines that look like</p>
@@ -174,9 +182,12 @@ contents:</p>
 </pre></div>
 </div>
 <p>This file tells KPP to look for the <code class="docutils literal"><span class="pre">strato3.def</span></code> file in its <code class="docutils literal"><span class="pre">models</span></code>
-directory. So let us create this file by copying the <code class="docutils literal"><span class="pre">my_strato.def</span></code> file.
-You can do that with <code class="docutils literal"><span class="pre">cp</span> <span class="pre">$KPP_HOME/models/my_strato.def</span> <span class="pre">$KPP_HOME/models/strato3.def</span></code>.
-Open the file (<code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">$KPP_HOME/models/strato3.def</span></code>) and find the first two lines
+directory. So let us create this file by copying the <code class="docutils literal"><span class="pre">small_strato.def</span></code> file
+to our current working directory. You can do that with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>cp $KPP_HOME/models/small_strato.def strato3.def
+</pre></div>
+</div>
+<p>Open the file (<code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">strato3.def</span></code>) and find the first two lines
 which originally read</p>
 <div class="code highlight-default"><div class="highlight"><pre><span></span><span class="c1">#include small_strato.spc</span>
 <span class="c1">#include small_strato.eqn</span>
@@ -189,11 +200,15 @@ should modify these lines to the following:</p>
 <span class="c1">#include strato3.eqn</span>
 </pre></div>
 </div>
+<p>Also, you should do same modification we did in the last example. That is to change the
+length of the run from 3 to 30 days by modifying the line that reads <code class="docutils literal"><span class="pre">TEND</span> <span class="pre">=</span>
+<span class="pre">TSTART</span> <span class="pre">+</span> <span class="pre">(3*24*3600)</span></code> to make it read <code class="docutils literal"><span class="pre">TEND</span> <span class="pre">=</span> <span class="pre">TSTART</span> <span class="pre">+</span> <span class="pre">(30*24*3600)</span></code>, and to change
+the line that reads <code class="docutils literal"><span class="pre">#LOOKATALL</span></code> to <code class="docutils literal"><span class="pre">#LOOKAT</span> <span class="pre">O3;</span> <span class="pre">NO;</span> <span class="pre">NO2;</span></code>.</p>
 <p>If you try to run KPP now you&#8217;ll again get an error because those
 files still don&#8217;t exist. Let&#8217;s create them by copying the original <code class="docutils literal"><span class="pre">small_strato</span></code>
 files, which can the following commands:</p>
-<div class="code bash highlight-default"><div class="highlight"><pre><span></span>cp $KPP_HOME/models/small_strato.spc $KPP_HOME/models/strato3.spc
-cp $KPP_HOME/models/small_strato.eqn $KPP_HOME/models/strato3.eqn
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span>cp $KPP_HOME/models/small_strato.spc strato3.spc
+cp $KPP_HOME/models/small_strato.eqn strato3.eqn
 </pre></div>
 </div>
 <p>If you check the <code class="docutils literal"><span class="pre">strato3.spc</span></code> file you&#8217;ll see that it only the definitions
@@ -213,6 +228,16 @@ open it you&#8217;ll find the following lines:</p>
 <span class="o">&lt;</span><span class="n">R9</span><span class="o">&gt;</span>  <span class="n">NO2</span>  <span class="o">+</span> <span class="n">O</span>  <span class="o">=</span> <span class="n">NO</span>  <span class="o">+</span> <span class="n">O2</span>      <span class="p">:</span> <span class="p">(</span><span class="mf">1.069E-11</span><span class="p">);</span>
 <span class="o">&lt;</span><span class="n">R10</span><span class="o">&gt;</span> <span class="n">NO2</span>  <span class="o">+</span> <span class="n">hv</span> <span class="o">=</span> <span class="n">NO</span>  <span class="o">+</span> <span class="n">O</span>       <span class="p">:</span> <span class="p">(</span><span class="mf">1.289E-02</span><span class="p">)</span> <span class="o">*</span> <span class="n">SUN</span><span class="p">;</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This process of running KPP, then change the Makefile, then compiling, etc.,
+is pretty cumbersome and straightforward. So we included a file called
+<code class="docutils literal"><span class="pre">updatenrun.sh</span></code> in the directory <code class="docutils literal"><span class="pre">test3</span></code> that can be found in the <a class="reference external" href="https://github.com/tomchor/ezkpp/tree/gh-pages/test3">github
+repo</a>. This is a bash
+script that does these steps automatically. To run it, you enter <code class="docutils literal"><span class="pre">sh</span>
+<span class="pre">updatenrun.sh</span> <span class="pre">modelname</span></code>. In this case, for example it is <code class="docutils literal"><span class="pre">sh</span> <span class="pre">updatenrun.sh</span>
+<span class="pre">strato3</span></code>.</p>
 </div>
 <p>Just for the sake of learning, let us change the photolysis rate (last
 reaction) to make it a lot slower. We will make the last line read:</p>
@@ -428,7 +453,7 @@ following lines inside that file:</p>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, Tomas Chor.
-      Last updated on 2016-11-28.
+      Last updated on 2016-12-05.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
     </div>
   </body>

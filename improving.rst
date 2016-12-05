@@ -31,10 +31,18 @@ Let us define our model based on ``small_strato``, since for now all we want to
 do is to modify the time length of the simulation. In order to preserve the
 original ``small_strato.def`` we'll copy it and call it ``my_strato.def``, this
 way we can do any modification on ``my_strato`` and the original
-``small_strato`` will be safe. You can copy the file in the ``models``
-directory by issuing the following command::
+``small_strato`` will be safe. You can copy the file from the ``models``
+directory into our working directory (``test2``) by issuing the following command::
 
- cp $KPP_HOME/models/small_strato.def $KPP_HOME/models/my_strato.def
+ cp $KPP_HOME/models/small_strato.def my_strato.def
+
+.. note::
+
+ When we run KPP from any directory (say, ``test2``), KPP will first look for
+ the files in the current directory and then in its home directory. So can
+ either put our model files in our KPP "models" directory or in our current
+ directory. In this guide we'll always prefer to keep the model we create/modify
+ in the current directory.
 
 Now you should open the file we just created (for example with ``notepad++``)
 and find the lines that look like
@@ -145,9 +153,12 @@ contents:
    :literal:
 
 This file tells KPP to look for the ``strato3.def`` file in its ``models``
-directory. So let us create this file by copying the ``my_strato.def`` file.
-You can do that with ``cp $KPP_HOME/models/my_strato.def $KPP_HOME/models/strato3.def``.
-Open the file (``notepad++ $KPP_HOME/models/strato3.def``) and find the first two lines
+directory. So let us create this file by copying the ``small_strato.def`` file
+to our current working directory. You can do that with::
+
+ cp $KPP_HOME/models/small_strato.def strato3.def
+
+Open the file (``notepad++ strato3.def``) and find the first two lines
 which originally read
 
 .. code::
@@ -162,14 +173,20 @@ should modify these lines to the following::
  #include strato3.spc
  #include strato3.eqn
 
+Also, you should do same modification we did in the last example. That is to change the
+length of the run from 3 to 30 days by modifying the line that reads ``TEND =
+TSTART + (3*24*3600)`` to make it read ``TEND = TSTART + (30*24*3600)``, and to change
+the line that reads ``#LOOKATALL`` to ``#LOOKAT O3; NO; NO2;``.
+
+
 If you try to run KPP now you'll again get an error because those
 files still don't exist. Let's create them by copying the original ``small_strato``
 files, which can the following commands:
 
 .. code:: bash
 
- cp $KPP_HOME/models/small_strato.spc $KPP_HOME/models/strato3.spc
- cp $KPP_HOME/models/small_strato.eqn $KPP_HOME/models/strato3.eqn
+ cp $KPP_HOME/models/small_strato.spc strato3.spc
+ cp $KPP_HOME/models/small_strato.eqn strato3.eqn
 
 If you check the ``strato3.spc`` file you'll see that it only the definitions
 of the species used, which wouldn't make much sense to change for now, so we
@@ -188,6 +205,17 @@ open it you'll find the following lines::
  <R8>  NO   + O3 = NO2 + O2      : (6.062E-15);
  <R9>  NO2  + O  = NO  + O2      : (1.069E-11);
  <R10> NO2  + hv = NO  + O       : (1.289E-02) * SUN;
+
+.. note::
+
+ This process of running KPP, then change the Makefile, then compiling, etc.,
+ is pretty cumbersome and straightforward. So we included a file called
+ ``updatenrun.sh`` in the directory ``test3`` that can be found in the `github
+ repo <https://github.com/tomchor/ezkpp/tree/gh-pages/test3>`_. This is a bash
+ script that does these steps automatically. To run it, you enter ``sh
+ updatenrun.sh modelname``. In this case, for example it is ``sh updatenrun.sh
+ strato3``.
+
 
 Just for the sake of learning, let us change the photolysis rate (last
 reaction) to make it a lot slower. We will make the last line read::

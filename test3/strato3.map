@@ -12,11 +12,11 @@
 !        M. Damian, Villanova University, USA
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
-! File                 : my_strato.map
-! Time                 : Mon Dec  5 09:01:37 2016
-! Working directory    : /home/tomas/ezkpp/test2
-! Equation file        : my_strato.kpp
-! Output root filename : my_strato
+! File                 : strato3.map
+! Time                 : Mon Dec  5 09:26:40 2016
+! Working directory    : /home/tomas/ezkpp/test3
+! Equation file        : strato3.kpp
+! Output root filename : strato3
 ! 
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
