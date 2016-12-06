@@ -253,116 +253,46 @@ Creating a model from scratch
 -----------------------------
 
 Now we do our last step and create a completely new model with our own
-reactions.  Basically for our new model to be complete we should give it the
+reactions. Basically for our new model to be complete we should give it the
 initial conditions, numerical constraints, species and reactions list. Let us
 start with the latter: the reactions.
 
 We will try to simulate a very small tropospheric model, which we will call
 ``ttropo`` (meaning tiny tropospheric; let's write it like that just because
-it's easier). First we create an equations (reactions) file in KPP's ``models``
-directory. We do that with ``notepad++ $KPP_HOME/models/ttropo.eqn`` (or
-``gedit $KPP_HOME/models/ttropo.eqn`` or whatever editor you choose). Now in
-that file we will put our reactions following the syntax that we saw in the
-previous example. The reactions we choose are::
-
- #EQUATIONS { Tiny Tropospheric Mechanism }
-
- <R1>  NO2  + hv  = NO  + O       : (8.3E-03) * SUN;
- <R2>  O    + O2  = O3            : (8.018E-17);
- <R3>  NO   + O3  = NO2 + O2      : (6.062E-15);
- <R41> O3   + hv  = O   + O2      : (6.120E-04) * SUN;
- <R42> O3   + hv  = O1D + O2      : (1.070E-03) * SUN*SUN;
- <R5>  O1D  + M   = O   + M       : (7.110E-11);
- <R6>  O1D + H2O  = 2OH           : (2.2E-10);
- <R7>  CO+ OH+ M  = CO2 + H + M   : (2.2E-13);
- <R8>  H + O2 + M = HO2 + M       : ();
- <R9>  HO2  + NO  = OH  + NO2     : (8.3E-12);
- <R10> OH  + NO2  = HNO3          : (1.1E-11);
- <R11> HO2 + HO2  = H2O2          : (5.6E-12);
- <R12> O3  + HO2  = OH + 2O2      : (2.0E-15);
- <R13> H2O2 + hv  = 2OH           : (1.366E-5) * SUN;
- <R14> H2O2       = H2O2aq        : (3.3000e-01);
- <R15> HNO3       = HNO3aq        : (2.4000e-01);
-
-
-.. warning::
-
- COMPLETE THIS
-
-Now we create the species file which bla bla bla::
-
- #include atoms
-
- #DEFVAR
- O   = O;            { Oxygen atomic ground state }
- O1D = O;            { Oxygen atomic excited state }
- O3  = O + O + O;    { Ozone }
- NO  = N + O;        { Nitric oxide }
- NO2 = N + O + O;    { Nitrogen dioxide }
- HNO3 = H + N + O+O+O;
- H2O2 = H+H + O+O;
- OH   = O + H;
- CO   = C + O;
- CO2  = C + O;
- HO2  = H + O + O;
- H2O2aq = IGNORE;
- HNO3aq = IGNORE;
-
- #DEFFIX
- M   = O + O + N + N;{ Atmospheric generic molecule }
- O2  = O + O;        { Molecular oxygen }
- H2O = H + H + O;    { Water }
-
-
-
-After these are create, we create the ``.def`` with ``notepad++ $KPP_HOME/models/ttropo.def``.
-In that file you will write the following lines::
-
- #include ttropo.spc
- #include ttropo.eqn
-
- #JACOBIAN SPARSE_LU_ROW      {Use Sparse DATA STRUCTURES}
- #DRIVER general
-
- #LOOKAT O3; NO; NO2;           {File Output}
- #MONITOR O3;N;O2;O;NO;O1D;NO2; {Screen Output}
-
- #CHECK O; N;                   {Check Mass Balance}
-
- #INITVALUES                    {Initial Values}
-
- CFACTOR = 1.    ;              {Conversion Factor} 
- O1D = 9.906E+01 ; 
- O   = 6.624E+08 ; 
- O3  = 5.00E+10 ; 
- O2  = 1.697E+19 ;
- NO  = 9.00E+09 ; 
- NO2 = 2.240E+08 ; 
- M   = 8.120E+16 ;
- H2O2   =;
- H2O2aq =;
- HNO3   =;
- HNO3aq =;
- HO2    =;
- OH     =;
- CO     = ;
- H2O    = 3.9E17 ;
- CO2    = ;
- 
-
- #INLINE F90_INIT
-        TSTART = (12*3600)
-        TEND = TSTART + (30*24*3600)
-        DT = 0.25*3600
-        TEMP = 270
- #ENDINLINE
-
-
-Now create a ``test4`` directory anywhere you want and go into it with ``mkdir
-test4 && cd test4``.  Now inside ``test4`` you should create the ``.kpp`` file
-with ``notepad++ ttropo.kpp`` (or, again, any other editor). Write the
-following lines inside that file:
+it's easier). First let's create a new directory for our test with ``mkdir
+ttropo`` and move to that new directory with ``cd ttropo``. Now we create the
+main KPP file with ``notepad++ ttropo.kpp`` and put the following lines in it:
 
 .. include:: test4/ttropo.kpp
    :literal:
+
+Now we create an equations (reactions) file for KPP to use in our directory.
+We do that with ``notepad++ ttropo.eqn`` (or ``ttropo.eqn`` or whatever editor
+you choose). Now in that file we will put our reactions following the syntax
+that we saw in the previous example. We choose a simplified set of tropospheric
+reactions that can be writen as:
+
+.. include:: test4/ttropo.eqn
+   :literal:
+
+.. note::
+
+ Again, some of these reaction constants might not be exactly accurate for
+ tropospheric conditions, so please double-check if you plan on using them for
+ professional means, since the objective here is to only present this as an
+ example.
+
+Now we create the species file in which we define only ``M``, ``H2O`` and
+``O2`` as fixed quantities:
+
+.. include:: test4/ttropo.spc
+   :literal:
+
+After these are create, we create the ``.def`` with ``notepad++ $KPP_HOME/models/ttropo.def``.
+In that file you will write the following lines:
+
+.. include:: test4/ttropo.def
+   :literal:
+
+With these files we have the complete ``ttropo`` model.
 
