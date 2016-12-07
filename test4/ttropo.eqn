@@ -2,8 +2,8 @@
 <R2>  O    + O2  = O3            : (8.018E-17);
 <R1>  NO2  + hv  = NO  + O       : (1.289E-02) * SUN;
 <R3>  NO   + O3  = NO2 + O2      : (6.062E-15);
-<R41> O3   + hv  = O   + O2      : (5.500E-04) * SUN; {page 129}
-<R42> O3   + hv  = O1D + O2      : (6.000E-05) * SUN*SUN; {page 129}
+<R41> O3   + hv  = O   + O2      : (5.500E-04) * SUN;
+<R42> O3   + hv  = O1D + O2      : (6.000E-05) * SUN*SUN;
 <R5>  O1D  + M   = O   + M       : (7.110E-11);
 <R6>  O1D + H2O  = 2OH           : (2.2E-10);
 <R7>  CO   + OH  = CO2 + HO2     : (2.2E-13);

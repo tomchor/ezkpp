@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_Monitor.f90
-! Time                 : Tue Dec  6 17:05:02 2016
+! Time                 : Tue Dec  6 22:11:34 2016
 ! Working directory    : /home/tomas/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
@@ -28,17 +28,17 @@ MODULE ttropo_Monitor
   CHARACTER(LEN=15), PARAMETER, DIMENSION(16) :: SPC_NAMES = (/ &
      'CO2            ','H2O2aq         ','HNO3aq         ', &
      'HNO3           ','H2O2           ','CO             ', &
-     'O              ','O1D            ','OH             ', &
-     'HO2            ','O3             ','M              ', &
-     'O2             ','H2O            ','NO             ', &
-     'NO2            ' /)
+     'O1D            ','O              ','OH             ', &
+     'HO2            ','NO2            ','NO             ', &
+     'O3             ','M              ','O2             ', &
+     'H2O            ' /)
 
   INTEGER, PARAMETER, DIMENSION(16) :: LOOKAT = (/ &
        1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, &
       13, 14, 15, 16 /)
 
   INTEGER, PARAMETER, DIMENSION(5) :: MONITOR = (/ &
-       7,  8, 11, 15, 16 /)
+       7,  8, 11, 12, 13 /)
 
   CHARACTER(LEN=15), PARAMETER, DIMENSION(1) :: SMASS = (/ &
      'N              ' /)
@@ -46,7 +46,7 @@ MODULE ttropo_Monitor
   CHARACTER(LEN=100), PARAMETER, DIMENSION(15) :: EQN_NAMES = (/ &
      '   O + O2 --> O3                                                                                    ', &
      '      NO2 --> O + NO                                                                                ', &
-     '  O3 + NO --> O2 + NO2                                                                              ', &
+     '  NO + O3 --> NO2 + O2                                                                              ', &
      '       O3 --> O + O2                                                                                ', &
      '       O3 --> O1D + O2                                                                              ', &
      '  O1D + M --> O + M                                                                                 ', &

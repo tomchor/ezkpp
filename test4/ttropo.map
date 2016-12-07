@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo.map
-! Time                 : Tue Dec  6 17:05:02 2016
+! Time                 : Tue Dec  6 22:11:34 2016
 ! Working directory    : /home/tomas/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
@@ -34,29 +34,30 @@ REORDER  - ON
 ! NSPEC - Number of chemical species
   INTEGER, PARAMETER :: NSPEC = 16 
 ! NVAR - Number of Variable species
-  INTEGER, PARAMETER :: NVAR = 11 
+  INTEGER, PARAMETER :: NVAR = 13 
 ! NVARACT - Number of Active species
-  INTEGER, PARAMETER :: NVARACT = 8 
+  INTEGER, PARAMETER :: NVARACT = 10 
 ! NFIX - Number of Fixed species
-  INTEGER, PARAMETER :: NFIX = 5 
+  INTEGER, PARAMETER :: NFIX = 3 
 ! NREACT - Number of reactions
   INTEGER, PARAMETER :: NREACT = 15 
 ! NVARST - Starting of variables in conc. vect.
   INTEGER, PARAMETER :: NVARST = 1 
 ! NFIXST - Starting of fixed in conc. vect.
-  INTEGER, PARAMETER :: NFIXST = 12 
+  INTEGER, PARAMETER :: NFIXST = 14 
 
 ### Species -------------------------------------------
 
 Variable species
-  1 = CO2 (n)     5 = H2O2 (r)    9 = OH (r)    
-  2 = H2O2aq (n)  6 = CO (r)     10 = HO2 (r)   
-  3 = HNO3aq (n)  7 = O (r)      11 = O3 (r)    
-  4 = HNO3 (r)    8 = O1D (r)   
+  1 = CO2 (n)     6 = CO (r)     11 = NO2 (r)   
+  2 = H2O2aq (n)  7 = O1D (r)    12 = NO (r)    
+  3 = HNO3aq (n)  8 = O (r)      13 = O3 (r)    
+  4 = HNO3 (r)    9 = OH (r)    
+  5 = H2O2 (r)   10 = HO2 (r)   
 
 Fixed species
-  1 = M (r)       3 = H2O (r)     5 = NO2 (r)   
-  2 = O2 (r)      4 = NO (r)    
+  1 = M (r)       3 = H2O (r)   
+  2 = O2 (r)    
 
 ### Subroutines ---------------------------------------
 

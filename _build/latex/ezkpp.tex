@@ -32,7 +32,7 @@
 
 
 \title{An easy guide for KPP}
-\date{Nov 28, 2016}
+\date{Dec 06, 2016}
 \release{1.0}
 \author{Tomas Chor}
 \newcommand{\sphinxlogo}{\sphinxincludegraphics{wheat_field.jpg}\par}
@@ -784,12 +784,14 @@ it is also writing them into a file called \sphinxcode{small\_strato.dat}, which
 column-separated text file. This file can be used to see, plot, make
 calculations with the data and so on. However, you should be careful because
 the order of the concentrations that appear on screen isn't the same order KPP
-uses for the \sphinxcode{.dat} file. You can check the correct order (and learn how to
-change it) at page 7 of the KPP manual. You can also figure out what the first
-line of the file looks like, since it should match the initial conditions you
-set.
+uses for the \sphinxcode{.dat} file. You can learn about the ordering at page 7 of the
+KPP manual, but a good rule of thumb is to check the file with a \sphinxcode{.map}
+extension (in this case, \sphinxcode{small\_strato.map}) and take a look at the
+\sphinxcode{species} section. The file output order is the ordering of the variable
+species followed by the species on the fixed species.
 
-In the case of \sphinxcode{small\_strato} the order printed on the file is
+In the case of \sphinxcode{small\_strato} the order printed on the file (you can check it on
+\sphinxcode{small\_strato.map}) is
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{n}{time}\PYG{p}{,} \PYG{n}{O1D}\PYG{p}{,} \PYG{n}{O}\PYG{p}{,} \PYG{n}{O3}\PYG{p}{,} \PYG{n}{NO}\PYG{p}{,} \PYG{n}{NO2}\PYG{p}{,} \PYG{n}{M}\PYG{p}{,} \PYG{n}{O2}
@@ -877,15 +879,23 @@ Let us define our model based on \sphinxcode{small\_strato}, since for now all w
 do is to modify the time length of the simulation. In order to preserve the
 original \sphinxcode{small\_strato.def} we'll copy it and call it \sphinxcode{my\_strato.def}, this
 way we can do any modification on \sphinxcode{my\_strato} and the original
-\sphinxcode{small\_strato} will be safe. You can copy the file in the \sphinxcode{models}
-directory by issuing the following command:
+\sphinxcode{small\_strato} will be safe. You can copy the file from the \sphinxcode{models}
+directory into our working directory (\sphinxcode{test2}) by issuing the following command:
 
 \begin{Verbatim}[commandchars=\\\{\}]
-cp \PYGZdl{}KPP\PYGZus{}HOME/models/small\PYGZus{}strato.def \PYGZdl{}KPP\PYGZus{}HOME/models/my\PYGZus{}strato.def
+cp \PYGZdl{}KPP\PYGZus{}HOME/models/small\PYGZus{}strato.def my\PYGZus{}strato.def
 \end{Verbatim}
 
+\begin{notice}{note}{Note:}
+When we run KPP from any directory (say, \sphinxcode{test2}), KPP will first look for
+the files in the current directory and then in its home directory. So can
+either put our model files in our KPP ``models'' directory or in our current
+directory. In this guide we'll always prefer to keep the model we create/modify
+in the current directory.
+\end{notice}
+
 Now you should open the file we just created (for example with \sphinxcode{notepad++})
-and find the lines that look like
+and find the lines that look like:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{}INLINE F90\PYGZus{}INIT}
@@ -925,21 +935,22 @@ The plot of the results is
 \noindent\scalebox{0.800000}{\sphinxincludegraphics{{test2_time}.png}}
 \label{improving:test2-time}\end{figure}
 
-Now we can see that the solution stabilizes after roughly 200 hours! This was a
-minor change in the model. Let us now change some other things and see how the
-model reacts.
+Now we can see that the solution reaches equilibrium after roughly 200 hours.
+This, however, was only a minor change in the model. Let us now learn how to
+change some other parameters and examine how the model reacts.
 
 
 \section{Change in the initial conditions}
 \label{improving:change-in-the-initial-conditions}
-We can use the same model as before (\sphinxcode{my\_strato}). Let's open the \sphinxcode{.def} file
-with located at \sphinxcode{\$KPP\_HOME/models/my\_strato.def} and consider an atmosphere with
-more NO (simulating a polluted condition). Where it says \sphinxcode{NO  = 8.725E+08 ;}, we make it
-read \sphinxcode{NO  = 9.00E+09}, which is roughly a 10 times increase in the NO concentration. Let us
-also change the O3 initial condition and make the O3 line read \sphinxcode{O3  = 5.00E+10 ;}, simulating
-an atmosphere that has a lower initial O3 concentration.
+We try this next change in the same model as before (\sphinxcode{my\_strato}). Let's open
+the \sphinxcode{.def} file located at \sphinxcode{\$KPP\_HOME/models/my\_strato.def} and consider an
+atmosphere with more NO (simulating a polluted condition). Where it says \sphinxcode{NO =
+8.725E+08;}, we make it read \sphinxcode{NO  = 9.00E+09}, which is roughly a 10 times
+increase in the NO concentration. Let us also change the O3 initial condition
+and make the O3 line read \sphinxcode{O3  = 5.00E+10;}, simulating an atmosphere that
+has a lower initial O3 concentration.
 
-Let us also change the line that reads
+Let us also change the line that reads:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{}LOOKATALL          \PYGZob{}File Output\PYGZcb{}}
@@ -952,12 +963,23 @@ We will make it read
 \end{Verbatim}
 
 This latter change makes the program write only time, O3, NO and NO2 into the
-output file, in that order. This simplifies the reading process and saves
-space, since we are assuming that we're not interested in the other species.
+output file. This simplifies the reading process and saves space, but by doing
+that we are assuming that we're not interested in the other species.
 
-We again go through the same steps: run it with \sphinxcode{kpp my\_strato.kpp}, change the compiler
-to gfortran, compile if with \sphinxcode{make -f Makefile\_my\_strato} and run it with \sphinxcode{./my\_strato.exe}.
-This time, since the output file changed, we have to change the code to read it correctly:
+\begin{notice}{note}{Note:}
+This will change the order of the output in the file. But again, checking the
+\sphinxcode{.map} will give you the correct order. This time you'll have to consider
+only the species you specified to be on the output, so, e.g., in this case the
+order in the \sphinxcode{.map} file is: 1 = O1D, 2 = O, 3 = O3, 4 = NO, 5 = NO2. But since we are writing
+only O3, NO and NO2, our output file will have the order (time,) O3, NO, NO2
+(which are numbers 3, 4, 5, respectively).  This will have to be done every
+time the \sphinxcode{\#LOOKAT} parameter is used.
+\end{notice}
+
+We again go through the same steps: run it with \sphinxcode{kpp my\_strato.kpp}, change
+the compiler to gfortran, compile if with \sphinxcode{make -f Makefile\_my\_strato} and
+run it with \sphinxcode{./my\_strato.exe}.  This time, since the output file changed, we
+have to change the code to read it correctly:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k}{as} \PYG{n+nn}{pd}
@@ -986,12 +1008,12 @@ fundamental aspects of the model: the reaction rates.
 \section{Modifying the reactions}
 \label{improving:modifying-the-reactions}
 Now we will alter the reaction rates of some reactions in the model. Keep in
-mind that these alterations do not are not realistic. They are simply done here
-for the sake of learning how the model works.
+mind that these alterations are not meant to be realistic. They are simply done
+here for the sake of learning how the model works.
 
-Begin again by creating a \sphinxcode{test3} directory anywhere and going into it (\sphinxcode{mkdir test3
-\&\& cd test3}). In this directory, create a file called \sphinxcode{strato3.kpp} with the following
-contents:
+Begin again by creating a \sphinxcode{test3} directory anywhere and going into it
+(\sphinxcode{mkdir test3 \&\& cd test3}). In this directory, create a file called
+\sphinxcode{strato3.kpp} with the following contents:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{}MODEL      strato3}
@@ -1000,10 +1022,15 @@ contents:
 \PYG{c+c1}{\PYGZsh{}DRIVER     general}
 \end{Verbatim}
 
-This file tells KPP to look for the \sphinxcode{strato3.def} file in its \sphinxcode{models}
-directory. So let us create this file by copying the \sphinxcode{my\_strato.def} file.
-You can do that with \sphinxcode{cp \$KPP\_HOME/models/my\_strato.def \$KPP\_HOME/models/strato3.def}.
-Open the file (\sphinxcode{notepad++ \$KPP\_HOME/models/strato3.def}) and find the first two lines
+This file tells KPP to look for the \sphinxcode{strato3.def} file. So let us create this
+file by again copying the \sphinxcode{small\_strato.def} file to our current working directory.
+You can do that with:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+cp \PYGZdl{}KPP\PYGZus{}HOME/models/small\PYGZus{}strato.def strato3.def
+\end{Verbatim}
+
+Open the file (\sphinxcode{notepad++ strato3.def}) and find the first two lines
 which originally read
 
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -1020,19 +1047,28 @@ should modify these lines to the following:
 \PYG{c+c1}{\PYGZsh{}include strato3.eqn}
 \end{Verbatim}
 
+Also, you should do same modification we did in the last example. That is to change the
+length of the run from 3 to 30 days by modifying the line that reads \sphinxcode{TEND =
+TSTART + (3*24*3600)} to make it read \sphinxcode{TEND = TSTART + (30*24*3600)}, and to change
+the line that reads \sphinxcode{\#LOOKATALL} to \sphinxcode{\#LOOKAT O3; NO; NO2;}.
+
 If you try to run KPP now you'll again get an error because those
 files still don't exist. Let's create them by copying the original \sphinxcode{small\_strato}
-files, which can the following commands:
+files, which can be done with the following commands:
 
 \begin{Verbatim}[commandchars=\\\{\}]
-cp \PYGZdl{}KPP\PYGZus{}HOME/models/small\PYGZus{}strato.spc \PYGZdl{}KPP\PYGZus{}HOME/models/strato3.spc
-cp \PYGZdl{}KPP\PYGZus{}HOME/models/small\PYGZus{}strato.eqn \PYGZdl{}KPP\PYGZus{}HOME/models/strato3.eqn
+cp \PYGZdl{}KPP\PYGZus{}HOME/models/small\PYGZus{}strato.spc strato3.spc
+cp \PYGZdl{}KPP\PYGZus{}HOME/models/small\PYGZus{}strato.eqn strato3.eqn
 \end{Verbatim}
 
+Now if you try running KPP it should work. But this is still not what we want;
+this is just the \sphinxcode{small\_strato} mechanism with another name, so let us move to
+the actual changes.
+
 If you check the \sphinxcode{strato3.spc} file you'll see that it only the definitions
-of the species used, which wouldn't make much sense to change for now, so we
-will leave it how it is. Now we focus on the \sphinxcode{strato3.eqn} file. If you
-open it you'll find the following lines:
+of the species used, which wouldn't make much sense to change for now since
+we'll be using the same species, so we will leave it how it is. Now we focus on
+the \sphinxcode{strato3.eqn} file. If you open it you'll find the following lines:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{}EQUATIONS \PYGZob{} Small Stratospheric Mechanism \PYGZcb{}}
@@ -1057,8 +1093,8 @@ reaction) to make it a lot slower. We will make the last line read:
 \end{Verbatim}
 
 \begin{notice}{note}{Note:}
-This is 4 orders of magnitude slower than it previously was and is probably
-not realistic! We only made this change for the sake of illustration, so that
+This is 4 orders of magnitude slower than it previously was and it may not be
+realistic! We only make this change for the sake of illustration, so that
 the output change is easier to see.
 \end{notice}
 
@@ -1074,81 +1110,113 @@ file of course):
 \noindent\scalebox{0.800000}{\sphinxincludegraphics{{test3_time}.png}}
 \label{improving:test3-time}\end{figure}
 
+\begin{notice}{note}{Note:}
+This process of running KPP, then change the Makefile, then compiling, etc.,
+is pretty cumbersome and straightforward. So we included a file called
+\sphinxcode{updatenrun.sh} in the directory \sphinxcode{test3} that can be found in the \href{https://github.com/tomchor/ezkpp/tree/gh-pages/test3}{github
+repo}. This is a bash
+script that does these steps automatically. To run it, you enter \sphinxcode{sh
+updatenrun.sh modelname}. In this case, for example it is \sphinxcode{sh updatenrun.sh
+strato3}.
+\end{notice}
+
 We can see that once again the final result changed. This time, since NO2 is
 photolizing a lot slower, we see less NO in comparison with the previous plot.
+We encourage you to try different reaction rates and initial conditions and see
+what is the result in the model. With the \sphinxcode{updatenrun.sh} script (check the
+note above) it should be easy!
 
-Now that we have modified the \sphinxcode{small\_strato} example in (almost) every way
-possible, let us create a new model from scratch.
+Now that we have modified the \sphinxcode{small\_strato} example in several ways, let
+take it a step further and create a new model from scratch.
 
 
 \section{Creating a model from scratch}
 \label{improving:creating-a-model-from-scratch}
-Now we do our last step and create a completely new model with our own
-reactions.  Basically for our new model to be complete we should give it the
+Now we do one more step and create a completely new model with our own
+set of reactions. Basically for our new model to be complete we should give it the
 initial conditions, numerical constraints, species and reactions list. Let us
-start with the latter: the reactions.
+start with the KPP file and move on from there.
 
 We will try to simulate a very small tropospheric model, which we will call
 \sphinxcode{ttropo} (meaning tiny tropospheric; let's write it like that just because
-it's easier). First we create an equations (reactions) file in KPP's \sphinxcode{models}
-directory. We do that with \sphinxcode{notepad++ \$KPP\_HOME/models/ttropo.eqn} (or
-\sphinxcode{gedit \$KPP\_HOME/models/ttropo.eqn} or whatever editor you choose). Now in
-that file we will put our reactions following the syntax that we saw in the
-previous example. The reactions we choose are:
+it's easier). First let's create a new directory for our test with \sphinxcode{mkdir
+ttropo} and move to that new directory with \sphinxcode{cd ttropo}. Now we create the
+main KPP file with \sphinxcode{notepad++ ttropo.kpp} and put the following lines in it:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}MODEL      ttropo}
+\PYG{c+c1}{\PYGZsh{}LANGUAGE   Fortran90}
+\PYG{c+c1}{\PYGZsh{}INTEGRATOR rosenbrock}
+\PYG{c+c1}{\PYGZsh{}DRIVER     general}
+\end{Verbatim}
+
+Which means tells KPP to look for the \sphinxcode{ttropo.def} file. If you run KPP now
+it will finish with an error because it won't find it. But we will create that
+later. Let us first define our mechanism, i.e., our chemical reactions.
+
+We create the \sphinxcode{ttropo.eqn} file (e.g. with \sphinxcode{notepad++ ttropo.eqn}). Now we
+will put our reactions in that file, following the syntax that we saw in the
+previous example. We choose a simplified set of tropospheric reactions that can
+be writen as:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{}EQUATIONS \PYGZob{} Tiny Tropospheric Mechanism \PYGZcb{}}
-
-\PYG{o}{\PYGZlt{}}\PYG{n}{R1}\PYG{o}{\PYGZgt{}}  \PYG{n}{NO2}  \PYG{o}{+} \PYG{n}{hv}  \PYG{o}{=} \PYG{n}{NO}  \PYG{o}{+} \PYG{n}{O}       \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{8.3E\PYGZhy{}03}\PYG{p}{)} \PYG{o}{*} \PYG{n}{SUN}\PYG{p}{;}
 \PYG{o}{\PYGZlt{}}\PYG{n}{R2}\PYG{o}{\PYGZgt{}}  \PYG{n}{O}    \PYG{o}{+} \PYG{n}{O2}  \PYG{o}{=} \PYG{n}{O3}            \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{8.018E\PYGZhy{}17}\PYG{p}{)}\PYG{p}{;}
+\PYG{o}{\PYGZlt{}}\PYG{n}{R1}\PYG{o}{\PYGZgt{}}  \PYG{n}{NO2}  \PYG{o}{+} \PYG{n}{hv}  \PYG{o}{=} \PYG{n}{NO}  \PYG{o}{+} \PYG{n}{O}       \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{1.289E\PYGZhy{}02}\PYG{p}{)} \PYG{o}{*} \PYG{n}{SUN}\PYG{p}{;}
 \PYG{o}{\PYGZlt{}}\PYG{n}{R3}\PYG{o}{\PYGZgt{}}  \PYG{n}{NO}   \PYG{o}{+} \PYG{n}{O3}  \PYG{o}{=} \PYG{n}{NO2} \PYG{o}{+} \PYG{n}{O2}      \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{6.062E\PYGZhy{}15}\PYG{p}{)}\PYG{p}{;}
-\PYG{o}{\PYGZlt{}}\PYG{n}{R41}\PYG{o}{\PYGZgt{}} \PYG{n}{O3}   \PYG{o}{+} \PYG{n}{hv}  \PYG{o}{=} \PYG{n}{O}   \PYG{o}{+} \PYG{n}{O2}      \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{6.120E\PYGZhy{}04}\PYG{p}{)} \PYG{o}{*} \PYG{n}{SUN}\PYG{p}{;}
-\PYG{o}{\PYGZlt{}}\PYG{n}{R42}\PYG{o}{\PYGZgt{}} \PYG{n}{O3}   \PYG{o}{+} \PYG{n}{hv}  \PYG{o}{=} \PYG{n}{O1D} \PYG{o}{+} \PYG{n}{O2}      \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{1.070E\PYGZhy{}03}\PYG{p}{)} \PYG{o}{*} \PYG{n}{SUN}\PYG{o}{*}\PYG{n}{SUN}\PYG{p}{;}
+\PYG{o}{\PYGZlt{}}\PYG{n}{R41}\PYG{o}{\PYGZgt{}} \PYG{n}{O3}   \PYG{o}{+} \PYG{n}{hv}  \PYG{o}{=} \PYG{n}{O}   \PYG{o}{+} \PYG{n}{O2}      \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{5.500E\PYGZhy{}04}\PYG{p}{)} \PYG{o}{*} \PYG{n}{SUN}\PYG{p}{;}
+\PYG{o}{\PYGZlt{}}\PYG{n}{R42}\PYG{o}{\PYGZgt{}} \PYG{n}{O3}   \PYG{o}{+} \PYG{n}{hv}  \PYG{o}{=} \PYG{n}{O1D} \PYG{o}{+} \PYG{n}{O2}      \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{6.000E\PYGZhy{}05}\PYG{p}{)} \PYG{o}{*} \PYG{n}{SUN}\PYG{o}{*}\PYG{n}{SUN}\PYG{p}{;}
 \PYG{o}{\PYGZlt{}}\PYG{n}{R5}\PYG{o}{\PYGZgt{}}  \PYG{n}{O1D}  \PYG{o}{+} \PYG{n}{M}   \PYG{o}{=} \PYG{n}{O}   \PYG{o}{+} \PYG{n}{M}       \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{7.110E\PYGZhy{}11}\PYG{p}{)}\PYG{p}{;}
 \PYG{o}{\PYGZlt{}}\PYG{n}{R6}\PYG{o}{\PYGZgt{}}  \PYG{n}{O1D} \PYG{o}{+} \PYG{n}{H2O}  \PYG{o}{=} \PYG{l+m+mi}{2}\PYG{n}{OH}           \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{2.2E\PYGZhy{}10}\PYG{p}{)}\PYG{p}{;}
-\PYG{o}{\PYGZlt{}}\PYG{n}{R7}\PYG{o}{\PYGZgt{}}  \PYG{n}{CO}\PYG{o}{+} \PYG{n}{OH}\PYG{o}{+} \PYG{n}{M}  \PYG{o}{=} \PYG{n}{CO2} \PYG{o}{+} \PYG{n}{H} \PYG{o}{+} \PYG{n}{M}   \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{2.2E\PYGZhy{}13}\PYG{p}{)}\PYG{p}{;}
-\PYG{o}{\PYGZlt{}}\PYG{n}{R8}\PYG{o}{\PYGZgt{}}  \PYG{n}{H} \PYG{o}{+} \PYG{n}{O2} \PYG{o}{+} \PYG{n}{M} \PYG{o}{=} \PYG{n}{HO2} \PYG{o}{+} \PYG{n}{M}       \PYG{p}{:} \PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\PYG{o}{\PYGZlt{}}\PYG{n}{R7}\PYG{o}{\PYGZgt{}}  \PYG{n}{CO}   \PYG{o}{+} \PYG{n}{OH}  \PYG{o}{=} \PYG{n}{CO2} \PYG{o}{+} \PYG{n}{HO2}     \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{2.2E\PYGZhy{}13}\PYG{p}{)}\PYG{p}{;}
 \PYG{o}{\PYGZlt{}}\PYG{n}{R9}\PYG{o}{\PYGZgt{}}  \PYG{n}{HO2}  \PYG{o}{+} \PYG{n}{NO}  \PYG{o}{=} \PYG{n}{OH}  \PYG{o}{+} \PYG{n}{NO2}     \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{8.3E\PYGZhy{}12}\PYG{p}{)}\PYG{p}{;}
 \PYG{o}{\PYGZlt{}}\PYG{n}{R10}\PYG{o}{\PYGZgt{}} \PYG{n}{OH}  \PYG{o}{+} \PYG{n}{NO2}  \PYG{o}{=} \PYG{n}{HNO3}          \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{1.1E\PYGZhy{}11}\PYG{p}{)}\PYG{p}{;}
 \PYG{o}{\PYGZlt{}}\PYG{n}{R11}\PYG{o}{\PYGZgt{}} \PYG{n}{HO2} \PYG{o}{+} \PYG{n}{HO2}  \PYG{o}{=} \PYG{n}{H2O2}          \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{5.6E\PYGZhy{}12}\PYG{p}{)}\PYG{p}{;}
 \PYG{o}{\PYGZlt{}}\PYG{n}{R12}\PYG{o}{\PYGZgt{}} \PYG{n}{O3}  \PYG{o}{+} \PYG{n}{HO2}  \PYG{o}{=} \PYG{n}{OH} \PYG{o}{+} \PYG{l+m+mi}{2}\PYG{n}{O2}      \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{2.0E\PYGZhy{}15}\PYG{p}{)}\PYG{p}{;}
 \PYG{o}{\PYGZlt{}}\PYG{n}{R13}\PYG{o}{\PYGZgt{}} \PYG{n}{H2O2} \PYG{o}{+} \PYG{n}{hv}  \PYG{o}{=} \PYG{l+m+mi}{2}\PYG{n}{OH}           \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{1.366E\PYGZhy{}5}\PYG{p}{)} \PYG{o}{*} \PYG{n}{SUN}\PYG{p}{;}
-\PYG{o}{\PYGZlt{}}\PYG{n}{R14}\PYG{o}{\PYGZgt{}} \PYG{n}{H2O2}       \PYG{o}{=} \PYG{n}{H2O2aq}        \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{3.3000e\PYGZhy{}01}\PYG{p}{)}\PYG{p}{;}
-\PYG{o}{\PYGZlt{}}\PYG{n}{R15}\PYG{o}{\PYGZgt{}} \PYG{n}{HNO3}       \PYG{o}{=} \PYG{n}{HNO3aq}        \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{2.4000e\PYGZhy{}01}\PYG{p}{)}\PYG{p}{;}
+\PYG{o}{\PYGZlt{}}\PYG{n}{R14}\PYG{o}{\PYGZgt{}} \PYG{n}{H2O2}       \PYG{o}{=} \PYG{n}{H2O2aq}        \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{3.3000e\PYGZhy{}03}\PYG{p}{)}\PYG{p}{;}
+\PYG{o}{\PYGZlt{}}\PYG{n}{R15}\PYG{o}{\PYGZgt{}} \PYG{n}{HNO3}       \PYG{o}{=} \PYG{n}{HNO3aq}        \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{2.4000e\PYGZhy{}03}\PYG{p}{)}\PYG{p}{;}
 \end{Verbatim}
 
-\begin{notice}{warning}{Warning:}
-COMPLETE THIS
+So copy and paste those lines into the \sphinxcode{ttropo.eqn}, save and exit.
+
+\begin{notice}{note}{Note:}
+Again, some of these reaction constants might not be exactly accurate for
+tropospheric conditions, so please double-check if you plan on using them for
+professional means, since the objective here is to only present this as an
+example.
 \end{notice}
 
-Now we create the species file which bla bla bla:
+Now we create the species file in which we define only \sphinxcode{M}, \sphinxcode{H2O} and
+\sphinxcode{O2} as fixed quantities and the other ones as variables:
+\begin{alltt}
+\#include atoms
 
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{\PYGZsh{}include atoms}
+\#DEFVAR
+O   = O;            \{ Oxygen atomic ground state \}      
+O1D = O;            \{ Oxygen atomic excited state \}
+O3  = O + O + O;    \{ Ozone \}
+NO2 = N + O + O;    \{ Nitrogen dioxide \}
+NO  = N + O;        \{ Nitric oxide \}         
+HNO3 = H + N + O+O+O;
+H2O2 = H+H + O+O;
+CO2  = C + O + O;
+CO   = C + O;
+OH   = O + H;
+HO2  = H + O + O;
+H2O2aq = IGNORE;
+HNO3aq = IGNORE;
 
-\PYG{c+c1}{\PYGZsh{}DEFVAR}
-\PYG{n}{O}   \PYG{o}{=} \PYG{n}{O}\PYG{p}{;}            \PYG{p}{\PYGZob{}} \PYG{n}{Oxygen} \PYG{n}{atomic} \PYG{n}{ground} \PYG{n}{state} \PYG{p}{\PYGZcb{}}
-\PYG{n}{O1D} \PYG{o}{=} \PYG{n}{O}\PYG{p}{;}            \PYG{p}{\PYGZob{}} \PYG{n}{Oxygen} \PYG{n}{atomic} \PYG{n}{excited} \PYG{n}{state} \PYG{p}{\PYGZcb{}}
-\PYG{n}{O3}  \PYG{o}{=} \PYG{n}{O} \PYG{o}{+} \PYG{n}{O} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}    \PYG{p}{\PYGZob{}} \PYG{n}{Ozone} \PYG{p}{\PYGZcb{}}
-\PYG{n}{NO}  \PYG{o}{=} \PYG{n}{N} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}        \PYG{p}{\PYGZob{}} \PYG{n}{Nitric} \PYG{n}{oxide} \PYG{p}{\PYGZcb{}}
-\PYG{n}{NO2} \PYG{o}{=} \PYG{n}{N} \PYG{o}{+} \PYG{n}{O} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}    \PYG{p}{\PYGZob{}} \PYG{n}{Nitrogen} \PYG{n}{dioxide} \PYG{p}{\PYGZcb{}}
-\PYG{n}{HNO3} \PYG{o}{=} \PYG{n}{H} \PYG{o}{+} \PYG{n}{N} \PYG{o}{+} \PYG{n}{O}\PYG{o}{+}\PYG{n}{O}\PYG{o}{+}\PYG{n}{O}\PYG{p}{;}
-\PYG{n}{H2O2} \PYG{o}{=} \PYG{n}{H}\PYG{o}{+}\PYG{n}{H} \PYG{o}{+} \PYG{n}{O}\PYG{o}{+}\PYG{n}{O}\PYG{p}{;}
-\PYG{n}{OH}   \PYG{o}{=} \PYG{n}{O} \PYG{o}{+} \PYG{n}{H}\PYG{p}{;}
-\PYG{n}{CO}   \PYG{o}{=} \PYG{n}{C} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}
-\PYG{n}{CO2}  \PYG{o}{=} \PYG{n}{C} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}
-\PYG{n}{HO2}  \PYG{o}{=} \PYG{n}{H} \PYG{o}{+} \PYG{n}{O} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}
-\PYG{n}{H2O2aq} \PYG{o}{=} \PYG{n}{IGNORE}\PYG{p}{;}
-\PYG{n}{HNO3aq} \PYG{o}{=} \PYG{n}{IGNORE}\PYG{p}{;}
+\#DEFFIX
+M   = O + O + N + N;\{ Atmospheric generic molecule \}
+O2  = O + O;        \{ Molecular oxygen \}
+H2O = H + H + O;    \{ Water \}
 
-\PYG{c+c1}{\PYGZsh{}DEFFIX}
-\PYG{n}{M}   \PYG{o}{=} \PYG{n}{O} \PYG{o}{+} \PYG{n}{O} \PYG{o}{+} \PYG{n}{N} \PYG{o}{+} \PYG{n}{N}\PYG{p}{;}\PYG{p}{\PYGZob{}} \PYG{n}{Atmospheric} \PYG{n}{generic} \PYG{n}{molecule} \PYG{p}{\PYGZcb{}}
-\PYG{n}{O2}  \PYG{o}{=} \PYG{n}{O} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}        \PYG{p}{\PYGZob{}} \PYG{n}{Molecular} \PYG{n}{oxygen} \PYG{p}{\PYGZcb{}}
-\PYG{n}{H2O} \PYG{o}{=} \PYG{n}{H} \PYG{o}{+} \PYG{n}{H} \PYG{o}{+} \PYG{n}{O}\PYG{p}{;}    \PYG{p}{\PYGZob{}} \PYG{n}{Water} \PYG{p}{\PYGZcb{}}
-\end{Verbatim}
+\end{alltt}
 
-After these are create, we create the \sphinxcode{.def} with \sphinxcode{notepad++ \$KPP\_HOME/models/ttropo.def}.
-In that file you will write the following lines:
+Again, copy and paste those lines into \sphinxcode{ttropo.spc}, save, exit, and let's
+proceed to the \sphinxcode{.def} fle. Create \sphinxcode{ttropo.def} with \sphinxcode{notepad++
+ttropo.def}.  In that file you will write the following lines:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{}include ttropo.spc}
@@ -1156,50 +1224,72 @@ In that file you will write the following lines:
 
 \PYG{c+c1}{\PYGZsh{}JACOBIAN SPARSE\PYGZus{}LU\PYGZus{}ROW      \PYGZob{}Use Sparse DATA STRUCTURES\PYGZcb{}}
 \PYG{c+c1}{\PYGZsh{}DRIVER general}
+\PYG{c+c1}{\PYGZsh{}DOUBLE ON}
+\PYG{c+c1}{\PYGZsh{}STOICMAT ON}
 
-\PYG{c+c1}{\PYGZsh{}LOOKAT O3; NO; NO2;           \PYGZob{}File Output\PYGZcb{}}
-\PYG{c+c1}{\PYGZsh{}MONITOR O3;N;O2;O;NO;O1D;NO2; \PYGZob{}Screen Output\PYGZcb{}}
+\PYG{c+c1}{\PYGZsh{}LOOKATALL;                 \PYGZob{}File Output\PYGZcb{}\PYGZcb{}}
+\PYG{c+c1}{\PYGZsh{}MONITOR O3;N;O;NO;O1D;NO2; \PYGZob{}Screen Output\PYGZcb{}}
 
 \PYG{c+c1}{\PYGZsh{}CHECK O; N;                   \PYGZob{}Check Mass Balance\PYGZcb{}}
 
 \PYG{c+c1}{\PYGZsh{}INITVALUES                    \PYGZob{}Initial Values\PYGZcb{}}
-
 \PYG{n}{CFACTOR} \PYG{o}{=} \PYG{l+m+mf}{1.}    \PYG{p}{;}              \PYG{p}{\PYGZob{}}\PYG{n}{Conversion} \PYG{n}{Factor}\PYG{p}{\PYGZcb{}}
-\PYG{n}{O1D} \PYG{o}{=} \PYG{l+m+mf}{9.906E+01} \PYG{p}{;}
-\PYG{n}{O}   \PYG{o}{=} \PYG{l+m+mf}{6.624E+08} \PYG{p}{;}
-\PYG{n}{O3}  \PYG{o}{=} \PYG{l+m+mf}{5.00E+10} \PYG{p}{;}
-\PYG{n}{O2}  \PYG{o}{=} \PYG{l+m+mf}{1.697E+19} \PYG{p}{;}
+\PYG{n}{O3}  \PYG{o}{=} \PYG{l+m+mf}{0.} \PYG{p}{;} 
 \PYG{n}{NO}  \PYG{o}{=} \PYG{l+m+mf}{9.00E+09} \PYG{p}{;}
-\PYG{n}{NO2} \PYG{o}{=} \PYG{l+m+mf}{2.240E+08} \PYG{p}{;}
-\PYG{n}{M}   \PYG{o}{=} \PYG{l+m+mf}{8.120E+16} \PYG{p}{;}
-\PYG{n}{H2O2}   \PYG{o}{=}\PYG{p}{;}
-\PYG{n}{H2O2aq} \PYG{o}{=}\PYG{p}{;}
-\PYG{n}{HNO3}   \PYG{o}{=}\PYG{p}{;}
-\PYG{n}{HNO3aq} \PYG{o}{=}\PYG{p}{;}
-\PYG{n}{HO2}    \PYG{o}{=}\PYG{p}{;}
-\PYG{n}{OH}     \PYG{o}{=}\PYG{p}{;}
-\PYG{n}{CO}     \PYG{o}{=} \PYG{p}{;}
+\PYG{n}{NO2} \PYG{o}{=} \PYG{l+m+mf}{3.60E+10} \PYG{p}{;}
+\PYG{n}{O2}  \PYG{o}{=} \PYG{l+m+mf}{1.697E+19} \PYG{p}{;}
+\PYG{n}{M}   \PYG{o}{=} \PYG{l+m+mf}{2.550E+19} \PYG{p}{;}
 \PYG{n}{H2O}    \PYG{o}{=} \PYG{l+m+mf}{3.9E17} \PYG{p}{;}
-\PYG{n}{CO2}    \PYG{o}{=} \PYG{p}{;}
 
+\PYG{n}{OH}     \PYG{o}{=} \PYG{l+m+mf}{0.}\PYG{p}{;}
+\PYG{n}{HO2}    \PYG{o}{=} \PYG{l+m+mf}{0.}\PYG{p}{;}
+\PYG{n}{H2O2}   \PYG{o}{=} \PYG{l+m+mf}{0.}\PYG{p}{;}
+\PYG{n}{H2O2aq} \PYG{o}{=} \PYG{l+m+mf}{0.}\PYG{p}{;}
+\PYG{n}{HNO3}   \PYG{o}{=} \PYG{l+m+mf}{0.}\PYG{p}{;}
+\PYG{n}{HNO3aq} \PYG{o}{=} \PYG{l+m+mf}{0.}\PYG{p}{;}
+\PYG{n}{O1D} \PYG{o}{=} \PYG{l+m+mf}{0.} \PYG{p}{;}
+\PYG{n}{O}   \PYG{o}{=} \PYG{l+m+mf}{0.} \PYG{p}{;}
+\PYG{n}{CO}     \PYG{o}{=} \PYG{l+m+mf}{2.55E12}\PYG{p}{;} \PYG{p}{\PYGZob{}}\PYG{l+m+mi}{100} \PYG{n}{ppbv}\PYG{p}{\PYGZcb{}}
 
 \PYG{c+c1}{\PYGZsh{}INLINE F90\PYGZus{}INIT}
        \PYG{n}{TSTART} \PYG{o}{=} \PYG{p}{(}\PYG{l+m+mi}{12}\PYG{o}{*}\PYG{l+m+mi}{3600}\PYG{p}{)}
-       \PYG{n}{TEND} \PYG{o}{=} \PYG{n}{TSTART} \PYG{o}{+} \PYG{p}{(}\PYG{l+m+mi}{30}\PYG{o}{*}\PYG{l+m+mi}{24}\PYG{o}{*}\PYG{l+m+mi}{3600}\PYG{p}{)}
-       \PYG{n}{DT} \PYG{o}{=} \PYG{l+m+mf}{0.25}\PYG{o}{*}\PYG{l+m+mi}{3600}
+       \PYG{n}{TEND} \PYG{o}{=} \PYG{n}{TSTART} \PYG{o}{+} \PYG{p}{(}\PYG{l+m+mi}{15}\PYG{o}{*}\PYG{l+m+mi}{24}\PYG{o}{*}\PYG{l+m+mi}{3600}\PYG{p}{)}
+       \PYG{n}{DT} \PYG{o}{=} \PYG{l+m+mf}{0.2}\PYG{o}{*}\PYG{l+m+mi}{3600}
        \PYG{n}{TEMP} \PYG{o}{=} \PYG{l+m+mi}{270}
 \PYG{c+c1}{\PYGZsh{}ENDINLINE}
 \end{Verbatim}
 
-Now create a \sphinxcode{test4} directory anywhere you want and go into it with \sphinxcode{mkdir test4 \&\& cd test4}.
-Now inside \sphinxcode{test4} you should create the \sphinxcode{.kpp} file with \sphinxcode{notepad++ ttropo.kpp}
-(or, again, any other editor). Write the following lines inside that file:
+You can see that with this set of definitions we chose to run the model for 15
+days, with a timestep of 0.2 hours and that many of the initial concentrations
+are set to zero.
+
+With these files we have the complete \sphinxcode{ttropo} model and are ready to run it.
+We can use the \sphinxcode{updatenrun.sh} script as \sphinxcode{sh updatenrun.sh ttropo} (you'll
+have to copy it to the current directory with \sphinxcode{cp} first). It should run
+succesfully now.  Note that we again have to check out \sphinxcode{ttropo.map} to find
+out the order of the species in the output file. We can use the followig Python
+script to plot the results (the correct output order is already included in
+it):
 
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{\PYGZsh{}MODEL      ttropo}
-\PYG{c+c1}{\PYGZsh{}LANGUAGE   Fortran90}
-\PYG{c+c1}{\PYGZsh{}INTEGRATOR rosenbrock}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k}{as} \PYG{n+nn}{pd}
+\PYG{k+kn}{from} \PYG{n+nn}{matplotlib} \PYG{k}{import} \PYG{n}{pyplot} \PYG{k}{as} \PYG{n}{plt}
+
+\PYG{n}{concs} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ttropo.dat}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{index\PYGZus{}col}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{delim\PYGZus{}whitespace}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{header}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{)}\PYG{o}{.}\PYG{n}{apply}\PYG{p}{(}\PYG{n}{pd}\PYG{o}{.}\PYG{n}{to\PYGZus{}numeric}\PYG{p}{,} \PYG{n}{errors}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{coerce}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{concs}\PYG{o}{.}\PYG{n}{columns} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{CO2}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{H2O2aq}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HNO3aq}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HNO3}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{H2O2}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{CO}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{O1D}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{O}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{OH}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HO2}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{O3}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NO}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NO2}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{M}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{O2}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{H2O}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}
+\PYG{n}{concs}\PYG{o}{.}\PYG{n}{index}\PYG{o}{.}\PYG{n}{name} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Hours since noon}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{concs}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{ylim}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mf}{1.e4}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{]}\PYG{p}{,} \PYG{n}{logy}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{y}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{O3}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NO}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NO2}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{CO}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HNO3}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{OH}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{HO2}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,} \PYG{n}{grid}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{test4\PYGZus{}time.png}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{bbox\PYGZus{}inches}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{tight}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{(}\PYG{p}{)}
 \end{Verbatim}
+
+The output of this model can be seen in this figure:
+\phantomsection\label{improving:test4-time}\begin{figure}[htbp]
+\centering
+
+\noindent\scalebox{0.800000}{\sphinxincludegraphics{{test4_time}.png}}
+\label{improving:test4-time}\end{figure}
 
 
 

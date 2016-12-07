@@ -45,9 +45,7 @@ directory into our working directory (``test2``) by issuing the following comman
  in the current directory.
 
 Now you should open the file we just created (for example with ``notepad++``)
-and find the lines that look like
-
-.. code::
+and find the lines that look like::
 
  #INLINE F90_INIT
          TSTART = (12*3600)
@@ -86,23 +84,22 @@ The plot of the results is
    :align: center
    :scale: 80 %
 
-Now we can see that the solution stabilizes after roughly 200 hours! This was a
-minor change in the model. Let us now change some other things and see how the
-model reacts.
+Now we can see that the solution reaches equilibrium after roughly 200 hours.
+This, however, was only a minor change in the model. Let us now learn how to
+change some other parameters and examine how the model reacts.
 
 Change in the initial conditions
 --------------------------------
 
-We can use the same model as before (``my_strato``). Let's open the ``.def`` file
-with located at ``$KPP_HOME/models/my_strato.def`` and consider an atmosphere with
-more NO (simulating a polluted condition). Where it says ``NO  = 8.725E+08 ;``, we make it
-read ``NO  = 9.00E+09``, which is roughly a 10 times increase in the NO concentration. Let us
-also change the O3 initial condition and make the O3 line read ``O3  = 5.00E+10 ;``, simulating
-an atmosphere that has a lower initial O3 concentration.
+We try this next change in the same model as before (``my_strato``). Let's open
+the ``.def`` file located at ``$KPP_HOME/models/my_strato.def`` and consider an
+atmosphere with more NO (simulating a polluted condition). Where it says ``NO =
+8.725E+08;``, we make it read ``NO  = 9.00E+09``, which is roughly a 10 times
+increase in the NO concentration. Let us also change the O3 initial condition
+and make the O3 line read ``O3  = 5.00E+10;``, simulating an atmosphere that
+has a lower initial O3 concentration.
 
-Let us also change the line that reads 
-
-.. code::
+Let us also change the line that reads::
 
    #LOOKATALL          {File Output}
 
@@ -126,10 +123,10 @@ that we are assuming that we're not interested in the other species.
  (which are numbers 3, 4, 5, respectively).  This will have to be done every
  time the ``#LOOKAT`` parameter is used.
 
-
-We again go through the same steps: run it with ``kpp my_strato.kpp``, change the compiler
-to gfortran, compile if with ``make -f Makefile_my_strato`` and run it with ``./my_strato.exe``.
-This time, since the output file changed, we have to change the code to read it correctly:
+We again go through the same steps: run it with ``kpp my_strato.kpp``, change
+the compiler to gfortran, compile if with ``make -f Makefile_my_strato`` and
+run it with ``./my_strato.exe``.  This time, since the output file changed, we
+have to change the code to read it correctly:
 
 .. include:: test2/plot_test21.py
    :literal:
@@ -153,19 +150,19 @@ Modifying the reactions
 -----------------------
 
 Now we will alter the reaction rates of some reactions in the model. Keep in
-mind that these alterations do not are not realistic. They are simply done here
-for the sake of learning how the model works.
+mind that these alterations are not meant to be realistic. They are simply done
+here for the sake of learning how the model works.
 
-Begin again by creating a ``test3`` directory anywhere and going into it (``mkdir test3
-&& cd test3``). In this directory, create a file called ``strato3.kpp`` with the following
-contents:
+Begin again by creating a ``test3`` directory anywhere and going into it
+(``mkdir test3 && cd test3``). In this directory, create a file called
+``strato3.kpp`` with the following contents:
 
 .. include:: test3/strato3.kpp
    :literal:
 
-This file tells KPP to look for the ``strato3.def`` file in its ``models``
-directory. So let us create this file by copying the ``small_strato.def`` file
-to our current working directory. You can do that with::
+This file tells KPP to look for the ``strato3.def`` file. So let us create this
+file by again copying the ``small_strato.def`` file to our current working directory.
+You can do that with::
 
  cp $KPP_HOME/models/small_strato.def strato3.def
 
@@ -192,17 +189,21 @@ the line that reads ``#LOOKATALL`` to ``#LOOKAT O3; NO; NO2;``.
 
 If you try to run KPP now you'll again get an error because those
 files still don't exist. Let's create them by copying the original ``small_strato``
-files, which can the following commands:
+files, which can be done with the following commands:
 
 .. code:: bash
 
  cp $KPP_HOME/models/small_strato.spc strato3.spc
  cp $KPP_HOME/models/small_strato.eqn strato3.eqn
 
+Now if you try running KPP it should work. But this is still not what we want;
+this is just the ``small_strato`` mechanism with another name, so let us move to
+the actual changes.
+
 If you check the ``strato3.spc`` file you'll see that it only the definitions
-of the species used, which wouldn't make much sense to change for now, so we
-will leave it how it is. Now we focus on the ``strato3.eqn`` file. If you
-open it you'll find the following lines::
+of the species used, which wouldn't make much sense to change for now since
+we'll be using the same species, so we will leave it how it is. Now we focus on
+the ``strato3.eqn`` file. If you open it you'll find the following lines::
 
  #EQUATIONS { Small Stratospheric Mechanism }
 
@@ -225,8 +226,8 @@ reaction) to make it a lot slower. We will make the last line read::
 
 .. note::
 
- This is 4 orders of magnitude slower than it previously was and is probably
- not realistic! We only made this change for the sake of illustration, so that
+ This is 4 orders of magnitude slower than it previously was and it may not be
+ realistic! We only make this change for the sake of illustration, so that
  the output change is easier to see.
 
 Now we go through the same steps of running ``kpp strato3.kpp``, changing the
@@ -235,7 +236,6 @@ goes well, we'll see the ``strato3.exe`` created. After running
 ``./strato3.exe`` sure enough ``strato3.dat`` is created, which we can plot
 with the same python code from the last example (only changing the name of the
 file of course):
-
 
 .. _test3_time:
 
@@ -255,18 +255,21 @@ file of course):
 
 We can see that once again the final result changed. This time, since NO2 is
 photolizing a lot slower, we see less NO in comparison with the previous plot.
+We encourage you to try different reaction rates and initial conditions and see
+what is the result in the model. With the ``updatenrun.sh`` script (check the
+note above) it should be easy!
 
-Now that we have modified the ``small_strato`` example in (almost) every way
-possible, let us create a new model from scratch.
+Now that we have modified the ``small_strato`` example in several ways, let
+take it a step further and create a new model from scratch.
 
 
 Creating a model from scratch
 -----------------------------
 
-Now we do our last step and create a completely new model with our own
-reactions. Basically for our new model to be complete we should give it the
+Now we do one more step and create a completely new model with our own
+set of reactions. Basically for our new model to be complete we should give it the
 initial conditions, numerical constraints, species and reactions list. Let us
-start with the latter: the reactions.
+start with the KPP file and move on from there.
 
 We will try to simulate a very small tropospheric model, which we will call
 ``ttropo`` (meaning tiny tropospheric; let's write it like that just because
@@ -277,14 +280,19 @@ main KPP file with ``notepad++ ttropo.kpp`` and put the following lines in it:
 .. include:: test4/ttropo.kpp
    :literal:
 
-Now we create an equations (reactions) file for KPP to use in our directory.
-We do that with ``notepad++ ttropo.eqn`` (or ``ttropo.eqn`` or whatever editor
-you choose). Now in that file we will put our reactions following the syntax
-that we saw in the previous example. We choose a simplified set of tropospheric
-reactions that can be writen as:
+Which means tells KPP to look for the ``ttropo.def`` file. If you run KPP now
+it will finish with an error because it won't find it. But we will create that
+later. Let us first define our mechanism, i.e., our chemical reactions.
+
+We create the ``ttropo.eqn`` file (e.g. with ``notepad++ ttropo.eqn``). Now we
+will put our reactions in that file, following the syntax that we saw in the
+previous example. We choose a simplified set of tropospheric reactions that can
+be writen as:
 
 .. include:: test4/ttropo.eqn
    :literal:
+
+So copy and paste those lines into the ``ttropo.eqn``, save and exit.
 
 .. note::
 
@@ -293,17 +301,40 @@ reactions that can be writen as:
  professional means, since the objective here is to only present this as an
  example.
 
+
 Now we create the species file in which we define only ``M``, ``H2O`` and
-``O2`` as fixed quantities:
+``O2`` as fixed quantities and the other ones as variables:
 
 .. include:: test4/ttropo.spc
    :literal:
 
-After these are create, we create the ``.def`` with ``notepad++ $KPP_HOME/models/ttropo.def``.
-In that file you will write the following lines:
+Again, copy and paste those lines into ``ttropo.spc``, save, exit, and let's
+proceed to the ``.def`` fle. Create ``ttropo.def`` with ``notepad++
+ttropo.def``.  In that file you will write the following lines:
 
 .. include:: test4/ttropo.def
    :literal:
 
-With these files we have the complete ``ttropo`` model.
+You can see that with this set of definitions we chose to run the model for 15
+days, with a timestep of 0.2 hours and that many of the initial concentrations
+are set to zero.
+
+With these files we have the complete ``ttropo`` model and are ready to run it.
+We can use the ``updatenrun.sh`` script as ``sh updatenrun.sh ttropo`` (you'll
+have to copy it to the current directory with ``cp`` first). It should run
+succesfully now.  Note that we again have to check out ``ttropo.map`` to find
+out the order of the species in the output file. We can use the followig Python
+script to plot the results (the correct output order is already included in
+it):
+
+.. include:: test4/plot_ttropo.py
+   :literal:
+
+The output of this model can be seen in this figure:
+
+.. _test4_time:
+
+.. figure:: test4/test4_time.png
+   :align: center
+   :scale: 80 %
 
