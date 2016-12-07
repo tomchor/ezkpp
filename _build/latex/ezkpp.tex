@@ -171,14 +171,28 @@ arise when applying them to other system. If that is the case, feedback is
 encouraged, either by email, in person, or by creating a Github issue in our
 page.
 
-You can also contribute to this guide yourself. If you find the need to
-correct, improve or add something, feel free to download/fork the project on
-Github and modify it. We appreciate if the projects could then be merged back
-after that, but that is entirely up to you.
-
 This guide was primarily typed and uploaded by Tomas Chor, but has had
 substantial help from Prof. Suzanne Paulson and Dr. Paul Griffiths,
 particularly for chemistry-related issues.
+
+
+\section{Contributing}
+\label{README:contributing}
+You can also contribute to this guide yourself. If you find the need to
+correct, improve or add something, feel free to download/fork the project on
+Github and modify it. We appreciate if the projects could then be merged back
+after that, but that is entirely up to you. To contribute, you have to install
+and use \href{http://sphinx-doc.org/}{Sphinx}, which is a very handy and easy tool
+to build documentation.
+
+If you are not familiar with Sphinxs, you should probably read a tutorial (it's
+very easy!), but a quick way to start is to download the whole thing from
+Github, add some text to any file with a \sphinxcode{.rst} extension and run \sphinxcode{make
+html}. That will create a webpage like this one with your modifications that
+you can open in your browser (open the files with a \sphinxcode{.html} extension that
+were created). So you can just go from there and infer the syntax from what's
+already written. You can actually learn Sphinx by yourself by doing this and
+might not even need to read a tutorial.
 
 
 \chapter{About bash}
@@ -339,7 +353,7 @@ If you're using Bash on Windows it's better to go with the following
 alternative.
 
 However, if you're insecure with navigating your directories using your
-terminal, it's best to do everything via this second, more straightfoward,
+terminal, it's best to do everything via this second, more straightforward,
 option. It uses solely commands but it's easier. First, as soon as you open the
 terminal run the following commands
 
@@ -351,7 +365,7 @@ unzip kpp\PYGZhy{}2.2.3\PYGZus{}Nov.2012.zip
 
 Line one will automatically download the software to your current directory and
 line two will unpack it.  This will create a new directory with all the
-contants of the \sphinxcode{.zip} file, so the last command line will move to the
+contents of the \sphinxcode{.zip} file, so the last command line will move to the
 recently-created directory.
 
 Make sure you're in the correct directory by entering \sphinxcode{pwd}, which should show
@@ -403,7 +417,7 @@ while running KPP.
 
 \section{Telling your system where KPP is}
 \label{compiling:telling-your-system-where-kpp-is}
-Now that we have the dependecies installed, we need to make sure that your
+Now that we have the dependencies installed, we need to make sure that your
 computer knows where KPP is in your system. We do that by altering a file
 called \sphinxcode{.bashrc}. This file is a simple text file (so can you easily open and
 read it, as you'll see) with some very simple commands. Every time you start a
@@ -519,7 +533,7 @@ reason. Now you can save and close/exit the file.
 If we did everything correctly we can compile KPP simply by running the
 \sphinxcode{make} command. Many warnings are going to appear on the screen (that's
 normal), but as long as no error appears, the compilation will be successful.
-You can be sure it was successsful by once again running \sphinxcode{ls} and seeing that
+You can be sure it was successful by once again running \sphinxcode{ls} and seeing that
 there is now one extra entry on the KPP directory called \sphinxcode{bin}:
 
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -547,7 +561,7 @@ chances are that \sphinxcode{bin} is a binary executable file, while it should b
 directory containing the binary file. This should not happen, according to the
 manual, but for some reason it (very) often does. We need simply to rename that
 executable file and put it a directory called \sphinxcode{bin}. This can be done with
-the followinf command:
+the following command:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 mv bin kpp \PYG{o}{\PYGZam{}\PYGZam{}} mkdir bin \PYG{o}{\PYGZam{}\PYGZam{}} mv kpp bin
@@ -555,7 +569,6 @@ mv bin kpp \PYG{o}{\PYGZam{}\PYGZam{}} mkdir bin \PYG{o}{\PYGZam{}\PYGZam{}} mv 
 
 Try this command and then try \sphinxcode{kpp test} again. You should get the correct
 output this time, meaning that the system could find KPP successfully.
-g
 
 
 \chapter{Running KPP}
@@ -1157,7 +1170,7 @@ later. Let us first define our mechanism, i.e., our chemical reactions.
 We create the \sphinxcode{ttropo.eqn} file (e.g. with \sphinxcode{notepad++ ttropo.eqn}). Now we
 will put our reactions in that file, following the syntax that we saw in the
 previous example. We choose a simplified set of tropospheric reactions that can
-be writen as:
+be written as:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{}EQUATIONS \PYGZob{} Tiny Tropospheric Mechanism \PYGZcb{}}
@@ -1215,7 +1228,7 @@ H2O = H + H + O;    \{ Water \}
 \end{alltt}
 
 Again, copy and paste those lines into \sphinxcode{ttropo.spc}, save, exit, and let's
-proceed to the \sphinxcode{.def} fle. Create \sphinxcode{ttropo.def} with \sphinxcode{notepad++
+proceed to the \sphinxcode{.def} file. Create \sphinxcode{ttropo.def} with \sphinxcode{notepad++
 ttropo.def}.  In that file you will write the following lines:
 
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -1260,14 +1273,14 @@ ttropo.def}.  In that file you will write the following lines:
 \end{Verbatim}
 
 You can see that with this set of definitions we chose to run the model for 15
-days, with a timestep of 0.2 hours and that many of the initial concentrations
+days, with a time step of 0.2 hours and that many of the initial concentrations
 are set to zero.
 
 With these files we have the complete \sphinxcode{ttropo} model and are ready to run it.
 We can use the \sphinxcode{updatenrun.sh} script as \sphinxcode{sh updatenrun.sh ttropo} (you'll
 have to copy it to the current directory with \sphinxcode{cp} first). It should run
-succesfully now.  Note that we again have to check out \sphinxcode{ttropo.map} to find
-out the order of the species in the output file. We can use the followig Python
+successfully now.  Note that we again have to check out \sphinxcode{ttropo.map} to find
+out the order of the species in the output file. We can use the following Python
 script to plot the results (the correct output order is already included in
 it):
 
@@ -1290,6 +1303,32 @@ The output of this model can be seen in this figure:
 
 \noindent\scalebox{0.800000}{\sphinxincludegraphics{{test4_time}.png}}
 \label{improving:test4-time}\end{figure}
+
+
+\chapter{Possible bug fixes}
+\label{bugs:possible-bug-fixes}\label{bugs::doc}
+\begin{notice}{note}{Note:}
+This section is meant to become a list of common bugs that might arise
+along with a way to solve them.
+\end{notice}
+
+
+\section{Can't fine bashrc file}
+\label{bugs:can-t-fine-bashrc-file}
+If you could not find your \sphinxcode{.bashrc} file, it might mean that you either
+don't have one, or that it is located somewhere else. If you're using C shell,
+then you should be actually looking for \sphinxcode{.cshrc}. If that is indeed the case,
+replace \sphinxcode{bashrc} by \sphinxcode{cshrc} everywhere it appears. Furthermore, environment
+definitions are made slightly different in C shells. Instead of typing \sphinxcode{export
+KPP\_HOME=\$HOME/kpp} for example, you would have to type \sphinxcode{setenv KPP\_HOME
+\$HOME/kpp}. For other (less common) shells, we advice you to google these
+definitions. They should be easy to find.  When in doubt of which shell you're
+using, type \sphinxcode{echo \$SHELL} and check the output.
+
+If you still can't find your \sphinxcode{.bashrc} or \sphinxcode{.cshrc}, chances are you're using
+an emulator, and not running natively. If this is the case, google for the
+location of the \sphinxcode{.bashrc}-equivalent in your shell emulator (be it, Cygwin,
+Mingw, cmder or others).
 
 
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.7.11)  6 DEC 2016 22:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.7.11)  6 DEC 2016 22:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1058,7 +1058,7 @@ LaTeX Info: Redefining \nameref on input line 140.
 \@outlinefile=\write6
 \openout6 = `ezkpp.out'.
 
- <wheat_field.jpg, id=73, 433.62pt x 289.08pt>
+ <wheat_field.jpg, id=85, 433.62pt x 289.08pt>
 File: wheat_field.jpg Graphic file (type jpg)
 
 <use wheat_field.jpg>
@@ -1137,9 +1137,13 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 148.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 148.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 1.
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 184.
+less on input line 198.
 
 [1
 
@@ -1148,153 +1152,157 @@ less on input line 184.
 Chapter 2.
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 243.
+less on input line 257.
 
 [2
 
 ] [3]
 Chapter 3.
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 1.
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
-File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
 LaTeX Font Info:    Try loading font information for TS1+pcr on input line 1.
-
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 )
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 356.
+less on input line 370.
 
 [4
 
-] [5] <nano_example.png, id=148, 798.985pt x 516.93124pt>
+] [5] <nano_example.png, id=165, 798.985pt x 516.93124pt>
 File: nano_example.png Graphic file (type png)
 
 <use nano_example.png>
-Package pdftex.def Info: nano_example.png used on input line 445.
+Package pdftex.def Info: nano_example.png used on input line 459.
 (pdftex.def)             Requested size: 798.98305pt x 516.92998pt.
 File: nano_example.png Graphic file (type png)
  <use nano_example.png>
-Package pdftex.def Info: nano_example.png used on input line 445.
+Package pdftex.def Info: nano_example.png used on input line 459.
 (pdftex.def)             Requested size: 469.755pt x 303.92982pt.
  [6 <./nano_example.png>]
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <9> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 534.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 548.
  [7]
 [8]
 Chapter 4.
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 575.
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 588.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <9> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 593.
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 606.
 
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 659.
+less on input line 672.
 
 [9
 
-] [10] <test1_output.png, id=176, 962.59625pt x 488.82625pt>
+] [10] <test1_output.png, id=192, 962.59625pt x 488.82625pt>
 File: test1_output.png Graphic file (type png)
 
 <use test1_output.png>
-Package pdftex.def Info: test1_output.png used on input line 742.
+Package pdftex.def Info: test1_output.png used on input line 755.
 (pdftex.def)             Requested size: 962.5939pt x 488.82504pt.
 File: test1_output.png Graphic file (type png)
  <use test1_output.png>
-Package pdftex.def Info: test1_output.png used on input line 742.
+Package pdftex.def Info: test1_output.png used on input line 755.
 (pdftex.def)             Requested size: 469.755pt x 238.54984pt.
  [11] [12 <./test1_output.png>]
-<test1_time.png, id=189, 578.16pt x 433.62pt>
+<test1_time.png, id=205, 578.16pt x 433.62pt>
 File: test1_time.png Graphic file (type png)
  <use test1_time.png>
-Package pdftex.def Info: test1_time.png used on input line 835.
+Package pdftex.def Info: test1_time.png used on input line 848.
 (pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
 File: test1_time.png Graphic file (type png)
 
 <use test1_time.png>
-Package pdftex.def Info: test1_time.png used on input line 835.
+Package pdftex.def Info: test1_time.png used on input line 848.
 (pdftex.def)             Requested size: 469.755pt x 352.31538pt.
  [13 <./test1_time.png>]
 Chapter 5.
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 916.
+less on input line 929.
 
 [14
 
-] <test2_time.png, id=201, 578.16pt x 433.62pt>
+] <test2_time.png, id=217, 578.16pt x 433.62pt>
 File: test2_time.png Graphic file (type png)
  <use test2_time.png>
-Package pdftex.def Info: test2_time.png used on input line 935.
+Package pdftex.def Info: test2_time.png used on input line 948.
 (pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
 File: test2_time.png Graphic file (type png)
 
 <use test2_time.png>
-Package pdftex.def Info: test2_time.png used on input line 935.
+Package pdftex.def Info: test2_time.png used on input line 948.
 (pdftex.def)             Requested size: 469.755pt x 352.31538pt.
  [15 <./test2_time.png>]
-<test21_time.png, id=208, 578.16pt x 433.62pt>
+<test21_time.png, id=224, 578.16pt x 433.62pt>
 File: test21_time.png Graphic file (type png)
  <use test21_time.png>
-Package pdftex.def Info: test21_time.png used on input line 998.
+Package pdftex.def Info: test21_time.png used on input line 1011.
 (pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
 File: test21_time.png Graphic file (type png)
 
 <use test21_time.png>
-Package pdftex.def Info: test21_time.png used on input line 998.
+Package pdftex.def Info: test21_time.png used on input line 1011.
 (pdftex.def)             Requested size: 469.755pt x 352.31538pt.
  [16] [17 <./test21_time.png>]
-<test3_time.png, id=220, 578.16pt x 433.62pt>
+<test3_time.png, id=236, 578.16pt x 433.62pt>
 File: test3_time.png Graphic file (type png)
  <use test3_time.png>
-Package pdftex.def Info: test3_time.png used on input line 1110.
+Package pdftex.def Info: test3_time.png used on input line 1123.
 (pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
 File: test3_time.png Graphic file (type png)
 
 <use test3_time.png>
-Package pdftex.def Info: test3_time.png used on input line 1110.
+Package pdftex.def Info: test3_time.png used on input line 1123.
 (pdftex.def)             Requested size: 469.755pt x 352.31538pt.
  [18 <./test3_time.png>] [19]
-Overfull \vbox (2.56999pt too high) detected at line 1260
+Overfull \vbox (2.56999pt too high) detected at line 1273
  []
 
-[20] <test4_time.png, id=236, 493.6041pt x 403.2666pt>
+[20] <test4_time.png, id=252, 493.6041pt x 403.2666pt>
 File: test4_time.png Graphic file (type png)
  <use test4_time.png>
-Package pdftex.def Info: test4_time.png used on input line 1291.
+Package pdftex.def Info: test4_time.png used on input line 1304.
 (pdftex.def)             Requested size: 493.60287pt x 403.26561pt.
 File: test4_time.png Graphic file (type png)
 
 <use test4_time.png>
-Package pdftex.def Info: test4_time.png used on input line 1291.
+Package pdftex.def Info: test4_time.png used on input line 1304.
 (pdftex.def)             Requested size: 469.755pt x 383.78412pt.
- (./ezkpp.ind)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1298.
  [21] [22 <./test4_time.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1298.
+Chapter 6.
+(./ezkpp.ind)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1337.
+
+
+Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
+less on input line 1337.
+
+[23
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1337.
  (./ezkpp.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1298.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1298.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1337.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1337.
 
 Package rerunfilecheck Info: File `ezkpp.out' has not changed.
-(rerunfilecheck)             Checksum: 40FF3364F6F5B31122A43494CEE49479;3004.
+(rerunfilecheck)             Checksum: CE79FAA5901F154D3D595ADD558CC80C;3433.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1298.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1337.
  ) 
 Here is how much of TeX's memory you used:
- 13531 strings out of 494929
- 183549 string characters out of 6180142
- 336364 words of memory out of 5000000
- 16451 multiletter control sequences out of 15000+600000
+ 13542 strings out of 494929
+ 183710 string characters out of 6180142
+ 336537 words of memory out of 5000000
+ 16458 multiletter control sequences out of 15000+600000
  57824 words of font info for 76 fonts, out of 8000000 for 9000
  17 hyphenation exceptions out of 8191
  36i,12n,45p,1276b,455s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1308,10 +1316,10 @@ sr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
 rw/times/utmri8a.pfb>
-Output written on ezkpp.pdf (24 pages, 997748 bytes).
+Output written on ezkpp.pdf (25 pages, 1001025 bytes).
 PDF statistics:
- 296 PDF objects out of 1000 (max. 8388607)
- 239 compressed objects within 3 object streams
- 54 named destinations out of 1000 (max. 500000)
- 197 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 318 PDF objects out of 1000 (max. 8388607)
+ 260 compressed objects within 3 object streams
+ 58 named destinations out of 1000 (max. 500000)
+ 221 words of extra memory for PDF output out of 10000 (max. 10000000)
 

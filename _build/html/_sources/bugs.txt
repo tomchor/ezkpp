@@ -1,5 +1,5 @@
-Possible bug fixes that may be useful
-=====================================
+Possible bug fixes
+==================
 
 .. note::
 
