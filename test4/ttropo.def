@@ -1,0 +1,43 @@
+#include ttropo.spc
+#include ttropo.eqn
+
+#JACOBIAN SPARSE_LU_ROW      {Use Sparse DATA STRUCTURES}
+#DRIVER general
+#DOUBLE ON
+#STOICMAT ON
+
+#LOOKATALL; {O3; NO; NO2;HNO3;HO2;OH;CO; {File Output}}
+#MONITOR O3;N;O;NO;O1D;NO2; {Screen Output}
+
+#CHECK O; N;                   {Check Mass Balance}
+
+#INITVALUES                    {Initial Values}
+
+CFACTOR = 1.    ;              {Conversion Factor}
+//O3  = 1.27E+12 ; {50 ppbv}
+O3  = 0. ; {50 ppbv}
+NO  = 9.00E+09 ; {around 0.35 ppbv}
+NO2 = 3.60E+10 ; {arounf 1.4 ppbv}
+O2  = 1.697E+19 ;
+M   = 2.550E+19 ;
+H2O    = 3.9E17 ;
+
+OH     = 0.;
+HO2    = 0.;
+H2O2   = 0.;
+H2O2aq = 0.;
+HNO3   = 0.;
+HNO3aq = 0.;
+O1D = 0. ;
+O   = 0. ;
+
+CO     = 2.55E12; {100 ppbv}
+ALL_SPEC = 0;
+
+
+#INLINE F90_INIT
+       TSTART = (12*3600)
+       TEND = TSTART + (10*24*3600)
+       DT = 0.2*3600
+       TEMP = 270
+#ENDINLINE

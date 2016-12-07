@@ -1,0 +1,16 @@
+#EQUATIONS { Tiny Tropospheric Mechanism }
+<R2>  O    + O2  = O3            : (8.018E-17);
+<R1>  NO2  + hv  = NO  + O       : (1.289E-02) * SUN;
+<R3>  NO   + O3  = NO2 + O2      : (6.062E-15);
+<R41> O3   + hv  = O   + O2      : (5.500E-04) * SUN; {page 129}
+<R42> O3   + hv  = O1D + O2      : (6.000E-05) * SUN*SUN; {page 129}
+<R5>  O1D  + M   = O   + M       : (7.110E-11);
+<R6>  O1D + H2O  = 2OH           : (2.2E-10);
+<R7>  CO   + OH  = CO2 + HO2     : (2.2E-13);
+<R9>  HO2  + NO  = OH  + NO2     : (8.3E-12);
+<R10> OH  + NO2  = HNO3          : (1.1E-11);
+<R11> HO2 + HO2  = H2O2          : (5.6E-12);
+<R12> O3  + HO2  = OH + 2O2      : (2.0E-15);
+<R13> H2O2 + hv  = 2OH           : (1.366E-5) * SUN;
+<R14> H2O2       = H2O2aq        : (3.3000e-03);
+<R15> HNO3       = HNO3aq        : (2.4000e-03);

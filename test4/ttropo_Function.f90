@@ -13,8 +13,8 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_Function.f90
-! Time                 : Wed Nov 30 11:03:15 2016
-! Working directory    : /home/tomaschor/ezkpp/test4
+! Time                 : Tue Dec  6 17:05:02 2016
+! Working directory    : /home/tomas/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
 ! 
@@ -57,18 +57,18 @@ SUBROUTINE Fun ( V, F, RCT, Vdot )
 
 
 ! Computation of equation rates
-  A(1) = RCT(1)*V(8)*F(2)
-  A(2) = RCT(2)*V(12)
-  A(3) = RCT(3)*V(11)*V(13)
-  A(4) = RCT(4)*V(13)
-  A(5) = RCT(5)*V(13)
-  A(6) = RCT(6)*V(7)*F(1)
-  A(7) = RCT(7)*V(7)*F(3)
+  A(1) = RCT(1)*V(7)*F(2)
+  A(2) = RCT(2)*F(5)
+  A(3) = RCT(3)*V(11)*F(4)
+  A(4) = RCT(4)*V(11)
+  A(5) = RCT(5)*V(11)
+  A(6) = RCT(6)*V(8)*F(1)
+  A(7) = RCT(7)*V(8)*F(3)
   A(8) = RCT(8)*V(6)*V(9)
-  A(9) = RCT(9)*V(10)*V(11)
-  A(10) = RCT(10)*V(9)*V(12)
+  A(9) = RCT(9)*V(10)*F(4)
+  A(10) = RCT(10)*V(9)*F(5)
   A(11) = RCT(11)*V(10)*V(10)
-  A(12) = RCT(12)*V(10)*V(13)
+  A(12) = RCT(12)*V(10)*V(11)
   A(13) = RCT(13)*V(5)
   A(14) = RCT(14)*V(5)
   A(15) = RCT(15)*V(4)
@@ -80,13 +80,11 @@ SUBROUTINE Fun ( V, F, RCT, Vdot )
   Vdot(4) = A(10)-A(15)
   Vdot(5) = A(11)-A(13)-A(14)
   Vdot(6) = -A(8)
-  Vdot(7) = A(5)-A(6)-A(7)
-  Vdot(8) = -A(1)+A(2)+A(4)+A(6)
+  Vdot(7) = -A(1)+A(2)+A(4)+A(6)
+  Vdot(8) = A(5)-A(6)-A(7)
   Vdot(9) = 2*A(7)-A(8)+A(9)-A(10)+A(12)+2*A(13)
   Vdot(10) = A(8)-A(9)-2*A(11)-A(12)
-  Vdot(11) = A(2)-A(3)-A(9)
-  Vdot(12) = -A(2)+A(3)+A(9)-A(10)
-  Vdot(13) = A(1)-A(3)-A(4)-A(5)-A(12)
+  Vdot(11) = A(1)-A(3)-A(4)-A(5)-A(12)
       
 END SUBROUTINE Fun
 

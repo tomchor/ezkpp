@@ -113,8 +113,19 @@ We will make it read
    #LOOKAT O3; NO; NO2; {File Output}           
 
 This latter change makes the program write only time, O3, NO and NO2 into the
-output file, in that order. This simplifies the reading process and saves
-space, since we are assuming that we're not interested in the other species.
+output file. This simplifies the reading process and saves space, but by doing
+that we are assuming that we're not interested in the other species.
+
+.. note::
+
+ This will change the order of the output in the file. But again, checking the
+ ``.map`` will give you the correct order. This time you'll have to consider
+ only the species you specified to be on the output, so, e.g., in this case the
+ order in the ``.map`` file is: 1 = O1D, 2 = O, 3 = O3, 4 = NO, 5 = NO2. But since we are writing
+ only O3, NO and NO2, our output file will have the order (time,) O3, NO, NO2
+ (which are numbers 3, 4, 5, respectively).  This will have to be done every
+ time the ``#LOOKAT`` parameter is used.
+
 
 We again go through the same steps: run it with ``kpp my_strato.kpp``, change the compiler
 to gfortran, compile if with ``make -f Makefile_my_strato`` and run it with ``./my_strato.exe``.

@@ -13,8 +13,8 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_Rates.f90
-! Time                 : Wed Nov 30 11:03:15 2016
-! Working directory    : /home/tomaschor/ezkpp/test4
+! Time                 : Tue Dec  6 17:05:02 2016
+! Working directory    : /home/tomas/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
 ! 
@@ -193,8 +193,8 @@ SUBROUTINE Update_RCONST ( )
   RCONST(1) = ((8.018E-17))
   RCONST(2) = ((1.289E-02)*SUN)
   RCONST(3) = ((6.062E-15))
-  RCONST(4) = ((6.120E-04)*SUN)
-  RCONST(5) = ((1.070E-7)*SUN**2.)
+  RCONST(4) = ((5.500E-04)*SUN)
+  RCONST(5) = ((6.000E-05)*SUN*SUN)
   RCONST(6) = ((7.110E-11))
   RCONST(7) = ((2.2E-10))
   RCONST(8) = ((2.2E-13))
@@ -225,8 +225,8 @@ SUBROUTINE Update_PHOTO ( )
    USE ttropo_Global
 
   RCONST(2) = ((1.289E-02)*SUN)
-  RCONST(4) = ((6.120E-04)*SUN)
-  RCONST(5) = ((1.070E-7)*SUN**2.)
+  RCONST(4) = ((5.500E-04)*SUN)
+  RCONST(5) = ((6.000E-05)*SUN*SUN)
   RCONST(13) = ((1.366E-5)*SUN)
       
 END SUBROUTINE Update_PHOTO

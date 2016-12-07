@@ -13,8 +13,8 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_Global.f90
-! Time                 : Wed Nov 30 11:03:15 2016
-! Working directory    : /home/tomaschor/ezkpp/test4
+! Time                 : Tue Dec  6 17:05:02 2016
+! Working directory    : /home/tomas/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
 ! 
@@ -39,7 +39,7 @@ MODULE ttropo_Global
   REAL(kind=dp) :: FIX(NFIX)
 ! VAR, FIX are chunks of array C
       EQUIVALENCE( C(1),VAR(1) )
-      EQUIVALENCE( C(14),FIX(1) )
+      EQUIVALENCE( C(12),FIX(1) )
 ! RCONST - Rate constants (global)
   REAL(kind=dp) :: RCONST(NREACT)
 ! TIME - Current integration time

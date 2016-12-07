@@ -222,9 +222,10 @@ uses for the ``.dat`` file. You can learn about the ordering at page 7 of the
 KPP manual, but a good rule of thumb is to check the file with a ``.map``
 extension (in this case, ``small_strato.map``) and take a look at the
 ``species`` section. The file output order is the ordering of the variable
-species followed by the species  on the fixed species. 
+species followed by the species on the fixed species. 
 
-In the case of ``small_strato`` the order printed on the file is 
+In the case of ``small_strato`` the order printed on the file (you can check it on
+``small_strato.map``) is 
 
 .. code::
 
