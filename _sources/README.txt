@@ -27,11 +27,27 @@ arise when applying them to other system. If that is the case, feedback is
 encouraged, either by email, in person, or by creating a Github issue in our
 page.
 
-You can also contribute to this guide yourself. If you find the need to
-correct, improve or add something, feel free to download/fork the project on
-Github and modify it. We appreciate if the projects could then be merged back
-after that, but that is entirely up to you.
-
 This guide was primarily typed and uploaded by Tomas Chor, but has had
 substantial help from Prof. Suzanne Paulson and Dr. Paul Griffiths,
 particularly for chemistry-related issues.
+
+Contributing
+------------
+
+You can also contribute to this guide yourself. If you find the need to
+correct, improve or add something, feel free to download/fork the project on
+Github and modify it. We appreciate if the projects could then be merged back
+after that, but that is entirely up to you. To contribute, you have to install
+and use `Sphinx <http://sphinx-doc.org/>`_, which is a very handy and easy tool
+to build documentation.
+
+If you are not familiar with Sphinxs, you should probably read a tutorial (it's
+very easy!), but a quick way to start is to download the whole thing from
+Github, add some text to any file with a ``.rst`` extension and run ``make
+html``. That will create a webpage like this one with your modifications that
+you can open in your browser (open the files with a ``.html`` extension that
+were created). So you can just go from there and infer the syntax from what's
+already written. You can actually learn Sphinx by yourself by doing this and
+might not even need to read a tutorial.
+
+

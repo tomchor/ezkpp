@@ -287,7 +287,7 @@ later. Let us first define our mechanism, i.e., our chemical reactions.
 We create the ``ttropo.eqn`` file (e.g. with ``notepad++ ttropo.eqn``). Now we
 will put our reactions in that file, following the syntax that we saw in the
 previous example. We choose a simplified set of tropospheric reactions that can
-be writen as:
+be written as:
 
 .. include:: test4/ttropo.eqn
    :literal:
@@ -309,21 +309,21 @@ Now we create the species file in which we define only ``M``, ``H2O`` and
    :literal:
 
 Again, copy and paste those lines into ``ttropo.spc``, save, exit, and let's
-proceed to the ``.def`` fle. Create ``ttropo.def`` with ``notepad++
+proceed to the ``.def`` file. Create ``ttropo.def`` with ``notepad++
 ttropo.def``.  In that file you will write the following lines:
 
 .. include:: test4/ttropo.def
    :literal:
 
 You can see that with this set of definitions we chose to run the model for 15
-days, with a timestep of 0.2 hours and that many of the initial concentrations
+days, with a time step of 0.2 hours and that many of the initial concentrations
 are set to zero.
 
 With these files we have the complete ``ttropo`` model and are ready to run it.
 We can use the ``updatenrun.sh`` script as ``sh updatenrun.sh ttropo`` (you'll
 have to copy it to the current directory with ``cp`` first). It should run
-succesfully now.  Note that we again have to check out ``ttropo.map`` to find
-out the order of the species in the output file. We can use the followig Python
+successfully now.  Note that we again have to check out ``ttropo.map`` to find
+out the order of the species in the output file. We can use the following Python
 script to plot the results (the correct output order is already included in
 it):
 

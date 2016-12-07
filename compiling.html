@@ -90,7 +90,7 @@ might not work on Windows, for example, which does not have a <code class="docut
 If you&#8217;re using Bash on Windows it&#8217;s better to go with the following
 alternative.</p>
 <p>However, if you&#8217;re insecure with navigating your directories using your
-terminal, it&#8217;s best to do everything via this second, more straightfoward,
+terminal, it&#8217;s best to do everything via this second, more straightforward,
 option. It uses solely commands but it&#8217;s easier. First, as soon as you open the
 terminal run the following commands</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>wget http://people.cs.vt.edu/~asandu/Software/Kpp/Download/kpp-2.2.3_Nov.2012.zip
@@ -100,7 +100,7 @@ unzip kpp-2.2.3_Nov.2012.zip
 </div>
 <p>Line one will automatically download the software to your current directory and
 line two will unpack it.  This will create a new directory with all the
-contants of the <code class="docutils literal"><span class="pre">.zip</span></code> file, so the last command line will move to the
+contents of the <code class="docutils literal"><span class="pre">.zip</span></code> file, so the last command line will move to the
 recently-created directory.</p>
 <p>Make sure you&#8217;re in the correct directory by entering <code class="docutils literal"><span class="pre">pwd</span></code>, which should show
 you that you&#8217;re on the <cite>kpp-2.2.3</cite> directory. You can also type <cite>ls</cite>, which should
@@ -146,7 +146,7 @@ while running KPP.</p>
 </div>
 <div class="section" id="telling-your-system-where-kpp-is">
 <h2>Telling your system where KPP is<a class="headerlink" href="#telling-your-system-where-kpp-is" title="Permalink to this headline">¶</a></h2>
-<p>Now that we have the dependecies installed, we need to make sure that your
+<p>Now that we have the dependencies installed, we need to make sure that your
 computer knows where KPP is in your system. We do that by altering a file
 called <code class="docutils literal"><span class="pre">.bashrc</span></code>. This file is a simple text file (so can you easily open and
 read it, as you&#8217;ll see) with some very simple commands. Every time you start a
@@ -244,7 +244,7 @@ reason. Now you can save and close/exit the file.</p>
 <p>If we did everything correctly we can compile KPP simply by running the
 <code class="docutils literal"><span class="pre">make</span></code> command. Many warnings are going to appear on the screen (that&#8217;s
 normal), but as long as no error appears, the compilation will be successful.
-You can be sure it was successsful by once again running <code class="docutils literal"><span class="pre">ls</span></code> and seeing that
+You can be sure it was successful by once again running <code class="docutils literal"><span class="pre">ls</span></code> and seeing that
 there is now one extra entry on the KPP directory called <code class="docutils literal"><span class="pre">bin</span></code>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>bin           doc       gpl                 Makefile       readme     util
 cflags        drv       int                 Makefile.defs  site-lisp
@@ -267,13 +267,12 @@ chances are that <code class="docutils literal"><span class="pre">bin</span></co
 directory containing the binary file. This should not happen, according to the
 manual, but for some reason it (very) often does. We need simply to rename that
 executable file and put it a directory called <code class="docutils literal"><span class="pre">bin</span></code>. This can be done with
-the followinf command:</p>
+the following command:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>mv bin kpp <span class="o">&amp;&amp;</span> mkdir bin <span class="o">&amp;&amp;</span> mv kpp bin
 </pre></div>
 </div>
 <p>Try this command and then try <code class="docutils literal"><span class="pre">kpp</span> <span class="pre">test</span></code> again. You should get the correct
-output this time, meaning that the system could find KPP successfully.
-g</p>
+output this time, meaning that the system could find KPP successfully.</p>
 </div>
 </div>
 
@@ -299,6 +298,7 @@ g</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running KPP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="improving.html">Modifying and improving the example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html">Possible bug fixes that may be useful</a></li>
 </ul>
 
   <div role="note" aria-label="source link">
@@ -356,7 +356,7 @@ g</p>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, Tomas Chor.
-      Last updated on 2016-11-28.
+      Last updated on 2016-12-06.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
     </div>
   </body>

@@ -46,7 +46,7 @@ If you're using Bash on Windows it's better to go with the following
 alternative.
 
 However, if you're insecure with navigating your directories using your
-terminal, it's best to do everything via this second, more straightfoward,
+terminal, it's best to do everything via this second, more straightforward,
 option. It uses solely commands but it's easier. First, as soon as you open the
 terminal run the following commands
 
@@ -58,7 +58,7 @@ terminal run the following commands
 
 Line one will automatically download the software to your current directory and
 line two will unpack it.  This will create a new directory with all the
-contants of the ``.zip`` file, so the last command line will move to the
+contents of the ``.zip`` file, so the last command line will move to the
 recently-created directory.
 
 Make sure you're in the correct directory by entering ``pwd``, which should show
@@ -109,7 +109,7 @@ aren't installed.
 Telling your system where KPP is
 --------------------------------
 
-Now that we have the dependecies installed, we need to make sure that your
+Now that we have the dependencies installed, we need to make sure that your
 computer knows where KPP is in your system. We do that by altering a file
 called ``.bashrc``. This file is a simple text file (so can you easily open and
 read it, as you'll see) with some very simple commands. Every time you start a
@@ -231,7 +231,7 @@ reason. Now you can save and close/exit the file.
 If we did everything correctly we can compile KPP simply by running the
 ``make`` command. Many warnings are going to appear on the screen (that's
 normal), but as long as no error appears, the compilation will be successful.
-You can be sure it was successsful by once again running ``ls`` and seeing that
+You can be sure it was successful by once again running ``ls`` and seeing that
 there is now one extra entry on the KPP directory called ``bin``:
 
 .. code-block:: bash
@@ -261,7 +261,7 @@ chances are that ``bin`` is a binary executable file, while it should be a
 directory containing the binary file. This should not happen, according to the
 manual, but for some reason it (very) often does. We need simply to rename that
 executable file and put it a directory called ``bin``. This can be done with
-the followinf command:
+the following command:
 
 .. code-block:: bash
 
@@ -269,4 +269,4 @@ the followinf command:
 
 Try this command and then try ``kpp test`` again. You should get the correct
 output this time, meaning that the system could find KPP successfully.
-g
+

@@ -23,7 +23,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="ezkpp 1.0 documentation" href="index.html" /> 
+    <link rel="top" title="ezkpp 1.0 documentation" href="index.html" />
+    <link rel="prev" title="Modifying and improving the example" href="improving.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -32,6 +33,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="improving.html" title="Modifying and improving the example"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">KPP guide</a> &raquo;</li> 
       </ul>
     </div>  
@@ -43,8 +47,15 @@
             
   <div class="section" id="possible-bug-fixes-that-may-be-useful">
 <h1>Possible bug fixes that may be useful<a class="headerlink" href="#possible-bug-fixes-that-may-be-useful" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This section is meant to become a list of common bugs that might arise
+along with a way to solve them.</p>
+</div>
+<div class="section" id="can-t-fine-bashrc-file">
+<h2>Can&#8217;t fine bashrc file<a class="headerlink" href="#can-t-fine-bashrc-file" title="Permalink to this headline">¶</a></h2>
 <p>If you could not find your <code class="docutils literal"><span class="pre">.bashrc</span></code> file, it might mean that you either
-don&#8217;t have one, or that it is located somwhere else. If you&#8217;re using C shell,
+don&#8217;t have one, or that it is located somewhere else. If you&#8217;re using C shell,
 then you should be actually looking for <code class="docutils literal"><span class="pre">.cshrc</span></code>. If that is indeed the case,
 replace <code class="docutils literal"><span class="pre">bashrc</span></code> by <code class="docutils literal"><span class="pre">cshrc</span></code> everywhere it appears. Furthermore, environment
 definitions are made slightly different in C shells. Instead of typing <code class="docutils literal"><span class="pre">export</span>
@@ -52,12 +63,11 @@ definitions are made slightly different in C shells. Instead of typing <code cla
 <span class="pre">$HOME/kpp</span></code>. For other (less common) shells, we advice you to google these
 definitions. They should be easy to find.  When in doubt of which shell you&#8217;re
 using, type <code class="docutils literal"><span class="pre">echo</span> <span class="pre">$SHELL</span></code> and check the output.</p>
-<p>If you still can&#8217;t find you <code class="docutils literal"><span class="pre">.bashrc</span></code> or <code class="docutils literal"><span class="pre">.cshrc</span></code>, chances are you&#8217;re using
+<p>If you still can&#8217;t find your <code class="docutils literal"><span class="pre">.bashrc</span></code> or <code class="docutils literal"><span class="pre">.cshrc</span></code>, chances are you&#8217;re using
 an emulator, and not running natively. If this is the case, google for the
 location of the <code class="docutils literal"><span class="pre">.bashrc</span></code>-equivalent in your shell emulator (be it, Cygwin,
 Mingw, cmder or others).</p>
-<p>If you could not find <code class="docutils literal"><span class="pre">libfl.a</span></code> or <code class="docutils literal"><span class="pre">libfl.sh</span></code>, but Flex is installed,
-you might need to manually download yourself Flex from `</p>
+</div>
 </div>
 
 
@@ -70,12 +80,16 @@ you might need to manually download yourself Flex from `</p>
               <img class="logo" src="_static/wheat_field.jpg" alt="Logo"/>
             </a></p>
 <h3><a href="index.html">Table Of Contents</a></h3>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="README.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bash.html">About bash</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling KPP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running KPP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="improving.html">Modifying and improving the example</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Possible bug fixes that may be useful</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#can-t-fine-bashrc-file">Can&#8217;t fine bashrc file</a></li>
+</ul>
+</li>
 </ul>
 
   <div role="note" aria-label="source link">
@@ -95,6 +109,17 @@ you might need to manually download yourself Flex from `</p>
     </form>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Possible bug fixes that may be useful</a><ul>
+<li><a class="reference internal" href="#can-t-fine-bashrc-file">Can&#8217;t fine bashrc file</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="improving.html"
+                        title="previous chapter">Modifying and improving the example</a></p>
         </div>
       </div>
       <div class="clearer"></div>
@@ -105,12 +130,15 @@ you might need to manually download yourself Flex from `</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="improving.html" title="Modifying and improving the example"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">KPP guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, Tomas Chor.
-      Last updated on 2016-11-28.
+      Last updated on 2016-12-06.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
     </div>
   </body>
