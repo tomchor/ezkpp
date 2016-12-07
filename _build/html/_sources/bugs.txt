@@ -1,3 +1,5 @@
+.. _bugs:
+
 Possible bug fixes
 ==================
 

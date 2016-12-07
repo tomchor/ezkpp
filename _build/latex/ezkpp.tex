@@ -32,7 +32,7 @@
 
 
 \title{An easy guide for KPP}
-\date{Dec 06, 2016}
+\date{Dec 07, 2016}
 \release{1.0}
 \author{Tomas Chor}
 \newcommand{\sphinxlogo}{\sphinxincludegraphics{wheat_field.jpg}\par}
@@ -148,12 +148,12 @@
 \chapter{Introduction}
 \label{README:introduction}\label{README:easy-guide-to-compiling-and-running-kpp}\label{README::doc}
 This is an unofficial guide aimed at providing additional information not
-covered by the official KPP manual. Specifically, we aiming at making things
-more comprehensive for the user with few or no experience running command
-lines. We focus on the latest version of the software, release 2.2.3, which can
-be freely downloaded at its \href{http://people.cs.vt.edu/~asandu/Software/Kpp/}{official webpage}. We recommend any person
+covered by the official KPP manual. Specifically, we aim to make things more
+comprehensive for the user with few or no experience running software via
+command lines. We focus on the latest version of the software, release 2.2.3,
+which can be freely downloaded at its \href{http://people.cs.vt.edu/~asandu/Software/Kpp/}{official webpage}. We recommend any person
 reading this guide to keep a copy of the original manual since this guide is
-not meant to replace the original manual, but as a supplement to it.
+not meant to replace it, but as a supplement to it.
 
 In this guide our aim is to teach an inexperienced user to download, compile,
 and run KPP. Furthermore, besides teaching how to run the example case in the
@@ -163,13 +163,13 @@ and to create new models.
 The source for the documentation can be found at its \href{https://github.com/tomchor/ezkpp}{github page} and the online html version can be
 accessed \href{https://tomchor.github.io/ezkpp/}{here}. You can also download this
 guide in pdf \href{https://github.com/tomchor/ezkpp/raw/gh-pages/ezkpp.pdf}{here}.
+All of the codes and scripts created here as examples are available in the
+Github repository.
 
-Most (if not all) of the codes created here as an example are available in its
-Github repository. The directions in this guide have been tested in as broad a
-range of operational systems as was possible, but some errors are likely to
-arise when applying them to other system. If that is the case, feedback is
-encouraged, either by email, in person, or by creating a Github issue in our
-page.
+The directions in this guide have been tested in as broad a range of
+operational systems as was possible, but some errors are likely to arise when
+applying them to other systems. If that is the case, feedback is encouraged,
+either by email, in person, or by creating a Github issue in our page.
 
 This guide was primarily typed and uploaded by Tomas Chor, but has had
 substantial help from Prof. Suzanne Paulson and Dr. Paul Griffiths,
@@ -181,14 +181,14 @@ particularly for chemistry-related issues.
 You can also contribute to this guide yourself. If you find the need to
 correct, improve or add something, feel free to download/fork the project on
 Github and modify it. We appreciate if the projects could then be merged back
-after that, but that is entirely up to you. To contribute, you have to install
-and use \href{http://sphinx-doc.org/}{Sphinx}, which is a very handy and easy tool
-to build documentation.
+after that (preferably with an updated version tag), but that is entirely up
+to you. To contribute, you have to install and use \href{http://sphinx-doc.org/}{Sphinx}, which is a very handy and easy-to-use tool designed
+to build multi-platform documentation effectively.
 
 If you are not familiar with Sphinxs, you should probably read a tutorial (it's
 very easy!), but a quick way to start is to download the whole thing from
 Github, add some text to any file with a \sphinxcode{.rst} extension and run \sphinxcode{make
-html}. That will create a webpage like this one with your modifications that
+html}. That will create a webpage (like this one) with your modifications that
 you can open in your browser (open the files with a \sphinxcode{.html} extension that
 were created). So you can just go from there and infer the syntax from what's
 already written. You can actually learn Sphinx by yourself by doing this and
@@ -197,16 +197,15 @@ might not even need to read a tutorial.
 
 \chapter{About bash}
 \label{bash:about-bash}\label{bash::doc}
-The official KPP manual is entirely based on Unix Shell, which is command
-language which most of the Linux distributions use to interact with the system
-without a Graphical User Interface. The manual, however, assumes a non-trivial
-knowledge of this tool, which makes it difficult for users that are not
-experienced with terminals and command line interfaces (which includes bash, C
-shell, MS-DOS, PowerShell, ksh etc.) to install and run the simulations
-effectively. The approach adopted in this guide will be to go through the steps
-necessary to compile and run KPP, as stated in the manual, but taking the time
-to explain them a little better how to do them, and what exactly it is that
-they do.
+The official KPP manual is entirely based on Unix Shell, which are command
+languages that Linux distributions use to interact with the system without a
+Graphical User Interface. The manual, however, assumes a non-trivial knowledge
+of this tool, which makes it difficult for users that are not experienced with
+terminals and command line interfaces (which includes bash, C shell, MS-DOS,
+PowerShell, ksh etc.) to install and run the simulations effectively. The
+approach adopted in this guide will be to go through the steps necessary to
+compile and run KPP, as stated in the manual, but taking the time to explain
+them a little better how to do them, and what exactly it is that they do.
 
 We will first go over a few basic notions necessary to understand what is going
 to be done in the guide. If you are familiar with the concepts of system shells,
@@ -215,14 +214,18 @@ you may skip the next sections.
 
 \section{What is Bash?}
 \label{bash:what-is-bash}
-But what is a shell? A system shell is the name what computer engineers use to
-refer to the outer layer of an Operational System (OS). It is said outer layer
-because it separates the user (you) from the core of your OS. So it separates
-you from the intricate group of codes that ultimately governs your machine and
-lets you interact with your computer using a human-readable language (and not,
-for example, binary!). So a shell is a bridge between you and your machine.
+First things first: what is a shell? A system shell is the name that computer
+engineers use to refer to the outer layer of an Operational System (OS). It is
+said outer layer because it separates the user (you) from the core of your OS.
+So it separates you from the intricate group of codes that ultimately governs
+your machine and lets you interact with your computer using a human-readable
+language (and not, for example, binary!). Basically, a shell is a bridge
+between you and your machine.
 
-These shells can be either graphical shells (called Graphical User Interface,
+These shells can be either graphical shells \footnote[1]{\sphinxAtStartFootnote%
+A note here is that the GUI isn't generally considered a shell, but
+that is technically correct given the definition of a shell.
+} (called Graphical User Interface,
 GUI, just like what you use during mundane tasks such as browsing the web and
 reading a PDF document) or text shells (also called terminals or Command Line
 Interface, CLI). Graphical shells are easier and extremely intuitive (most
@@ -240,9 +243,10 @@ Bash (acronym for Bourne Again Shell) is a kind of Unix Shell used by most of
 the Linux systems and some Mac OSs. Some other shells can be used to perform
 the same tasks (the KPP manual itself also gives some commands in C Shell,
 which is another Unix Shell), but we focus on Bash here because it is the most
-common and most easily accessible.  Most of Linux distributions use it, and
-some Mac OSs use it as well. Furthermore, it can be natively installed into
-Windows 10, as we will explain in the next section.
+common and most easily accessible. Besides its popularity among Linux
+distributions and Mac OSs, it is the only shell (as far as my knowledge goes by
+the time of writing) that can be natively installed into Windows, as we will
+explain in the next section.
 
 
 \section{Accessing Bash}
@@ -251,9 +255,10 @@ To access and use Bash, you either need a Bash emulator or to be in an
 operational system that supports it natively. Various emulators exist (Cygwin,
 cmder, MinGW, etc.) but they are not recommended because some of them contain
 many bugs. If you would like to try those anyway, chances are that it'll work,
-since we're going to be doing simple tasks and many people use those. However,
-running it natively is a always a guarantee of no bugs, so (in the spirit of
-keeping it general) that's why it's the most recommended option for this guide.
+since we're going to be doing simple tasks and they tend to work well for that.
+However, running it natively is always a guarantee of no bugs, so (in the
+spirit of keeping it general) we adopt this option throughout this guide, only
+occasionally giving some remarks on other shells.
 
 We will briefly go through your options for each of the 3 most common
 operational systems.
@@ -266,14 +271,17 @@ options.
 
 If you're using Windows 10, you can natively install the Ubuntu 14.04 inside
 your Windows machine with the Windows 10 anniversary update, which is available
-for every up-to-date Windows 10 computer. Directions to do this are very simple
-and are given in many places (such as \href{http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/}{here})
-so for now we will not explain them in detail. This will give you Bash running
-natively on Windows. But only works for up-to-date Windows 10 computers.
+for every \textbf{up-to-date Windows 10} computer. Directions to do this are very
+simple and are given in many places (such as \href{http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/}{here})
+so for now we will not explain them in detail. Keep in mind that since this
+will give you Bash running natively (even though you're on Windows), you'll be
+able to use all the commands that can be used on Linux, such as package
+installation commands (\sphinxcode{apt install}).
 
-If you do not have Windows 10, you can either install one of the many Bash
-emulators for Windows or you can install a Linux virtual machine inside your
-Windows computer.  You can do that using \href{https://www.virtualbox.org/wiki/Downloads}{Virtual Box} and installing a Ubuntu-based
+If you a version of Windows older than 10, you can either install one of the
+many Bash emulators for Windows or you can install a Linux virtual machine
+inside your Windows computer. If you choose the latter (which we strongly
+recommend instead of the emulator), you can do it using \href{https://www.virtualbox.org/wiki/Downloads}{Virtual Box} and installing a Ubuntu-based
 distribution (we recommend installing either a recent version of Ubuntu or
 Linux Mint 18 (or greater), since these two are most suited for beginners in
 Linux). Again, directions on how to do this are straightforward and exist all
@@ -284,33 +292,44 @@ over the internet, so we will not spend time on steps on how to do that.
 \label{bash:from-mac-os}
 If you have a Mac, you might already have Bash natively installed, since all
 Macs are based on Unix. To find out what your shell is, you need to open a
-terminal application (generally under utilities). Then type the command \sphinxtitleref{echo
+terminal application (generally under utilities). Then type the command \sphinxcode{echo
 \$SHELL} and press enter. If the output of the shell is something ending in
-Bash, like \sphinxtitleref{/bin/bash}, then you're already running Bash. If it ends in
-something else, like \sphinxtitleref{/bin/ksh}, then you're running a different Unix Shell.
-Most commands should be the same, but if you want to use this shell you might
-have to translate some (which should be easy with the help of Google).
+Bash, like \sphinxcode{/bin/bash}, then you're already running Bash. If it ends in
+something else, like \sphinxcode{/bin/ksh}, then you're running a different Unix Shell.
+If you want to use this different shell (and you can) most commands should be
+the same, but you might have to translate a few (which should be easy Googling
+\sphinxcode{bash yourcommand in csh}, for example).
 
 If you're running another terminal and would like to try Bash, you can either
 get an Bash emulator for Mac, install a Linux virtual machine (as described in
 the Windows section) or change your terminal to Bash. The most recommended here
 is to change your Shell to Bash. Instructions on how to do this are easy and
-can again be found in many places, including \href{http://osxdaily.com/2012/03/21/change-shell-mac-os-x/}{here}.
+can again be found in many places, including \href{http://osxdaily.com/2012/03/21/change-shell-mac-os-x/}{here}, and generally use
+one very simple command called \sphinxcode{chsh}.
 
 
 \subsection{From Linux}
 \label{bash:from-linux}
-If you're running Linux you can open a terminal and run the command \sphinxtitleref{echo
+If you're running Linux you can open a terminal and run the command \sphinxcode{echo
 \$SHELL} to find out if you're running Bash or not. If you're not you can try to
 keep going with your Shell (some commands may need to be translated) or you can
-change your default Shell with the \sphinxtitleref{chsh} command. You can find more detailed
+change your default Shell with the \sphinxcode{chsh} command. You can find more detailed
 information on that in many places, such as \href{http://stackoverflow.com/questions/13046192/changing-default-shell-in-linux}{here}.
 
 
 \chapter{Compiling KPP}
 \label{compiling::doc}\label{compiling:compiling-kpp}
-In this chapter we detail how to successfully download and compile KPP
-on your system under the Bash environment.
+We say we compile a program when we convert all the human-readable code that
+directly wrote into a binary executable that your machine can actually run
+directly. In other words, it's like we're installing a program into the
+computer. In this chapter we detail how to successfully download and compile
+KPP on your system under the Bash environment.
+
+If from now you encounter any bug that isn't described directly in the text, we
+refer you to the {\hyperref[bugs:bugs]{\sphinxcrossref{\DUrole{std,std-ref}{Possible bug fixes}}}} section. If you find a fix for an error that isn't
+anywhere in the guide, we also encourage you to contribute to the guide and
+include that bug fix in that section. (You can check the Introduction section
+on how to contribute.)
 
 
 \section{Downloading into your folder}
@@ -347,29 +366,37 @@ you'd replace \sphinxcode{/home/myuser} with \sphinxcode{/home/john} in every oc
 If you prefer to download KPP through its website manually and unpack it
 somewhere, you'll have to go there with your terminal. So, if I unpack it in my
 home directory, as soon as I open my terminal I'll have to use \sphinxcode{cd
-/home/myuser/kpp-2.2.3}. This command will only work if the path is correct (it
-might not work on Windows, for example, which does not have a \sphinxcode{/home} location.
-If you're using Bash on Windows it's better to go with the following
-alternative.
+/home/myuser/kpp-2.2.3}. This command will only work if the path is correct
+(it might not work on Windows emulators, for example, which may place the
+\sphinxcode{/home} directory elsewhere (you can always just google).
 
 However, if you're insecure with navigating your directories using your
 terminal, it's best to do everything via this second, more straightforward,
-option. It uses solely commands but it's easier. First, as soon as you open the
-terminal run the following commands
+option. It uses solely commands but it's easier. First, with the terminal open
+somewhere (anywhere in this case) run the following commands:
 
-\begin{Verbatim}[commandchars=\\\{\}]
+\begin{Verbatim}[commandchars=\\\{\},numbers=left,firstnumber=1,stepnumber=1]
+\PYG{n+nb}{cd} \PYG{n+nv}{\PYGZdl{}HOME}
 wget http://people.cs.vt.edu/\PYGZti{}asandu/Software/Kpp/Download/kpp\PYGZhy{}2.2.3\PYGZus{}Nov.2012.zip
 unzip kpp\PYGZhy{}2.2.3\PYGZus{}Nov.2012.zip
 \PYG{n+nb}{cd} kpp\PYGZhy{}2.2.3
 \end{Verbatim}
 
-Line one will automatically download the software to your current directory and
-line two will unpack it.  This will create a new directory with all the
-contents of the \sphinxcode{.zip} file, so the last command line will move to the
-recently-created directory.
+Line one will go to your home directory, and line two will automatically download
+the software there, while line three will unpack it. This will create a new
+directory with all the contents of the \sphinxcode{.zip} file, so the last command line
+will move to the recently-created directory, which is now the KPP directory.
+
+\begin{notice}{note}{Note:}
+This last set of commands can be run from any directory because we first moved to
+the home directory (in the first line) before downloading and unpacking everything.
+This was done just to make things easier and more compact, but KPP can be downloaded
+and run from anywhere in your system, so if for some reason you want to download,
+unpack and install it somewhere else, feel free to change the first line accordingly.
+\end{notice}
 
 Make sure you're in the correct directory by entering \sphinxcode{pwd}, which should show
-you that you're on the \sphinxtitleref{kpp-2.2.3} directory. You can also type \sphinxtitleref{ls}, which should
+you the full path to the \sphinxcode{kpp-2.2.3} directory. You can also type \sphinxcode{ls}, which should
 show you a list of everything that was in the zip file:
 
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -392,10 +419,11 @@ something like \sphinxcode{flex 2.6.0}. If instead you see something like \sphin
 command not found} then it means that it is not installed and you're going to
 have to install it by running \sphinxcode{sudo apt update \&\& sudo apt install flex} if
 you're running Linux natively (depending on your Linux distribution) or by
-manually installing downloading and installing the file if you're emulating
-(with Cygwin, for example). A quick google search should tell you how to
-install it easily. Note: if \sphinxcode{flex} isn't available for you, you might need to
-install the Flex-dev package with \sphinxcode{sudo apt install flex-devel.x86\_64}.
+manually downloading and installing the file if you're emulating (with Cygwin,
+for example). A quick google search should tell you how to install it easily.
+Note: if \sphinxcode{flex} isn't available for you, you might need to install the
+Flex-dev package with \sphinxcode{sudo apt install flex-devel.x86\_64} or something
+similar.
 
 Be also sure that \sphinxcode{yacc} and \sphinxcode{sed} are installed by typing \sphinxcode{which yacc}
 and \sphinxcode{which sed}. If you see something like \sphinxcode{/usr/bin/sed} or
@@ -405,13 +433,12 @@ should tell you how to do it, although it is very rare that these packages
 aren't installed.
 
 \begin{notice}{note}{Note:}
-\sphinxcode{flex} and \sphinxcode{yacc} have to do with \href{https://en.wikipedia.org/wiki/Lexical\_analysis}{lexical analysis}
-and it's not specially important to know exactly what they do. Suffices to
-say that they are used internally by the compiler to generate the executable
-file, but you will never have to use them directly when compiling/using KPP.
-\sphinxcode{sed}, however, is a very useful \href{https://en.wikipedia.org/wiki/Sed}{text manipulation tool},
-but you also won't need to use it
-while running KPP.
+\sphinxcode{flex} and \sphinxcode{yacc} have to do with \href{https://en.wikipedia.org/wiki/Lexical\_analysis}{lexical analysis} and it's not specially
+important to know exactly what they do. Suffices to say that they are used
+internally by the compiler to generate the executable file, but you will never
+have to use them directly when compiling/using KPP.  On the other hand,
+\sphinxcode{sed}, is a very useful \href{https://en.wikipedia.org/wiki/Sed}{text manipulation tool} that you might benefit from learning, but
+you also won't need to use it while running KPP, so feel free to disregard it for now.
 \end{notice}
 
 
@@ -424,9 +451,9 @@ read it, as you'll see) with some very simple commands. Every time you start a
 terminal that file is ``read'' internally by the terminal and executed. So inside
 that file you can put any command that you could type in the terminal. Thus,
 generally, if you want to change something in your terminal so that the change
-takes place every time you start it (so you don't have to re-change it over and
-over again every time you open it), that's the place to do it. For our purposes
-we simply need to add a couple of lines. We'll do that step by step.
+takes place every time you start it (so you don't have to re-set that change
+over and over again every time), that's the place to do it. For our purposes we
+simply need to add a couple of lines. We'll do that step by step.
 
 \begin{notice}{note}{Note:}
 If you're using a terminal other than Bash the \sphinxcode{.bashrc} file will probably
@@ -435,34 +462,32 @@ also differ a bit, but the process and the ideas are the same! You'll just have
 to probably do some quick googling.
 \end{notice}
 
-First, in the directory where you unpacked KPP, run the command \sphinxcode{pwd} to
-print the present working directory and copy its output. You'll need this for
-the next steps.
-
-Now you need to open and edit \sphinxcode{.bashrc} which can be done with many programs,
-it really depends on what is installed for your (or what you would like to
-install).  The best options would be an editor that runs with a GUI. For
-Windows users the best option is probably \sphinxcode{notepad++}, while for Linux users
-\sphinxcode{gedit} is generally the default GUI option. You can try these (and any other
-GUI plain text editors you know) with the commands \sphinxcode{gedit \textasciitilde{}/.bashrc}, or
-\sphinxcode{notepad++ \textasciitilde{}/.bashrc} and so forth with the others.
+Now you need to open and edit \sphinxcode{.bashrc} from the terminal which can be done
+with many programs, it really depends on what is installed for you (or what you
+would like to install). The best options would be an editor that runs with a
+GUI. For Windows users the best option is probably \sphinxcode{notepad++}, while for
+Linux users \sphinxcode{gedit} is generally the default GUI option. You can try these
+(and any other GUI plain text editors you know) with the commands \sphinxcode{gedit
+\textasciitilde{}/.bashrc}, or \sphinxcode{notepad++ \textasciitilde{}/.bashrc} and so forth with the others.
 
 If any of those work, great!, you can edit the file in an intuitive GUI editor.
-If not, you're either going to have to install a GUI text editor, or use Nano
-by running the command \sphinxcode{nano \textasciitilde{}/.bashrc}. Nano is a very handy text editor
-which runs on the terminal itself, however, it's not as eye-pleasing and not as
-intuitive as the GUI-based ones.
+If not, you're either going to have to find yourself a text editor with a GUI,
+or use Nano by running the command \sphinxcode{nano \textasciitilde{}/.bashrc}. Nano is a very handy
+text editor which runs on the terminal itself, however, it's not as
+eye-pleasing and not as intuitive as the GUI-based ones.
+
+\begin{notice}{note}{Note:}
+If you're forced to use Nano, you should probably read this very quick
+\href{http://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/}{tutorial}
+to learn how to open, save and close files. It's not as intuitive, but it's
+very easy.
+\end{notice}
 \begin{figure}[htbp]
 \centering
 \capstart
 
 \noindent\scalebox{0.900000}{\sphinxincludegraphics{{nano_example}.png}}
 \caption{.bashrc example.}\label{compiling:nano-ex}\label{compiling:id1}\end{figure}
-
-If you're forced to use Nano, you should probably read this very quick
-\href{http://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/}{tutorial}
-to learn how to open, save and close files. It's not as intuitive, but it's
-very easy.
 
 Once you open \sphinxcode{.bashrc}, you're going to see something like Fig.
 {\hyperref[compiling:nano\string-ex]{\sphinxcrossref{\DUrole{std,std-ref}{.bashrc example.}}}} (in this case open with Nano). Don't worry about the lines of
@@ -475,14 +500,9 @@ the last line of the file. After the last line you'll include the following
 \PYG{n+nb}{export} \PYG{n+nv}{PATH}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}PATH}:\PYG{n+nv}{\PYGZdl{}KPP\PYGZus{}HOME}/bin
 \end{Verbatim}
 
-except that you should replace \sphinxcode{\$HOME/kpp} with the output of your \sphinxcode{pwd} command.
-For example, if the output of \sphinxcode{pwd} was \sphinxcode{/home/myuser/Downloads/kpp-2.2.3} you
-should write
-
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nb}{export} \PYG{n+nv}{KPP\PYGZus{}HOME}\PYG{o}{=}/home/user/Downloads/kpp\PYGZhy{}2.2.3
-\PYG{n+nb}{export} \PYG{n+nv}{PATH}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}PATH}:\PYG{n+nv}{\PYGZdl{}KPP\PYGZus{}HOME}/bin
-\end{Verbatim}
+That will work if you followed exactly the previous commands and installed KPP
+in the home directory. If you didn't you should replace \sphinxcode{\$HOME/kpp-2.2.3}
+with the output of your \sphinxcode{pwd} command which you just saved.
 
 After this is done, you are going to save and exit. If you're using any option
 with a GUI this should be straightforward. With Nano you can save and exit by
@@ -518,6 +538,10 @@ in this file. The first one starts with \sphinxcode{CC}, which sets the C Compil
 this guide we will use the Gnu Compiler Collection, \sphinxcode{gcc}. So make sure that
 the line which starts with \sphinxcode{CC} reads \sphinxcode{CC=gcc}.
 
+\begin{notice}{note}{Note:}
+If you prefer to use another compiler, put that one there instead of gcc.
+\end{notice}
+
 Next, since we made sure that Flex was installed, make sure the next important
 line reads \sphinxcode{FLEX=flex}. On the third step, set the next variable
 (\sphinxcode{FLEX\_LIB\_DIR}) with the output we just saved without the last part. So in
@@ -526,12 +550,17 @@ will read \sphinxcode{FLEX\_LIB\_DIR=/usr/lib/x86\_64-linux-gnu}. You should, of
 replace your line accordingly.
 
 The next two items define some possible extra options for the compilation and
-extra directories also to include in the compilation. We will don't have to
+extra directories also to include in the compilation. We don't have to
 worry about those, unless maybe if we need to debug the program for some
 reason. Now you can save and close/exit the file.
 
-If we did everything correctly we can compile KPP simply by running the
-\sphinxcode{make} command. Many warnings are going to appear on the screen (that's
+If we did everything correctly we can compile KPP simply by running:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{make}
+\end{Verbatim}
+
+on the terminal. Many warnings are going to appear on the screen (that's
 normal), but as long as no error appears, the compilation will be successful.
 You can be sure it was successful by once again running \sphinxcode{ls} and seeing that
 there is now one extra entry on the KPP directory called \sphinxcode{bin}:
@@ -542,7 +571,13 @@ cflags        drv       int                 Makefile.defs  site\PYGZhy{}lisp
 cflags.guess  examples  int.modified\PYGZus{}WCOPY  models         src
 \end{Verbatim}
 
-Now let's test it by running \sphinxcode{kpp test}. If the output is something like
+Now let's test it by running the following command:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{kpp} \PYG{n}{test}
+\end{Verbatim}
+
+If the output after this command is something like
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{n}{This} \PYG{o+ow}{is} \PYG{n}{KPP}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{2.2}\PYG{o}{.}\PYG{l+m+mf}{3.}
@@ -574,7 +609,8 @@ output this time, meaning that the system could find KPP successfully.
 \chapter{Running KPP}
 \label{running::doc}\label{running:running-kpp}
 Now that KPP is properly compiled, we proceed to running the first test case
-to make sure it works!
+to make sure it works! It's advised to have the official KPP manual along with
+you during this section.
 
 
 \section{The first test case}
@@ -586,21 +622,27 @@ KPP.
 In order to run a simulation on KPP, it needs three things:
 \begin{itemize}
 \item {} 
-a \sphinxcode{.kpp} file (from the KPP directory, type \sphinxcode{ls examples} to see some examples of those)
+a \sphinxcode{.kpp} file (type \sphinxcode{ls \$KPP\_HOME/examples} to see some examples of those)
 
 \item {} 
-a \sphinxcode{.spc} file (type \sphinxcode{ls models} to see some examples of those)
+a \sphinxcode{.spc} file (type \sphinxcode{ls \$KPP\_HOME/models} to see some examples of those)
 
 \item {} 
-a \sphinxcode{.eqn} file (type \sphinxcode{ls models} to see some examples of those)
+a \sphinxcode{.eqn} file (type \sphinxcode{ls \$KPP\_HOME/models} to see some examples of those)
 
 \end{itemize}
 
 We begin by creating a directory to run this first test. Let's call this
-directory \sphinxcode{test1} and create it with \sphinxcode{mkdir test1} (this new directory can
-be created anywhere!). We then go to that directory with \sphinxcode{cd test1}. Let's
-follow the manual and create a file called \sphinxcode{small\_strato.kpp} with the
-following contents:
+directory \sphinxcode{test1}. We can create this directory anywhere: even inside KPP's home
+directory, although, for the sake of simplicity, let's create it in your home directory:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+cd \PYGZdl{}HOME
+mkdir test1
+\end{Verbatim}
+
+Now let's go to that directory with \sphinxcode{cd test1}. Following the manual, let us
+create a file called \sphinxcode{small\_strato.kpp} with the following contents:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{}MODEL      small\PYGZus{}strato}
@@ -609,15 +651,15 @@ following contents:
 \PYG{c+c1}{\PYGZsh{}DRIVER     general}
 \end{Verbatim}
 
-You can do this by typing \sphinxcode{nano small\_strato.kpp} in the \sphinxcode{test1} directory,
-if using Nano, or by using another editor of your choice (replace \sphinxcode{nano} with
-\sphinxcode{notepad++} for example). Then just paste the content above in the file, save
-it and exit it.
+You can do this by typing \sphinxcode{notepad++ small\_strato.kpp} in the \sphinxcode{test1}
+directory, if using Notepad++, or by using another editor of your choice
+(replace \sphinxcode{notepad++} with \sphinxcode{gedit} for example). Then just paste the content
+above in the file, save and exit it.
 
 This file tells KPP what model to use (\sphinxcode{small\_strato.def}) and how to process
-it (most importantly for us here, it tells KPP to generate a Fortran 90 code).
-Many other options can be added to this file and you can learn more about them
-in the KPP manual.
+it (most importantly for us here, it tells KPP to generate a Fortran 90 code,
+although it can also generate C and Matlab code). Many other options can be
+added to this file and you can learn more about them in the KPP manual.
 
 If our changes to \sphinxcode{.bashrc} are correct, then KPP should be able to find the
 correct model, since the \sphinxcode{small\_strato} model (given by \sphinxcode{small\_strato.def})
@@ -671,8 +713,15 @@ You should see the following lines on your screen:
 \PYG{n}{KPP} \PYG{n}{has} \PYG{n}{succesfully} \PYG{n}{created} \PYG{n}{the} \PYG{n}{model} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{small\PYGZus{}strato}\PYG{l+s+s2}{\PYGZdq{}}\PYG{o}{.}
 \end{Verbatim}
 
-If indeed you see this (or something similar) it means you were successful in
-creating the model. Now if you type \sphinxcode{ls}, you'll see many new files:
+\begin{notice}{note}{Note:}
+If you get an error message here, go back a few steps and make sure the \sphinxcode{\$KPP\_HOME}
+and the \sphinxcode{\$PATH} variable are set correctly, and be sure that both KPP can be
+found and the correct model files \sphinxcode{small\_strato} are in \sphinxcode{\$KPP\_HOME/models}.
+\end{notice}
+
+If indeed you see this output (or something very similar) it means you were
+successful in creating the model. Now if you list your files with the \sphinxcode{ls}
+command, you'll see many new files:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{n}{Makefile\PYGZus{}small\PYGZus{}strato}           \PYG{n}{small\PYGZus{}strato}\PYG{o}{.}\PYG{n}{map}
@@ -692,11 +741,11 @@ creating the model. Now if you type \sphinxcode{ls}, you'll see many new files:
 Most of them end with a \sphinxcode{.f90} extension, which tells us they are Fortran 90
 codes. These codes have to be compiled into an executable file which is what
 will actually process and run the kinetic model. So the next step is to compile
-every one of those code together into one executable and run it.
-
-Let's focus for now on the \sphinxcode{Makefile\_small\_strato}. This is a text file that
-tells your computer which Fortran compiler to use to compile, some options and
-etc. Open the \sphinxcode{Makefile\_small\_strato} file and find where it says
+every one of those code together into one executable and run it. To do that,
+let's focus for now on the \sphinxcode{Makefile\_small\_strato}. This is a text file that
+tells your computer which Fortran compiler to use to compile, which files to
+use, etc. We need to modify it, so open the \sphinxcode{Makefile\_small\_strato} file
+(again using your preferred editor) and find where it says
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{}COMPILER = G95}
@@ -713,16 +762,14 @@ with \sphinxcode{\#} are commented and therefore the computer doesn't ``see'' th
 currently, these lines are telling the computer to use the Intel Fortran
 compiler, \sphinxcode{ifort}.
 
-If you are using \sphinxcode{ifort}, you should leave it as it is. Since \sphinxcode{ifort} is
-paid, chances are you are using another compiler. If this is the case, put the
-\sphinxcode{\#} in front of the \sphinxcode{INTEL} options and take it out of the line which has
-the name of your compiler. If you don't know which compiler you have, chances
-are you have gfortran, which is free and what we will use here. You can also
-install gfortran with \sphinxcode{sudo apt install gfortran} (or the equivalent
+If you are using \sphinxcode{ifort}, you should leave it as it is. However, \sphinxcode{ifort} is
+paid, so chances are you are using another compiler. If this is the case, put
+the \sphinxcode{\#} in front of the \sphinxcode{INTEL} options and take it out of the line which
+has the name of your compiler. If you don't know which compiler you have,
+chances are you have gfortran, which is free and the one we will use here. You
+can install gfortran with \sphinxcode{sudo apt install gfortran} (or the equivalent
 installation command for your system).
-
-Since gfortran is the most common compiler, we will assume here that you're
-using it. So, for gfortran, you should make the above lines of code look like
+So, for gfortran, you should make the above lines of code look like
 the following:
 
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -734,19 +781,32 @@ the following:
 \PYG{n+nv}{COMPILER} \PYG{o}{=} GFORTRAN
 \end{Verbatim}
 
-When doing that we say that we ``uncommented'' the gfortran line.
-You can save and exit the file.
+When doing that we say that we ``uncommented'' the gfortran line, since every
+line that starts with a \sphinxcode{\#} is commented and not read by the system. You can
+save and exit the file.
 
-Now all you have to do is run \sphinxcode{make -f Makefile\_small\_strato}, which will
-compile your Fortran code into an executable using the options we just set.
-You should see a lot of lines appearing on screen starting with \sphinxcode{gfortran}
+Now all you have to do is run the following command:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{make} \PYG{o}{\PYGZhy{}}\PYG{n}{f} \PYG{n}{Makefile\PYGZus{}small\PYGZus{}strato} \PYG{n}{which} \PYG{n}{will} \PYG{n+nb}{compile} \PYG{n}{your} \PYG{n}{Fortran} \PYG{n}{code} \PYG{n}{into} \PYG{n}{an}
+\end{Verbatim}
+
+executable file (\sphinxcode{.exe}) using the options we just set. You should see a lot
+of lines appearing on screen starting with \sphinxcode{gfortran}, maybe some warnings,
 and if no error messages appear the compilation was successful.
 
 Now you'll see many more new files, including one called \sphinxcode{small\_strato.exe},
-which is your executable file (run \sphinxcode{ls} again to see that). This is the
-executable that will actually calculate the concentrations using the model.
+which is your executable file (run \sphinxcode{ls} again list everything and see that).
+This is the executable that will actually calculate the concentrations using
+the model.
 
-To test if it works, run \sphinxcode{./small\_strato.exe}, which will run the executable.
+To test if it works, run the following command:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{.}\PYG{o}{/}\PYG{n}{small\PYGZus{}strato}\PYG{o}{.}\PYG{n}{exe}
+\end{Verbatim}
+
+which will run the executable.
 You should see some output on the screen with concentrations, like Fig. {\hyperref[running:test1\string-output]{\sphinxcrossref{\DUrole{std,std-ref}{Output concentrations of the first test case.}}}}
 \begin{figure}[htbp]
 \centering
@@ -771,13 +831,12 @@ file tells it to do. In the first line of the file there is the command
 \PYG{c+c1}{\PYGZsh{}MODEL      small\PYGZus{}strato}
 \end{Verbatim}
 
-which tells KPP to look in the directory containing its models (located at
-\sphinxcode{\$KPP\_HOME/models}, according to the changes we made before in the
-\sphinxcode{.bashrc} file) for a file called \sphinxcode{small\_strato.def}.  Since the file is
-there, KPP had no problems finding it. This file has the initial concentrations
-you want to use in the model, the time step etc.. It also links two other files
-(\sphinxcode{small\_strato.spc} and \sphinxcode{small\_strato.eqn}), which tell KPP with chemical
-species and chemical equations to use.
+which tells KPP to look for a file called \sphinxcode{small\_strato.def}. Since the file
+is in KPP's models directory (at \sphinxcode{\$HOME\_KPP/models}), KPP had no problems
+finding it. This file has the initial concentrations you want to use in the
+model, the time step, etc. It also links two other files (\sphinxcode{small\_strato.spc}
+and \sphinxcode{small\_strato.eqn}), which tell KPP with chemical species and chemical
+equations to use (effectively defining the mechanism).
 
 After receiving all that information, KPP finally creates a Fortran 90 code
 (because it says so in the \sphinxcode{small\_strato.kpp} we created) with our small
@@ -812,13 +871,14 @@ In the case of \sphinxcode{small\_strato} the order printed on the file (you can
 
 The time is always going to be the first column, and it is always going to be
 in hours since the start of the simulation. Since the solar forcing matters
-here, we need to keep track of the time of day the day that the simulation
-started. In this case it was at noon.
+here, we need to keep track of the time of day that the simulation started. In
+this case it was at noon, because that's the way the \sphinxcode{.def} file is set (we
+will talk about this in more detail in the sections to come).
 
 We can read that data in many ways. I present below a quick python script
 to plot the concentrations as a function of the hour of the day
 
-\begin{Verbatim}[commandchars=\\\{\}]
+\begin{Verbatim}[commandchars=\\\{\},numbers=left,firstnumber=1,stepnumber=1]
 \PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k}{as} \PYG{n+nn}{pd}
 \PYG{k+kn}{from} \PYG{n+nn}{matplotlib} \PYG{k}{import} \PYG{n}{pyplot} \PYG{k}{as} \PYG{n}{plt}
 \PYG{n}{concs} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{small\PYGZus{}strato.dat}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{index\PYGZus{}col}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{delim\PYGZus{}whitespace}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{header}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{)}\PYG{o}{.}\PYG{n}{apply}\PYG{p}{(}\PYG{n}{pd}\PYG{o}{.}\PYG{n}{to\PYGZus{}numeric}\PYG{p}{,} \PYG{n}{errors}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{coerce}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
@@ -826,16 +886,16 @@ to plot the concentrations as a function of the hour of the day
 \PYG{n}{concs}\PYG{o}{.}\PYG{n}{index}\PYG{o}{.}\PYG{n}{name} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Hours since noon}\PYG{l+s+s1}{\PYGZsq{}}
 \PYG{n}{concs}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{ylim}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mf}{1.e8}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{]}\PYG{p}{,} \PYG{n}{logy}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{y}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{O3}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NO}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NO2}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,} \PYG{n}{grid}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
 \PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{test1\PYGZus{}time.png}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
-
 \end{Verbatim}
 
 \begin{notice}{note}{Note:}
-KPP has a small issue with formatting and sometimes prints a number that can't be read because
-some strings are missing. For example, printing \sphinxcode{3.4562-313}. This can't be normally read
-and it's supposed to be \sphinxcode{3.4562E-313} and this (apparently) only happens when the number
-is close to machine-precision (which we would interpret as zero). The program above takes
-this issue into consideration when reading the file, but you should pay attention when trying
-to read with by other means.
+KPP has a small issue with formatting and sometimes prints a number that can't
+be read because some strings are missing. For example, printing \sphinxcode{3.4562-313}.
+This can't be normally read and it's supposed to be \sphinxcode{3.4562E-313} and this
+(apparently) only happens when the number is close to machine-precision (which
+we would interpret as zero). The program above takes this issue into
+consideration (in line 3) when reading the file, but you should pay attention to that when
+trying to read with by other means.
 \end{notice}
 
 If you have ever seen python before, this code should be pretty intuitive. If
@@ -873,7 +933,7 @@ First, create another directory (anywhere you want) called \sphinxcode{test2} (w
 \sphinxcode{mkdir test2}) and enter it (with \sphinxcode{cd test2}). Now create a file called
 \sphinxcode{my\_strato.kpp} (with \sphinxcode{notepad++ my\_strato.kpp} or \sphinxcode{gedit my\_strato.kpp}
 or whichever text editor you ended up using) and paste the following lines in
-the file
+the file:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{}MODEL      my\PYGZus{}strato}
@@ -884,9 +944,9 @@ the file
 
 At this point if you run \sphinxcode{kpp my\_strato.kpp} you should get an error saying
 \sphinxcode{"Fatal error : my\_strato.def: Can't read file"}. Which appears because we
-instructed KPP to search for the file \sphinxcode{my\_strato.def}, which doesn't exist in
-the models directory. So we first must create the \sphinxcode{my\_strato.def} file, which
-ultimately defines the \sphinxcode{my\_strato} model.
+instructed KPP to search for the file \sphinxcode{my\_strato.def}, which doesn't exist
+anywhere. So we first must create the \sphinxcode{my\_strato.def} file, which ultimately
+defines the \sphinxcode{my\_strato} model.
 
 Let us define our model based on \sphinxcode{small\_strato}, since for now all we want to
 do is to modify the time length of the simulation. In order to preserve the
@@ -925,21 +985,30 @@ they are given in seconds. For example, \sphinxcode{3*24*3600} is the amount of 
 in 3 days, meaning that at the moment the simulation is set to run for 3 days,
 which we saw is not enough.  Let us then replace \sphinxcode{3} with \sphinxcode{30}, meaning we
 will run it for 30 days, to be sure that equilibrium is reached. Now that line
-should read \sphinxcode{TEND = TSTART + (30*24*3600)}.
+should read \sphinxcode{TEND = TSTART + (30*24*3600)}. Please also note that \sphinxcode{TSTART}
+is set to \sphinxcode{12*3600}, or 12 hours, which means that the starting time of the
+simulation is at noon.
 
 After this small change we are ready to test run the model. Run \sphinxcode{kpp
 my\_strato.kpp}, which should end with a \sphinxcode{succesfully created the model}
 message. Now, just like with the previous example, open again the file
 \sphinxcode{Makefile\_my\_strato} and uncomment the line that says \sphinxcode{COMPILER =
-GFORTRAN}, so we can use Gfortran instead of Intel. After this is done compile
-the model with \sphinxcode{make -f Makefile\_my\_strato}. Again, if everything goes well,
-the \sphinxcode{my\_strato.exe} file should be created.
+GFORTRAN}, so we can use gfortran instead of Intel. After this is done compile
+the model with:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{make} \PYG{o}{\PYGZhy{}}\PYG{n}{f} \PYG{n}{Makefile\PYGZus{}my\PYGZus{}strato}
+\end{Verbatim}
+
+Again, if everything goes well, the \sphinxcode{my\_strato.exe} file should be created.
+You can run \sphinxcode{ls -tr} (which lists every file on your directory ordered by
+creation time) and see that the last file listed should be the \sphinxcode{.exe} file.
 
 We can now run the model with \sphinxcode{./my\_strato.exe}, which should now take 10
 times longer to complete, since we are running it for 10 times as long as
 before.  We can use the Python code given in the last section to read the
-results. We just need to adjust the name of the file inside the code from
-\sphinxcode{small\_strato} to \sphinxcode{my\_strato}.
+results. We just need to adjust the name inside the code from \sphinxcode{small\_strato}
+to \sphinxcode{my\_strato}.
 
 The plot of the results is
 \phantomsection\label{improving:test2-time}\begin{figure}[htbp]
@@ -956,12 +1025,12 @@ change some other parameters and examine how the model reacts.
 \section{Change in the initial conditions}
 \label{improving:change-in-the-initial-conditions}
 We try this next change in the same model as before (\sphinxcode{my\_strato}). Let's open
-the \sphinxcode{.def} file located at \sphinxcode{\$KPP\_HOME/models/my\_strato.def} and consider an
-atmosphere with more NO (simulating a polluted condition). Where it says \sphinxcode{NO =
-8.725E+08;}, we make it read \sphinxcode{NO  = 9.00E+09}, which is roughly a 10 times
-increase in the NO concentration. Let us also change the O3 initial condition
-and make the O3 line read \sphinxcode{O3  = 5.00E+10;}, simulating an atmosphere that
-has a lower initial O3 concentration.
+\sphinxcode{my\_strato.def} and consider an atmosphere with more NO (simulating a more
+polluted condition). Where it says \sphinxcode{NO = 8.725E+08;}, we make it read \sphinxcode{NO  =
+9.00E+09}, which is roughly a 10 times increase in the NO concentration. Let
+us also change the O3 initial condition and make the O3 line read \sphinxcode{O3  =
+5.00E+10;}, simulating an atmosphere that has a lower initial O3
+concentration.
 
 Let us also change the line that reads:
 
@@ -1111,6 +1180,10 @@ realistic! We only make this change for the sake of illustration, so that
 the output change is easier to see.
 \end{notice}
 
+You can actually change not only the reaction rate for the equation, but also
+modify the equations itself here and add (or remove) equations. For now we will
+leave the equations the way they are.
+
 Now we go through the same steps of running \sphinxcode{kpp strato3.kpp}, changing the
 compiler to gfortran and running \sphinxcode{make -f Makefile\_strato3}. If everything
 goes well, we'll see the \sphinxcode{strato3.exe} created. After running
@@ -1124,13 +1197,13 @@ file of course):
 \label{improving:test3-time}\end{figure}
 
 \begin{notice}{note}{Note:}
-This process of running KPP, then change the Makefile, then compiling, etc.,
+This process of running KPP, then changing the Makefile, then compiling, etc.,
 is pretty cumbersome and straightforward. So we included a file called
 \sphinxcode{updatenrun.sh} in the directory \sphinxcode{test3} that can be found in the \href{https://github.com/tomchor/ezkpp/tree/gh-pages/test3}{github
 repo}. This is a bash
 script that does these steps automatically. To run it, you enter \sphinxcode{sh
-updatenrun.sh modelname}. In this case, for example it is \sphinxcode{sh updatenrun.sh
-strato3}.
+updatenrun.sh modelname}. In this case, for example it shoudl be used with
+\sphinxcode{sh updatenrun.sh strato3}.
 \end{notice}
 
 We can see that once again the final result changed. This time, since NO2 is
@@ -1191,7 +1264,7 @@ be written as:
 \PYG{o}{\PYGZlt{}}\PYG{n}{R15}\PYG{o}{\PYGZgt{}} \PYG{n}{HNO3}       \PYG{o}{=} \PYG{n}{HNO3aq}        \PYG{p}{:} \PYG{p}{(}\PYG{l+m+mf}{2.4000e\PYGZhy{}03}\PYG{p}{)}\PYG{p}{;}
 \end{Verbatim}
 
-So copy and paste those lines into the \sphinxcode{ttropo.eqn}, save and exit.
+So copy and paste those lines into \sphinxcode{ttropo.eqn}, save and exit.
 
 \begin{notice}{note}{Note:}
 Again, some of these reaction constants might not be exactly accurate for
@@ -1200,7 +1273,10 @@ professional means, since the objective here is to only present this as an
 example.
 \end{notice}
 
-Now we create the species file in which we define only \sphinxcode{M}, \sphinxcode{H2O} and
+Now we create the species file, which has to have all the species we used in
+the reactions above properly defined. We can define a species as being variable
+(when its concentration can vary according to the kinetics) or fixed (when its
+concentration is a constant). In this case, we define only \sphinxcode{M}, \sphinxcode{H2O} and
 \sphinxcode{O2} as fixed quantities and the other ones as variables:
 \begin{alltt}
 \#include atoms
@@ -1247,12 +1323,13 @@ ttropo.def}.  In that file you will write the following lines:
 
 \PYG{c+c1}{\PYGZsh{}INITVALUES                    \PYGZob{}Initial Values\PYGZcb{}}
 \PYG{n}{CFACTOR} \PYG{o}{=} \PYG{l+m+mf}{1.}    \PYG{p}{;}              \PYG{p}{\PYGZob{}}\PYG{n}{Conversion} \PYG{n}{Factor}\PYG{p}{\PYGZcb{}}
-\PYG{n}{O3}  \PYG{o}{=} \PYG{l+m+mf}{0.} \PYG{p}{;} 
-\PYG{n}{NO}  \PYG{o}{=} \PYG{l+m+mf}{9.00E+09} \PYG{p}{;}
-\PYG{n}{NO2} \PYG{o}{=} \PYG{l+m+mf}{3.60E+10} \PYG{p}{;}
+\PYG{n}{O3}  \PYG{o}{=} \PYG{l+m+mf}{7.65E+11} \PYG{p}{;} 
+\PYG{n}{NO}  \PYG{o}{=} \PYG{l+m+mf}{2.55E+10} \PYG{p}{;}
+\PYG{n}{NO2} \PYG{o}{=} \PYG{l+m+mf}{0.0E+09} \PYG{p}{;}
 \PYG{n}{O2}  \PYG{o}{=} \PYG{l+m+mf}{1.697E+19} \PYG{p}{;}
 \PYG{n}{M}   \PYG{o}{=} \PYG{l+m+mf}{2.550E+19} \PYG{p}{;}
-\PYG{n}{H2O}    \PYG{o}{=} \PYG{l+m+mf}{3.9E17} \PYG{p}{;}
+\PYG{n}{H2O} \PYG{o}{=} \PYG{l+m+mf}{3.0E+17}\PYG{p}{;}
+\PYG{n}{CO}  \PYG{o}{=} \PYG{l+m+mf}{2.55E13}\PYG{p}{;}
 
 \PYG{n}{OH}     \PYG{o}{=} \PYG{l+m+mf}{0.}\PYG{p}{;}
 \PYG{n}{HO2}    \PYG{o}{=} \PYG{l+m+mf}{0.}\PYG{p}{;}
@@ -1260,9 +1337,8 @@ ttropo.def}.  In that file you will write the following lines:
 \PYG{n}{H2O2aq} \PYG{o}{=} \PYG{l+m+mf}{0.}\PYG{p}{;}
 \PYG{n}{HNO3}   \PYG{o}{=} \PYG{l+m+mf}{0.}\PYG{p}{;}
 \PYG{n}{HNO3aq} \PYG{o}{=} \PYG{l+m+mf}{0.}\PYG{p}{;}
-\PYG{n}{O1D} \PYG{o}{=} \PYG{l+m+mf}{0.} \PYG{p}{;}
-\PYG{n}{O}   \PYG{o}{=} \PYG{l+m+mf}{0.} \PYG{p}{;}
-\PYG{n}{CO}     \PYG{o}{=} \PYG{l+m+mf}{2.55E12}\PYG{p}{;} \PYG{p}{\PYGZob{}}\PYG{l+m+mi}{100} \PYG{n}{ppbv}\PYG{p}{\PYGZcb{}}
+\PYG{n}{O1D}    \PYG{o}{=} \PYG{l+m+mf}{0.} \PYG{p}{;}
+\PYG{n}{O}      \PYG{o}{=} \PYG{l+m+mf}{0.} \PYG{p}{;}
 
 \PYG{c+c1}{\PYGZsh{}INLINE F90\PYGZus{}INIT}
        \PYG{n}{TSTART} \PYG{o}{=} \PYG{p}{(}\PYG{l+m+mi}{12}\PYG{o}{*}\PYG{l+m+mi}{3600}\PYG{p}{)}
@@ -1274,12 +1350,12 @@ ttropo.def}.  In that file you will write the following lines:
 
 You can see that with this set of definitions we chose to run the model for 15
 days, with a time step of 0.2 hours and that many of the initial concentrations
-are set to zero.
+are set to zero. Note also that we are again starting the simulation at noon.
 
 With these files we have the complete \sphinxcode{ttropo} model and are ready to run it.
 We can use the \sphinxcode{updatenrun.sh} script as \sphinxcode{sh updatenrun.sh ttropo} (you'll
 have to copy it to the current directory with \sphinxcode{cp} first). It should run
-successfully now.  Note that we again have to check out \sphinxcode{ttropo.map} to find
+successfully now. Note that we again have to check out \sphinxcode{ttropo.map} to find
 out the order of the species in the output file. We can use the following Python
 script to plot the results (the correct output order is already included in
 it):
@@ -1304,9 +1380,20 @@ The output of this model can be seen in this figure:
 \noindent\scalebox{0.800000}{\sphinxincludegraphics{{test4_time}.png}}
 \label{improving:test4-time}\end{figure}
 
+As you can see, in 15 days we ran the model for, it hasn't reached equilibrium
+yet. This system of equations will take longer to reach equilibrium state than
+previous models. You can, once again, investigate the effects of different
+initial concentrations in the final result, change the reactions and reaction
+rates, or even fix some quantities in the \sphinxcode{.spc} file.
+
+The creation of any new model from scratch follows the same paths that we just
+described here. So for other models, following these steps should produce the
+correct result. For model detailed information not included here, we refer the
+user to the official manual for KPP.
+
 
 \chapter{Possible bug fixes}
-\label{bugs:possible-bug-fixes}\label{bugs::doc}
+\label{bugs:possible-bug-fixes}\label{bugs::doc}\label{bugs:bugs}
 \begin{notice}{note}{Note:}
 This section is meant to become a list of common bugs that might arise
 along with a way to solve them.

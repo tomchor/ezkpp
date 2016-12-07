@@ -51,8 +51,16 @@
             
   <div class="section" id="compiling-kpp">
 <h1>Compiling KPP<a class="headerlink" href="#compiling-kpp" title="Permalink to this headline">¶</a></h1>
-<p>In this chapter we detail how to successfully download and compile KPP
-on your system under the Bash environment.</p>
+<p>We say we compile a program when we convert all the human-readable code that
+directly wrote into a binary executable that your machine can actually run
+directly. In other words, it&#8217;s like we&#8217;re installing a program into the
+computer. In this chapter we detail how to successfully download and compile
+KPP on your system under the Bash environment.</p>
+<p>If from now you encounter any bug that isn&#8217;t described directly in the text, we
+refer you to the <a class="reference internal" href="bugs.html#bugs"><span class="std std-ref">Possible bug fixes</span></a> section. If you find a fix for an error that isn&#8217;t
+anywhere in the guide, we also encourage you to contribute to the guide and
+include that bug fix in that section. (You can check the Introduction section
+on how to contribute.)</p>
 <div class="section" id="downloading-into-your-folder">
 <h2>Downloading into your folder<a class="headerlink" href="#downloading-into-your-folder" title="Permalink to this headline">¶</a></h2>
 <p>One of the first things to be said is: most of the commands we will use will
@@ -85,25 +93,36 @@ you&#8217;d replace <code class="docutils literal"><span class="pre">/home/myuse
 <p>If you prefer to download KPP through its website manually and unpack it
 somewhere, you&#8217;ll have to go there with your terminal. So, if I unpack it in my
 home directory, as soon as I open my terminal I&#8217;ll have to use <code class="docutils literal"><span class="pre">cd</span>
-<span class="pre">/home/myuser/kpp-2.2.3</span></code>. This command will only work if the path is correct (it
-might not work on Windows, for example, which does not have a <code class="docutils literal"><span class="pre">/home</span></code> location.
-If you&#8217;re using Bash on Windows it&#8217;s better to go with the following
-alternative.</p>
+<span class="pre">/home/myuser/kpp-2.2.3</span></code>. This command will only work if the path is correct
+(it might not work on Windows emulators, for example, which may place the
+<code class="docutils literal"><span class="pre">/home</span></code> directory elsewhere (you can always just google).</p>
 <p>However, if you&#8217;re insecure with navigating your directories using your
 terminal, it&#8217;s best to do everything via this second, more straightforward,
-option. It uses solely commands but it&#8217;s easier. First, as soon as you open the
-terminal run the following commands</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>wget http://people.cs.vt.edu/~asandu/Software/Kpp/Download/kpp-2.2.3_Nov.2012.zip
+option. It uses solely commands but it&#8217;s easier. First, with the terminal open
+somewhere (anywhere in this case) run the following commands:</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="nv">$HOME</span>
+wget http://people.cs.vt.edu/~asandu/Software/Kpp/Download/kpp-2.2.3_Nov.2012.zip
 unzip kpp-2.2.3_Nov.2012.zip
 <span class="nb">cd</span> kpp-2.2.3
 </pre></div>
+</td></tr></table></div>
+<p>Line one will go to your home directory, and line two will automatically download
+the software there, while line three will unpack it. This will create a new
+directory with all the contents of the <code class="docutils literal"><span class="pre">.zip</span></code> file, so the last command line
+will move to the recently-created directory, which is now the KPP directory.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This last set of commands can be run from any directory because we first moved to
+the home directory (in the first line) before downloading and unpacking everything.
+This was done just to make things easier and more compact, but KPP can be downloaded
+and run from anywhere in your system, so if for some reason you want to download,
+unpack and install it somewhere else, feel free to change the first line accordingly.</p>
 </div>
-<p>Line one will automatically download the software to your current directory and
-line two will unpack it.  This will create a new directory with all the
-contents of the <code class="docutils literal"><span class="pre">.zip</span></code> file, so the last command line will move to the
-recently-created directory.</p>
 <p>Make sure you&#8217;re in the correct directory by entering <code class="docutils literal"><span class="pre">pwd</span></code>, which should show
-you that you&#8217;re on the <cite>kpp-2.2.3</cite> directory. You can also type <cite>ls</cite>, which should
+you the full path to the <code class="docutils literal"><span class="pre">kpp-2.2.3</span></code> directory. You can also type <code class="docutils literal"><span class="pre">ls</span></code>, which should
 show you a list of everything that was in the zip file:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cflags</span>        <span class="n">drv</span>       <span class="nb">int</span>                 <span class="n">Makefile</span><span class="o">.</span><span class="n">defs</span>  <span class="n">site</span><span class="o">-</span><span class="n">lisp</span>
 <span class="n">cflags</span><span class="o">.</span><span class="n">guess</span>  <span class="n">examples</span>  <span class="nb">int</span><span class="o">.</span><span class="n">modified_WCOPY</span>  <span class="n">models</span>         <span class="n">src</span>
@@ -123,10 +142,11 @@ something like <code class="docutils literal"><span class="pre">flex</span> <spa
 <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code> then it means that it is not installed and you&#8217;re going to
 have to install it by running <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">update</span> <span class="pre">&amp;&amp;</span> <span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">flex</span></code> if
 you&#8217;re running Linux natively (depending on your Linux distribution) or by
-manually installing downloading and installing the file if you&#8217;re emulating
-(with Cygwin, for example). A quick google search should tell you how to
-install it easily. Note: if <code class="docutils literal"><span class="pre">flex</span></code> isn&#8217;t available for you, you might need to
-install the Flex-dev package with <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">flex-devel.x86_64</span></code>.</p>
+manually downloading and installing the file if you&#8217;re emulating (with Cygwin,
+for example). A quick google search should tell you how to install it easily.
+Note: if <code class="docutils literal"><span class="pre">flex</span></code> isn&#8217;t available for you, you might need to install the
+Flex-dev package with <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">flex-devel.x86_64</span></code> or something
+similar.</p>
 <p>Be also sure that <code class="docutils literal"><span class="pre">yacc</span></code> and <code class="docutils literal"><span class="pre">sed</span></code> are installed by typing <code class="docutils literal"><span class="pre">which</span> <span class="pre">yacc</span></code>
 and <code class="docutils literal"><span class="pre">which</span> <span class="pre">sed</span></code>. If you see something like <code class="docutils literal"><span class="pre">/usr/bin/sed</span></code> or
 <code class="docutils literal"><span class="pre">/usr/lib/yacc</span></code> then they are installed. If you see an error message, then
@@ -135,13 +155,12 @@ should tell you how to do it, although it is very rare that these packages
 aren&#8217;t installed.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal"><span class="pre">flex</span></code> and <code class="docutils literal"><span class="pre">yacc</span></code> have to do with <a class="reference external" href="https://en.wikipedia.org/wiki/Lexical_analysis">lexical analysis</a>
-and it&#8217;s not specially important to know exactly what they do. Suffices to
-say that they are used internally by the compiler to generate the executable
-file, but you will never have to use them directly when compiling/using KPP.
-<code class="docutils literal"><span class="pre">sed</span></code>, however, is a very useful <a class="reference external" href="https://en.wikipedia.org/wiki/Sed">text manipulation tool</a>,
-but you also won&#8217;t need to use it
-while running KPP.</p>
+<p class="last"><code class="docutils literal"><span class="pre">flex</span></code> and <code class="docutils literal"><span class="pre">yacc</span></code> have to do with <a class="reference external" href="https://en.wikipedia.org/wiki/Lexical_analysis">lexical analysis</a> and it&#8217;s not specially
+important to know exactly what they do. Suffices to say that they are used
+internally by the compiler to generate the executable file, but you will never
+have to use them directly when compiling/using KPP.  On the other hand,
+<code class="docutils literal"><span class="pre">sed</span></code>, is a very useful <a class="reference external" href="https://en.wikipedia.org/wiki/Sed">text manipulation tool</a> that you might benefit from learning, but
+you also won&#8217;t need to use it while running KPP, so feel free to disregard it for now.</p>
 </div>
 </div>
 <div class="section" id="telling-your-system-where-kpp-is">
@@ -153,9 +172,9 @@ read it, as you&#8217;ll see) with some very simple commands. Every time you sta
 terminal that file is &#8220;read&#8221; internally by the terminal and executed. So inside
 that file you can put any command that you could type in the terminal. Thus,
 generally, if you want to change something in your terminal so that the change
-takes place every time you start it (so you don&#8217;t have to re-change it over and
-over again every time you open it), that&#8217;s the place to do it. For our purposes
-we simply need to add a couple of lines. We&#8217;ll do that step by step.</p>
+takes place every time you start it (so you don&#8217;t have to re-set that change
+over and over again every time), that&#8217;s the place to do it. For our purposes we
+simply need to add a couple of lines. We&#8217;ll do that step by step.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If you&#8217;re using a terminal other than Bash the <code class="docutils literal"><span class="pre">.bashrc</span></code> file will probably
@@ -163,29 +182,29 @@ have a slightly different name (like <code class="docutils literal"><span class=
 also differ a bit, but the process and the ideas are the same! You&#8217;ll just have
 to probably do some quick googling.</p>
 </div>
-<p>First, in the directory where you unpacked KPP, run the command <code class="docutils literal"><span class="pre">pwd</span></code> to
-print the present working directory and copy its output. You&#8217;ll need this for
-the next steps.</p>
-<p>Now you need to open and edit <code class="docutils literal"><span class="pre">.bashrc</span></code> which can be done with many programs,
-it really depends on what is installed for your (or what you would like to
-install).  The best options would be an editor that runs with a GUI. For
-Windows users the best option is probably <code class="docutils literal"><span class="pre">notepad++</span></code>, while for Linux users
-<code class="docutils literal"><span class="pre">gedit</span></code> is generally the default GUI option. You can try these (and any other
-GUI plain text editors you know) with the commands <code class="docutils literal"><span class="pre">gedit</span> <span class="pre">~/.bashrc</span></code>, or
-<code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">~/.bashrc</span></code> and so forth with the others.</p>
+<p>Now you need to open and edit <code class="docutils literal"><span class="pre">.bashrc</span></code> from the terminal which can be done
+with many programs, it really depends on what is installed for you (or what you
+would like to install). The best options would be an editor that runs with a
+GUI. For Windows users the best option is probably <code class="docutils literal"><span class="pre">notepad++</span></code>, while for
+Linux users <code class="docutils literal"><span class="pre">gedit</span></code> is generally the default GUI option. You can try these
+(and any other GUI plain text editors you know) with the commands <code class="docutils literal"><span class="pre">gedit</span>
+<span class="pre">~/.bashrc</span></code>, or <code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">~/.bashrc</span></code> and so forth with the others.</p>
 <p>If any of those work, great!, you can edit the file in an intuitive GUI editor.
-If not, you&#8217;re either going to have to install a GUI text editor, or use Nano
-by running the command <code class="docutils literal"><span class="pre">nano</span> <span class="pre">~/.bashrc</span></code>. Nano is a very handy text editor
-which runs on the terminal itself, however, it&#8217;s not as eye-pleasing and not as
-intuitive as the GUI-based ones.</p>
+If not, you&#8217;re either going to have to find yourself a text editor with a GUI,
+or use Nano by running the command <code class="docutils literal"><span class="pre">nano</span> <span class="pre">~/.bashrc</span></code>. Nano is a very handy
+text editor which runs on the terminal itself, however, it&#8217;s not as
+eye-pleasing and not as intuitive as the GUI-based ones.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you&#8217;re forced to use Nano, you should probably read this very quick
+<a class="reference external" href="http://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/">tutorial</a>
+to learn how to open, save and close files. It&#8217;s not as intuitive, but it&#8217;s
+very easy.</p>
+</div>
 <div class="figure align-center" id="id1">
 <span id="nano-ex"></span><a class="reference internal image-reference" href="_images/nano_example.png"><img alt="Example of .bashrc file opened with Nano" src="_images/nano_example.png" style="width: 716.4px; height: 463.5px;" /></a>
 <p class="caption"><span class="caption-text">.bashrc example.</span></p>
 </div>
-<p>If you&#8217;re forced to use Nano, you should probably read this very quick
-<a class="reference external" href="http://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/">tutorial</a>
-to learn how to open, save and close files. It&#8217;s not as intuitive, but it&#8217;s
-very easy.</p>
 <p>Once you open <code class="docutils literal"><span class="pre">.bashrc</span></code>, you&#8217;re going to see something like Fig.
 <a class="reference internal" href="#nano-ex"><span class="std std-ref">.bashrc example.</span></a> (in this case open with Nano). Don&#8217;t worry about the lines of
 code. They&#8217;re probably going to be different for you and that&#8217;s OK; it really
@@ -195,13 +214,9 @@ the last line of the file. After the last line you&#8217;ll include the followin
 <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$KPP_HOME</span>/bin
 </pre></div>
 </div>
-<p>except that you should replace <code class="docutils literal"><span class="pre">$HOME/kpp</span></code> with the output of your <code class="docutils literal"><span class="pre">pwd</span></code> command.
-For example, if the output of <code class="docutils literal"><span class="pre">pwd</span></code> was <code class="docutils literal"><span class="pre">/home/myuser/Downloads/kpp-2.2.3</span></code> you
-should write</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">KPP_HOME</span><span class="o">=</span>/home/user/Downloads/kpp-2.2.3
-<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$KPP_HOME</span>/bin
-</pre></div>
-</div>
+<p>That will work if you followed exactly the previous commands and installed KPP
+in the home directory. If you didn&#8217;t you should replace <code class="docutils literal"><span class="pre">$HOME/kpp-2.2.3</span></code>
+with the output of your <code class="docutils literal"><span class="pre">pwd</span></code> command which you just saved.</p>
 <p>After this is done, you are going to save and exit. If you&#8217;re using any option
 with a GUI this should be straightforward. With Nano you can save and exit by
 pressing control X, choosing the &#8220;yes&#8221; option (by hitting the &#8220;y&#8221; key) when it
@@ -231,6 +246,10 @@ matter are those that don&#8217;t start with <code class="docutils literal"><spa
 in this file. The first one starts with <code class="docutils literal"><span class="pre">CC</span></code>, which sets the C Compiler. In
 this guide we will use the Gnu Compiler Collection, <code class="docutils literal"><span class="pre">gcc</span></code>. So make sure that
 the line which starts with <code class="docutils literal"><span class="pre">CC</span></code> reads <code class="docutils literal"><span class="pre">CC=gcc</span></code>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you prefer to use another compiler, put that one there instead of gcc.</p>
+</div>
 <p>Next, since we made sure that Flex was installed, make sure the next important
 line reads <code class="docutils literal"><span class="pre">FLEX=flex</span></code>. On the third step, set the next variable
 (<code class="docutils literal"><span class="pre">FLEX_LIB_DIR</span></code>) with the output we just saved without the last part. So in
@@ -238,11 +257,14 @@ my case the output saved was <code class="docutils literal"><span class="pre">/u
 will read <code class="docutils literal"><span class="pre">FLEX_LIB_DIR=/usr/lib/x86_64-linux-gnu</span></code>. You should, of course,
 replace your line accordingly.</p>
 <p>The next two items define some possible extra options for the compilation and
-extra directories also to include in the compilation. We will don&#8217;t have to
+extra directories also to include in the compilation. We don&#8217;t have to
 worry about those, unless maybe if we need to debug the program for some
 reason. Now you can save and close/exit the file.</p>
-<p>If we did everything correctly we can compile KPP simply by running the
-<code class="docutils literal"><span class="pre">make</span></code> command. Many warnings are going to appear on the screen (that&#8217;s
+<p>If we did everything correctly we can compile KPP simply by running:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">make</span>
+</pre></div>
+</div>
+<p>on the terminal. Many warnings are going to appear on the screen (that&#8217;s
 normal), but as long as no error appears, the compilation will be successful.
 You can be sure it was successful by once again running <code class="docutils literal"><span class="pre">ls</span></code> and seeing that
 there is now one extra entry on the KPP directory called <code class="docutils literal"><span class="pre">bin</span></code>:</p>
@@ -251,7 +273,11 @@ cflags        drv       int                 Makefile.defs  site-lisp
 cflags.guess  examples  int.modified_WCOPY  models         src
 </pre></div>
 </div>
-<p>Now let&#8217;s test it by running <code class="docutils literal"><span class="pre">kpp</span> <span class="pre">test</span></code>. If the output is something like</p>
+<p>Now let&#8217;s test it by running the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">kpp</span> <span class="n">test</span>
+</pre></div>
+</div>
+<p>If the output after this command is something like</p>
 <div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="ow">is</span> <span class="n">KPP</span><span class="o">-</span><span class="mf">2.2</span><span class="o">.</span><span class="mf">3.</span>
 
 <span class="n">KPP</span> <span class="ow">is</span> <span class="n">parsing</span> <span class="n">the</span> <span class="n">equation</span> <span class="n">file</span><span class="o">.</span>
@@ -356,7 +382,7 @@ output this time, meaning that the system could find KPP successfully.</p>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, Tomas Chor.
-      Last updated on 2016-12-06.
+      Last updated on 2016-12-07.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
     </div>
   </body>

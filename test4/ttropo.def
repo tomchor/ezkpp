@@ -13,12 +13,13 @@
 
 #INITVALUES                    {Initial Values}
 CFACTOR = 1.    ;              {Conversion Factor}
-O3  = 0. ; 
-NO  = 9.00E+09 ;
-NO2 = 3.60E+10 ;
+O3  = 7.65E+11 ; 
+NO  = 2.55E+10 ;
+NO2 = 0.0E+09 ;
 O2  = 1.697E+19 ;
 M   = 2.550E+19 ;
-H2O    = 3.9E17 ;
+H2O = 3.0E+17;
+CO  = 2.55E13;
 
 OH     = 0.;
 HO2    = 0.;
@@ -26,9 +27,8 @@ H2O2   = 0.;
 H2O2aq = 0.;
 HNO3   = 0.;
 HNO3aq = 0.;
-O1D = 0. ;
-O   = 0. ;
-CO     = 2.55E12; {100 ppbv}
+O1D    = 0. ;
+O      = 0. ;
 
 #INLINE F90_INIT
        TSTART = (12*3600)

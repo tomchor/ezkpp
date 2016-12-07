@@ -1,8 +1,17 @@
 Compiling KPP
 =============
 
-In this chapter we detail how to successfully download and compile KPP
-on your system under the Bash environment.
+We say we compile a program when we convert all the human-readable code that
+directly wrote into a binary executable that your machine can actually run
+directly. In other words, it's like we're installing a program into the
+computer. In this chapter we detail how to successfully download and compile
+KPP on your system under the Bash environment.
+
+If from now you encounter any bug that isn't described directly in the text, we
+refer you to the :ref:`bugs` section. If you find a fix for an error that isn't
+anywhere in the guide, we also encourage you to contribute to the guide and
+include that bug fix in that section. (You can check the Introduction section
+on how to contribute.)
 
 Downloading into your folder
 ----------------------------
@@ -40,29 +49,40 @@ full path; you can read more about relative and absolute paths `here
 If you prefer to download KPP through its website manually and unpack it
 somewhere, you'll have to go there with your terminal. So, if I unpack it in my
 home directory, as soon as I open my terminal I'll have to use ``cd
-/home/myuser/kpp-2.2.3``. This command will only work if the path is correct (it
-might not work on Windows, for example, which does not have a ``/home`` location.
-If you're using Bash on Windows it's better to go with the following
-alternative.
+/home/myuser/kpp-2.2.3``. This command will only work if the path is correct
+(it might not work on Windows emulators, for example, which may place the
+``/home`` directory elsewhere (you can always just google). 
 
 However, if you're insecure with navigating your directories using your
 terminal, it's best to do everything via this second, more straightforward,
-option. It uses solely commands but it's easier. First, as soon as you open the
-terminal run the following commands
+option. It uses solely commands but it's easier. First, with the terminal open
+somewhere (anywhere in this case) run the following commands:
 
-..  code-block:: bash
 
+.. code-block:: bash
+ :linenos:
+
+ cd $HOME
  wget http://people.cs.vt.edu/~asandu/Software/Kpp/Download/kpp-2.2.3_Nov.2012.zip
  unzip kpp-2.2.3_Nov.2012.zip
  cd kpp-2.2.3
 
-Line one will automatically download the software to your current directory and
-line two will unpack it.  This will create a new directory with all the
-contents of the ``.zip`` file, so the last command line will move to the
-recently-created directory.
+
+Line one will go to your home directory, and line two will automatically download
+the software there, while line three will unpack it. This will create a new
+directory with all the contents of the ``.zip`` file, so the last command line
+will move to the recently-created directory, which is now the KPP directory.
+
+.. note::
+
+ This last set of commands can be run from any directory because we first moved to
+ the home directory (in the first line) before downloading and unpacking everything.
+ This was done just to make things easier and more compact, but KPP can be downloaded
+ and run from anywhere in your system, so if for some reason you want to download,
+ unpack and install it somewhere else, feel free to change the first line accordingly.
 
 Make sure you're in the correct directory by entering ``pwd``, which should show
-you that you're on the `kpp-2.2.3` directory. You can also type `ls`, which should
+you the full path to the ``kpp-2.2.3`` directory. You can also type ``ls``, which should
 show you a list of everything that was in the zip file::
 
  cflags        drv       int                 Makefile.defs  site-lisp
@@ -78,16 +98,18 @@ make sure that you have the necessary software. These are called the
 dependencies of a program: it is everything the program needs to be available
 in the system (softwares, libraries, etc.) before it's installed.
 
-Be sure that FLEX (which is a public domain `lexical analizer <https://en.wikipedia.org/wiki/Lexical_analysis>`_) is installed on your
+Be sure that FLEX (which is a public domain `lexical analizer
+<https://en.wikipedia.org/wiki/Lexical_analysis>`_) is installed on your
 machine. You can run ``flex --version`` and if it is installed you should see
 something like ``flex 2.6.0``. If instead you see something like ``flex:
 command not found`` then it means that it is not installed and you're going to
 have to install it by running ``sudo apt update && sudo apt install flex`` if
 you're running Linux natively (depending on your Linux distribution) or by
-manually installing downloading and installing the file if you're emulating
-(with Cygwin, for example). A quick google search should tell you how to
-install it easily. Note: if ``flex`` isn't available for you, you might need to
-install the Flex-dev package with ``sudo apt install flex-devel.x86_64``.
+manually downloading and installing the file if you're emulating (with Cygwin,
+for example). A quick google search should tell you how to install it easily.
+Note: if ``flex`` isn't available for you, you might need to install the
+Flex-dev package with ``sudo apt install flex-devel.x86_64`` or something
+similar.
 
 Be also sure that ``yacc`` and ``sed`` are installed by typing ``which yacc``
 and ``which sed``. If you see something like ``/usr/bin/sed`` or
@@ -98,13 +120,15 @@ aren't installed.
 
 .. note::
 
-   ``flex`` and ``yacc`` have to do with `lexical analysis <https://en.wikipedia.org/wiki/Lexical_analysis>`_
-   and it's not specially important to know exactly what they do. Suffices to
-   say that they are used internally by the compiler to generate the executable
-   file, but you will never have to use them directly when compiling/using KPP.
-   ``sed``, however, is a very useful `text manipulation tool <https://en.wikipedia.org/wiki/Sed>`_,
-   but you also won't need to use it
-   while running KPP.
+ ``flex`` and ``yacc`` have to do with `lexical analysis
+ <https://en.wikipedia.org/wiki/Lexical_analysis>`_ and it's not specially
+ important to know exactly what they do. Suffices to say that they are used
+ internally by the compiler to generate the executable file, but you will never
+ have to use them directly when compiling/using KPP.  On the other hand,
+ ``sed``, is a very useful `text manipulation tool
+ <https://en.wikipedia.org/wiki/Sed>`_ that you might benefit from learning, but
+ you also won't need to use it while running KPP, so feel free to disregard it for now.
+
 
 Telling your system where KPP is
 --------------------------------
@@ -116,9 +140,9 @@ read it, as you'll see) with some very simple commands. Every time you start a
 terminal that file is "read" internally by the terminal and executed. So inside
 that file you can put any command that you could type in the terminal. Thus,
 generally, if you want to change something in your terminal so that the change
-takes place every time you start it (so you don't have to re-change it over and
-over again every time you open it), that's the place to do it. For our purposes
-we simply need to add a couple of lines. We'll do that step by step.
+takes place every time you start it (so you don't have to re-set that change
+over and over again every time), that's the place to do it. For our purposes we
+simply need to add a couple of lines. We'll do that step by step.
 
 .. note::
 
@@ -128,23 +152,26 @@ we simply need to add a couple of lines. We'll do that step by step.
    to probably do some quick googling. 
 
 
-First, in the directory where you unpacked KPP, run the command ``pwd`` to
-print the present working directory and copy its output. You'll need this for
-the next steps.
-
-Now you need to open and edit ``.bashrc`` which can be done with many programs,
-it really depends on what is installed for your (or what you would like to
-install).  The best options would be an editor that runs with a GUI. For
-Windows users the best option is probably ``notepad++``, while for Linux users
-``gedit`` is generally the default GUI option. You can try these (and any other
-GUI plain text editors you know) with the commands ``gedit ~/.bashrc``, or
-``notepad++ ~/.bashrc`` and so forth with the others.
+Now you need to open and edit ``.bashrc`` from the terminal which can be done
+with many programs, it really depends on what is installed for you (or what you
+would like to install). The best options would be an editor that runs with a
+GUI. For Windows users the best option is probably ``notepad++``, while for
+Linux users ``gedit`` is generally the default GUI option. You can try these
+(and any other GUI plain text editors you know) with the commands ``gedit
+~/.bashrc``, or ``notepad++ ~/.bashrc`` and so forth with the others.
 
 If any of those work, great!, you can edit the file in an intuitive GUI editor.
-If not, you're either going to have to install a GUI text editor, or use Nano
-by running the command ``nano ~/.bashrc``. Nano is a very handy text editor
-which runs on the terminal itself, however, it's not as eye-pleasing and not as
-intuitive as the GUI-based ones.
+If not, you're either going to have to find yourself a text editor with a GUI,
+or use Nano by running the command ``nano ~/.bashrc``. Nano is a very handy
+text editor which runs on the terminal itself, however, it's not as
+eye-pleasing and not as intuitive as the GUI-based ones.
+
+.. note::
+ If you're forced to use Nano, you should probably read this very quick
+ `tutorial
+ <http://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/>`_
+ to learn how to open, save and close files. It's not as intuitive, but it's
+ very easy.
 
 .. _nano-ex:
 
@@ -155,11 +182,6 @@ intuitive as the GUI-based ones.
 
    .bashrc example.
 
-
-If you're forced to use Nano, you should probably read this very quick
-`tutorial <http://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/>`_
-to learn how to open, save and close files. It's not as intuitive, but it's
-very easy.
 
 Once you open ``.bashrc``, you're going to see something like Fig.
 :ref:`nano-ex` (in this case open with Nano). Don't worry about the lines of
@@ -172,14 +194,9 @@ the last line of the file. After the last line you'll include the following
  export KPP_HOME=$HOME/kpp-2.2.3
  export PATH=$PATH:$KPP_HOME/bin
 
-except that you should replace ``$HOME/kpp`` with the output of your ``pwd`` command.
-For example, if the output of ``pwd`` was ``/home/myuser/Downloads/kpp-2.2.3`` you
-should write
-
-.. code-block:: bash
-
- export KPP_HOME=/home/user/Downloads/kpp-2.2.3
- export PATH=$PATH:$KPP_HOME/bin
+That will work if you followed exactly the previous commands and installed KPP
+in the home directory. If you didn't you should replace ``$HOME/kpp-2.2.3``
+with the output of your ``pwd`` command which you just saved.
 
 After this is done, you are going to save and exit. If you're using any option
 with a GUI this should be straightforward. With Nano you can save and exit by
@@ -216,6 +233,10 @@ in this file. The first one starts with ``CC``, which sets the C Compiler. In
 this guide we will use the Gnu Compiler Collection, ``gcc``. So make sure that
 the line which starts with ``CC`` reads ``CC=gcc``.
 
+.. note::
+
+ If you prefer to use another compiler, put that one there instead of gcc.
+
 Next, since we made sure that Flex was installed, make sure the next important
 line reads ``FLEX=flex``. On the third step, set the next variable
 (``FLEX_LIB_DIR``) with the output we just saved without the last part. So in
@@ -224,12 +245,15 @@ will read ``FLEX_LIB_DIR=/usr/lib/x86_64-linux-gnu``. You should, of course,
 replace your line accordingly.
 
 The next two items define some possible extra options for the compilation and
-extra directories also to include in the compilation. We will don't have to
+extra directories also to include in the compilation. We don't have to
 worry about those, unless maybe if we need to debug the program for some
 reason. Now you can save and close/exit the file.
 
-If we did everything correctly we can compile KPP simply by running the
-``make`` command. Many warnings are going to appear on the screen (that's
+If we did everything correctly we can compile KPP simply by running::
+
+ make
+
+on the terminal. Many warnings are going to appear on the screen (that's
 normal), but as long as no error appears, the compilation will be successful.
 You can be sure it was successful by once again running ``ls`` and seeing that
 there is now one extra entry on the KPP directory called ``bin``:
@@ -241,7 +265,11 @@ there is now one extra entry on the KPP directory called ``bin``:
  cflags.guess  examples  int.modified_WCOPY  models         src
 
 
-Now let's test it by running ``kpp test``. If the output is something like
+Now let's test it by running the following command::
+
+ kpp test
+
+If the output after this command is something like
 
 .. code::
 

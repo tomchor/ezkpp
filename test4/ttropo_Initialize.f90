@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : ttropo_Initialize.f90
-! Time                 : Tue Dec  6 22:11:34 2016
+! Time                 : Wed Dec  7 13:43:04 2016
 ! Working directory    : /home/tomas/ezkpp/test4
 ! Equation file        : ttropo.kpp
 ! Output root filename : ttropo
@@ -61,17 +61,17 @@ SUBROUTINE Initialize ( )
   VAR(3) = (0.)*CFACTOR
   VAR(4) = (0.)*CFACTOR
   VAR(5) = (0.)*CFACTOR
-  VAR(6) = (2.55E12)*CFACTOR
+  VAR(6) = (2.55E13)*CFACTOR
   VAR(7) = (0.)*CFACTOR
   VAR(8) = (0.)*CFACTOR
   VAR(9) = (0.)*CFACTOR
   VAR(10) = (0.)*CFACTOR
-  VAR(11) = (3.60E+10)*CFACTOR
-  VAR(12) = (9.00E+09)*CFACTOR
-  VAR(13) = (0.)*CFACTOR
+  VAR(11) = (0.0E+09)*CFACTOR
+  VAR(12) = (2.55E+10)*CFACTOR
+  VAR(13) = (7.65E+11)*CFACTOR
   FIX(1) = (2.550E+19)*CFACTOR
   FIX(2) = (1.697E+19)*CFACTOR
-  FIX(3) = (3.9E17)*CFACTOR
+  FIX(3) = (3.0E+17)*CFACTOR
 ! constant rate coefficients
 ! END constant rate coefficients
 

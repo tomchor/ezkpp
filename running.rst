@@ -3,7 +3,8 @@ Running KPP
 ===========
 
 Now that KPP is properly compiled, we proceed to running the first test case
-to make sure it works!
+to make sure it works! It's advised to have the official KPP manual along with
+you during this section.
 
 The first test case
 -------------------
@@ -14,28 +15,32 @@ KPP.
 
 In order to run a simulation on KPP, it needs three things:
 
-- a ``.kpp`` file (from the KPP directory, type ``ls examples`` to see some examples of those)
-- a ``.spc`` file (type ``ls models`` to see some examples of those)
-- a ``.eqn`` file (type ``ls models`` to see some examples of those)
+- a ``.kpp`` file (type ``ls $KPP_HOME/examples`` to see some examples of those)
+- a ``.spc`` file (type ``ls $KPP_HOME/models`` to see some examples of those)
+- a ``.eqn`` file (type ``ls $KPP_HOME/models`` to see some examples of those)
 
 We begin by creating a directory to run this first test. Let's call this
-directory ``test1`` and create it with ``mkdir test1`` (this new directory can
-be created anywhere!). We then go to that directory with ``cd test1``. Let's
-follow the manual and create a file called ``small_strato.kpp`` with the
-following contents:
+directory ``test1``. We can create this directory anywhere: even inside KPP's home
+directory, although, for the sake of simplicity, let's create it in your home directory::
+
+ cd $HOME
+ mkdir test1
+
+Now let's go to that directory with ``cd test1``. Following the manual, let us
+create a file called ``small_strato.kpp`` with the following contents:
 
 .. include:: test1/small_strato.kpp
    :literal:
 
-You can do this by typing ``nano small_strato.kpp`` in the ``test1`` directory,
-if using Nano, or by using another editor of your choice (replace ``nano`` with
-``notepad++`` for example). Then just paste the content above in the file, save
-it and exit it.
+You can do this by typing ``notepad++ small_strato.kpp`` in the ``test1``
+directory, if using Notepad++, or by using another editor of your choice
+(replace ``notepad++`` with ``gedit`` for example). Then just paste the content
+above in the file, save and exit it.
 
 This file tells KPP what model to use (``small_strato.def``) and how to process
-it (most importantly for us here, it tells KPP to generate a Fortran 90 code).
-Many other options can be added to this file and you can learn more about them
-in the KPP manual.
+it (most importantly for us here, it tells KPP to generate a Fortran 90 code,
+although it can also generate C and Matlab code). Many other options can be
+added to this file and you can learn more about them in the KPP manual.
 
 If our changes to ``.bashrc`` are correct, then KPP should be able to find the
 correct model, since the ``small_strato`` model (given by ``small_strato.def``)
@@ -87,10 +92,15 @@ You should see the following lines on your screen::
  
  KPP has succesfully created the model "small_strato".
  
- 
+.. note::
+  
+ If you get an error message here, go back a few steps and make sure the ``$KPP_HOME``
+ and the ``$PATH`` variable are set correctly, and be sure that both KPP can be
+ found and the correct model files ``small_strato`` are in ``$KPP_HOME/models``.
 
-If indeed you see this (or something similar) it means you were successful in
-creating the model. Now if you type ``ls``, you'll see many new files::
+If indeed you see this output (or something very similar) it means you were
+successful in creating the model. Now if you list your files with the ``ls``
+command, you'll see many new files::
 
  Makefile_small_strato           small_strato.map
  small_strato_Function.f90       small_strato_mex_Fun.f90
@@ -108,11 +118,11 @@ creating the model. Now if you type ``ls``, you'll see many new files::
 Most of them end with a ``.f90`` extension, which tells us they are Fortran 90
 codes. These codes have to be compiled into an executable file which is what
 will actually process and run the kinetic model. So the next step is to compile
-every one of those code together into one executable and run it.
-
-Let's focus for now on the ``Makefile_small_strato``. This is a text file that
-tells your computer which Fortran compiler to use to compile, some options and
-etc. Open the ``Makefile_small_strato`` file and find where it says
+every one of those code together into one executable and run it. To do that,
+let's focus for now on the ``Makefile_small_strato``. This is a text file that
+tells your computer which Fortran compiler to use to compile, which files to
+use, etc. We need to modify it, so open the ``Makefile_small_strato`` file
+(again using your preferred editor) and find where it says
 
 .. code-block:: bash
 
@@ -129,16 +139,14 @@ with ``#`` are commented and therefore the computer doesn't "see" them). So,
 currently, these lines are telling the computer to use the Intel Fortran
 compiler, ``ifort``.
 
-If you are using ``ifort``, you should leave it as it is. Since ``ifort`` is
-paid, chances are you are using another compiler. If this is the case, put the
-``#`` in front of the ``INTEL`` options and take it out of the line which has
-the name of your compiler. If you don't know which compiler you have, chances
-are you have gfortran, which is free and what we will use here. You can also
-install gfortran with ``sudo apt install gfortran`` (or the equivalent
+If you are using ``ifort``, you should leave it as it is. However, ``ifort`` is
+paid, so chances are you are using another compiler. If this is the case, put
+the ``#`` in front of the ``INTEL`` options and take it out of the line which
+has the name of your compiler. If you don't know which compiler you have,
+chances are you have gfortran, which is free and the one we will use here. You
+can install gfortran with ``sudo apt install gfortran`` (or the equivalent
 installation command for your system).
-
-Since gfortran is the most common compiler, we will assume here that you're
-using it. So, for gfortran, you should make the above lines of code look like
+So, for gfortran, you should make the above lines of code look like
 the following:
 
 .. code-block:: bash
@@ -150,19 +158,26 @@ the following:
  #COMPILER = HPUX
  COMPILER = GFORTRAN
 
-When doing that we say that we "uncommented" the gfortran line.
-You can save and exit the file.
+When doing that we say that we "uncommented" the gfortran line, since every
+line that starts with a ``#`` is commented and not read by the system. You can
+save and exit the file.
 
-Now all you have to do is run ``make -f Makefile_small_strato``, which will
-compile your Fortran code into an executable using the options we just set.
-You should see a lot of lines appearing on screen starting with ``gfortran``
+Now all you have to do is run the following command::
+
+ make -f Makefile_small_strato which will compile your Fortran code into an
+executable file (``.exe``) using the options we just set. You should see a lot
+of lines appearing on screen starting with ``gfortran``, maybe some warnings,
 and if no error messages appear the compilation was successful.
 
 Now you'll see many more new files, including one called ``small_strato.exe``,
-which is your executable file (run ``ls`` again to see that). This is the
-executable that will actually calculate the concentrations using the model.
+which is your executable file (run ``ls`` again list everything and see that).
+This is the executable that will actually calculate the concentrations using
+the model.
 
-To test if it works, run ``./small_strato.exe``, which will run the executable.
+To test if it works, run the following command::
+
+ ./small_strato.exe
+which will run the executable.
 You should see some output on the screen with concentrations, like Fig. :ref:`test1_output`
 
 .. _test1_output:
@@ -192,13 +207,12 @@ file tells it to do. In the first line of the file there is the command
 
  #MODEL      small_strato
 
-which tells KPP to look in the directory containing its models (located at
-``$KPP_HOME/models``, according to the changes we made before in the
-``.bashrc`` file) for a file called ``small_strato.def``.  Since the file is
-there, KPP had no problems finding it. This file has the initial concentrations
-you want to use in the model, the time step etc.. It also links two other files
-(``small_strato.spc`` and ``small_strato.eqn``), which tell KPP with chemical
-species and chemical equations to use.
+which tells KPP to look for a file called ``small_strato.def``. Since the file
+is in KPP's models directory (at ``$HOME_KPP/models``), KPP had no problems
+finding it. This file has the initial concentrations you want to use in the
+model, the time step, etc. It also links two other files (``small_strato.spc``
+and ``small_strato.eqn``), which tell KPP with chemical species and chemical
+equations to use (effectively defining the mechanism).
 
 After receiving all that information, KPP finally creates a Fortran 90 code
 (because it says so in the ``small_strato.kpp`` we created) with our small
@@ -233,23 +247,25 @@ In the case of ``small_strato`` the order printed on the file (you can check it 
 
 The time is always going to be the first column, and it is always going to be
 in hours since the start of the simulation. Since the solar forcing matters
-here, we need to keep track of the time of day the day that the simulation
-started. In this case it was at noon.
+here, we need to keep track of the time of day that the simulation started. In
+this case it was at noon, because that's the way the ``.def`` file is set (we
+will talk about this in more detail in the sections to come).
 
 We can read that data in many ways. I present below a quick python script
 to plot the concentrations as a function of the hour of the day
 
-.. include:: test1/plot_test1.py
-   :literal:
+.. literalinclude:: test1/plot_test1.py
+   :linenos:
 
 .. note::
 
- KPP has a small issue with formatting and sometimes prints a number that can't be read because
- some strings are missing. For example, printing ``3.4562-313``. This can't be normally read
- and it's supposed to be ``3.4562E-313`` and this (apparently) only happens when the number
- is close to machine-precision (which we would interpret as zero). The program above takes
- this issue into consideration when reading the file, but you should pay attention when trying
- to read with by other means.
+ KPP has a small issue with formatting and sometimes prints a number that can't
+ be read because some strings are missing. For example, printing ``3.4562-313``.
+ This can't be normally read and it's supposed to be ``3.4562E-313`` and this
+ (apparently) only happens when the number is close to machine-precision (which
+ we would interpret as zero). The program above takes this issue into
+ consideration (in line 3) when reading the file, but you should pay attention to that when
+ trying to read with by other means.
 
 If you have ever seen python before, this code should be pretty intuitive. If
 you haven't you can still use it easily (depending on how you got python, you

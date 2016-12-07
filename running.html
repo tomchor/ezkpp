@@ -52,7 +52,8 @@
   <div class="section" id="running-kpp">
 <h1>Running KPP<a class="headerlink" href="#running-kpp" title="Permalink to this headline">¶</a></h1>
 <p>Now that KPP is properly compiled, we proceed to running the first test case
-to make sure it works!</p>
+to make sure it works! It&#8217;s advised to have the official KPP manual along with
+you during this section.</p>
 <div class="section" id="the-first-test-case">
 <h2>The first test case<a class="headerlink" href="#the-first-test-case" title="Permalink to this headline">¶</a></h2>
 <p>We now follow the manual and begin running the Chapman stratospheric mechanism
@@ -60,29 +61,33 @@ as a test case. This will allow us to illustrate some key features when running
 KPP.</p>
 <p>In order to run a simulation on KPP, it needs three things:</p>
 <ul class="simple">
-<li>a <code class="docutils literal"><span class="pre">.kpp</span></code> file (from the KPP directory, type <code class="docutils literal"><span class="pre">ls</span> <span class="pre">examples</span></code> to see some examples of those)</li>
-<li>a <code class="docutils literal"><span class="pre">.spc</span></code> file (type <code class="docutils literal"><span class="pre">ls</span> <span class="pre">models</span></code> to see some examples of those)</li>
-<li>a <code class="docutils literal"><span class="pre">.eqn</span></code> file (type <code class="docutils literal"><span class="pre">ls</span> <span class="pre">models</span></code> to see some examples of those)</li>
+<li>a <code class="docutils literal"><span class="pre">.kpp</span></code> file (type <code class="docutils literal"><span class="pre">ls</span> <span class="pre">$KPP_HOME/examples</span></code> to see some examples of those)</li>
+<li>a <code class="docutils literal"><span class="pre">.spc</span></code> file (type <code class="docutils literal"><span class="pre">ls</span> <span class="pre">$KPP_HOME/models</span></code> to see some examples of those)</li>
+<li>a <code class="docutils literal"><span class="pre">.eqn</span></code> file (type <code class="docutils literal"><span class="pre">ls</span> <span class="pre">$KPP_HOME/models</span></code> to see some examples of those)</li>
 </ul>
 <p>We begin by creating a directory to run this first test. Let&#8217;s call this
-directory <code class="docutils literal"><span class="pre">test1</span></code> and create it with <code class="docutils literal"><span class="pre">mkdir</span> <span class="pre">test1</span></code> (this new directory can
-be created anywhere!). We then go to that directory with <code class="docutils literal"><span class="pre">cd</span> <span class="pre">test1</span></code>. Let&#8217;s
-follow the manual and create a file called <code class="docutils literal"><span class="pre">small_strato.kpp</span></code> with the
-following contents:</p>
+directory <code class="docutils literal"><span class="pre">test1</span></code>. We can create this directory anywhere: even inside KPP&#8217;s home
+directory, although, for the sake of simplicity, let&#8217;s create it in your home directory:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>cd $HOME
+mkdir test1
+</pre></div>
+</div>
+<p>Now let&#8217;s go to that directory with <code class="docutils literal"><span class="pre">cd</span> <span class="pre">test1</span></code>. Following the manual, let us
+create a file called <code class="docutils literal"><span class="pre">small_strato.kpp</span></code> with the following contents:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#MODEL      small_strato</span>
 <span class="c1">#LANGUAGE   Fortran90</span>
 <span class="c1">#INTEGRATOR rosenbrock</span>
 <span class="c1">#DRIVER     general</span>
 </pre></div>
 </div>
-<p>You can do this by typing <code class="docutils literal"><span class="pre">nano</span> <span class="pre">small_strato.kpp</span></code> in the <code class="docutils literal"><span class="pre">test1</span></code> directory,
-if using Nano, or by using another editor of your choice (replace <code class="docutils literal"><span class="pre">nano</span></code> with
-<code class="docutils literal"><span class="pre">notepad++</span></code> for example). Then just paste the content above in the file, save
-it and exit it.</p>
+<p>You can do this by typing <code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">small_strato.kpp</span></code> in the <code class="docutils literal"><span class="pre">test1</span></code>
+directory, if using Notepad++, or by using another editor of your choice
+(replace <code class="docutils literal"><span class="pre">notepad++</span></code> with <code class="docutils literal"><span class="pre">gedit</span></code> for example). Then just paste the content
+above in the file, save and exit it.</p>
 <p>This file tells KPP what model to use (<code class="docutils literal"><span class="pre">small_strato.def</span></code>) and how to process
-it (most importantly for us here, it tells KPP to generate a Fortran 90 code).
-Many other options can be added to this file and you can learn more about them
-in the KPP manual.</p>
+it (most importantly for us here, it tells KPP to generate a Fortran 90 code,
+although it can also generate C and Matlab code). Many other options can be
+added to this file and you can learn more about them in the KPP manual.</p>
 <p>If our changes to <code class="docutils literal"><span class="pre">.bashrc</span></code> are correct, then KPP should be able to find the
 correct model, since the <code class="docutils literal"><span class="pre">small_strato</span></code> model (given by <code class="docutils literal"><span class="pre">small_strato.def</span></code>)
 is located in the <code class="docutils literal"><span class="pre">models</span></code> directory, in the KPP home directory. We test this
@@ -131,8 +136,15 @@ by running KPP on our recently created file with</p>
 <span class="n">KPP</span> <span class="n">has</span> <span class="n">succesfully</span> <span class="n">created</span> <span class="n">the</span> <span class="n">model</span> <span class="s2">&quot;small_strato&quot;</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>If indeed you see this (or something similar) it means you were successful in
-creating the model. Now if you type <code class="docutils literal"><span class="pre">ls</span></code>, you&#8217;ll see many new files:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you get an error message here, go back a few steps and make sure the <code class="docutils literal"><span class="pre">$KPP_HOME</span></code>
+and the <code class="docutils literal"><span class="pre">$PATH</span></code> variable are set correctly, and be sure that both KPP can be
+found and the correct model files <code class="docutils literal"><span class="pre">small_strato</span></code> are in <code class="docutils literal"><span class="pre">$KPP_HOME/models</span></code>.</p>
+</div>
+<p>If indeed you see this output (or something very similar) it means you were
+successful in creating the model. Now if you list your files with the <code class="docutils literal"><span class="pre">ls</span></code>
+command, you&#8217;ll see many new files:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Makefile_small_strato</span>           <span class="n">small_strato</span><span class="o">.</span><span class="n">map</span>
 <span class="n">small_strato_Function</span><span class="o">.</span><span class="n">f90</span>       <span class="n">small_strato_mex_Fun</span><span class="o">.</span><span class="n">f90</span>
 <span class="n">small_strato_Global</span><span class="o">.</span><span class="n">f90</span>         <span class="n">small_strato_mex_Hessian</span><span class="o">.</span><span class="n">f90</span>
@@ -150,10 +162,11 @@ creating the model. Now if you type <code class="docutils literal"><span class="
 <p>Most of them end with a <code class="docutils literal"><span class="pre">.f90</span></code> extension, which tells us they are Fortran 90
 codes. These codes have to be compiled into an executable file which is what
 will actually process and run the kinetic model. So the next step is to compile
-every one of those code together into one executable and run it.</p>
-<p>Let&#8217;s focus for now on the <code class="docutils literal"><span class="pre">Makefile_small_strato</span></code>. This is a text file that
-tells your computer which Fortran compiler to use to compile, some options and
-etc. Open the <code class="docutils literal"><span class="pre">Makefile_small_strato</span></code> file and find where it says</p>
+every one of those code together into one executable and run it. To do that,
+let&#8217;s focus for now on the <code class="docutils literal"><span class="pre">Makefile_small_strato</span></code>. This is a text file that
+tells your computer which Fortran compiler to use to compile, which files to
+use, etc. We need to modify it, so open the <code class="docutils literal"><span class="pre">Makefile_small_strato</span></code> file
+(again using your preferred editor) and find where it says</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1">#COMPILER = G95</span>
 <span class="c1">#COMPILER = LAHEY</span>
 <span class="nv">COMPILER</span> <span class="o">=</span> INTEL
@@ -167,15 +180,14 @@ going to see the line that doesn&#8217;t start with a <code class="docutils lite
 with <code class="docutils literal"><span class="pre">#</span></code> are commented and therefore the computer doesn&#8217;t &#8220;see&#8221; them). So,
 currently, these lines are telling the computer to use the Intel Fortran
 compiler, <code class="docutils literal"><span class="pre">ifort</span></code>.</p>
-<p>If you are using <code class="docutils literal"><span class="pre">ifort</span></code>, you should leave it as it is. Since <code class="docutils literal"><span class="pre">ifort</span></code> is
-paid, chances are you are using another compiler. If this is the case, put the
-<code class="docutils literal"><span class="pre">#</span></code> in front of the <code class="docutils literal"><span class="pre">INTEL</span></code> options and take it out of the line which has
-the name of your compiler. If you don&#8217;t know which compiler you have, chances
-are you have gfortran, which is free and what we will use here. You can also
-install gfortran with <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">gfortran</span></code> (or the equivalent
-installation command for your system).</p>
-<p>Since gfortran is the most common compiler, we will assume here that you&#8217;re
-using it. So, for gfortran, you should make the above lines of code look like
+<p>If you are using <code class="docutils literal"><span class="pre">ifort</span></code>, you should leave it as it is. However, <code class="docutils literal"><span class="pre">ifort</span></code> is
+paid, so chances are you are using another compiler. If this is the case, put
+the <code class="docutils literal"><span class="pre">#</span></code> in front of the <code class="docutils literal"><span class="pre">INTEL</span></code> options and take it out of the line which
+has the name of your compiler. If you don&#8217;t know which compiler you have,
+chances are you have gfortran, which is free and the one we will use here. You
+can install gfortran with <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">gfortran</span></code> (or the equivalent
+installation command for your system).
+So, for gfortran, you should make the above lines of code look like
 the following:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1">#COMPILER = G95</span>
 <span class="c1">#COMPILER = LAHEY</span>
@@ -185,16 +197,25 @@ the following:</p>
 <span class="nv">COMPILER</span> <span class="o">=</span> GFORTRAN
 </pre></div>
 </div>
-<p>When doing that we say that we &#8220;uncommented&#8221; the gfortran line.
-You can save and exit the file.</p>
-<p>Now all you have to do is run <code class="docutils literal"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">Makefile_small_strato</span></code>, which will
-compile your Fortran code into an executable using the options we just set.
-You should see a lot of lines appearing on screen starting with <code class="docutils literal"><span class="pre">gfortran</span></code>
+<p>When doing that we say that we &#8220;uncommented&#8221; the gfortran line, since every
+line that starts with a <code class="docutils literal"><span class="pre">#</span></code> is commented and not read by the system. You can
+save and exit the file.</p>
+<p>Now all you have to do is run the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="o">-</span><span class="n">f</span> <span class="n">Makefile_small_strato</span> <span class="n">which</span> <span class="n">will</span> <span class="nb">compile</span> <span class="n">your</span> <span class="n">Fortran</span> <span class="n">code</span> <span class="n">into</span> <span class="n">an</span>
+</pre></div>
+</div>
+<p>executable file (<code class="docutils literal"><span class="pre">.exe</span></code>) using the options we just set. You should see a lot
+of lines appearing on screen starting with <code class="docutils literal"><span class="pre">gfortran</span></code>, maybe some warnings,
 and if no error messages appear the compilation was successful.</p>
 <p>Now you&#8217;ll see many more new files, including one called <code class="docutils literal"><span class="pre">small_strato.exe</span></code>,
-which is your executable file (run <code class="docutils literal"><span class="pre">ls</span></code> again to see that). This is the
-executable that will actually calculate the concentrations using the model.</p>
-<p>To test if it works, run <code class="docutils literal"><span class="pre">./small_strato.exe</span></code>, which will run the executable.
+which is your executable file (run <code class="docutils literal"><span class="pre">ls</span></code> again list everything and see that).
+This is the executable that will actually calculate the concentrations using
+the model.</p>
+<p>To test if it works, run the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">small_strato</span><span class="o">.</span><span class="n">exe</span>
+</pre></div>
+</div>
+<p>which will run the executable.
 You should see some output on the screen with concentrations, like Fig. <a class="reference internal" href="#test1-output"><span class="std std-ref">Output concentrations of the first test case.</span></a></p>
 <div class="figure align-center" id="id1">
 <span id="test1-output"></span><a class="reference internal image-reference" href="_images/test1_output.png"><img alt="Example of output of the first test case." src="_images/test1_output.png" style="width: 863.1px; height: 438.3px;" /></a>
@@ -213,13 +234,12 @@ file tells it to do. In the first line of the file there is the command</p>
 <div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="c1">#MODEL      small_strato</span>
 </pre></div>
 </div>
-<p>which tells KPP to look in the directory containing its models (located at
-<code class="docutils literal"><span class="pre">$KPP_HOME/models</span></code>, according to the changes we made before in the
-<code class="docutils literal"><span class="pre">.bashrc</span></code> file) for a file called <code class="docutils literal"><span class="pre">small_strato.def</span></code>.  Since the file is
-there, KPP had no problems finding it. This file has the initial concentrations
-you want to use in the model, the time step etc.. It also links two other files
-(<code class="docutils literal"><span class="pre">small_strato.spc</span></code> and <code class="docutils literal"><span class="pre">small_strato.eqn</span></code>), which tell KPP with chemical
-species and chemical equations to use.</p>
+<p>which tells KPP to look for a file called <code class="docutils literal"><span class="pre">small_strato.def</span></code>. Since the file
+is in KPP&#8217;s models directory (at <code class="docutils literal"><span class="pre">$HOME_KPP/models</span></code>), KPP had no problems
+finding it. This file has the initial concentrations you want to use in the
+model, the time step, etc. It also links two other files (<code class="docutils literal"><span class="pre">small_strato.spc</span></code>
+and <code class="docutils literal"><span class="pre">small_strato.eqn</span></code>), which tell KPP with chemical species and chemical
+equations to use (effectively defining the mechanism).</p>
 <p>After receiving all that information, KPP finally creates a Fortran 90 code
 (because it says so in the <code class="docutils literal"><span class="pre">small_strato.kpp</span></code> we created) with our small
 stratospheric model containing our pre-defined initial conditions, time step,
@@ -248,28 +268,35 @@ species followed by the species on the fixed species.</p>
 </div>
 <p>The time is always going to be the first column, and it is always going to be
 in hours since the start of the simulation. Since the solar forcing matters
-here, we need to keep track of the time of day the day that the simulation
-started. In this case it was at noon.</p>
+here, we need to keep track of the time of day that the simulation started. In
+this case it was at noon, because that&#8217;s the way the <code class="docutils literal"><span class="pre">.def</span></code> file is set (we
+will talk about this in more detail in the sections to come).</p>
 <p>We can read that data in many ways. I present below a quick python script
 to plot the concentrations as a function of the hour of the day</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-default"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="n">concs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;small_strato.dat&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
 <span class="n">concs</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;O1D&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;O2&#39;</span><span class="p">]</span>
 <span class="n">concs</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Hours since noon&#39;</span>
 <span class="n">concs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mf">1.e8</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">logy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">],</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;test1_time.png&#39;</span><span class="p">)</span>
-
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">KPP has a small issue with formatting and sometimes prints a number that can&#8217;t be read because
-some strings are missing. For example, printing <code class="docutils literal"><span class="pre">3.4562-313</span></code>. This can&#8217;t be normally read
-and it&#8217;s supposed to be <code class="docutils literal"><span class="pre">3.4562E-313</span></code> and this (apparently) only happens when the number
-is close to machine-precision (which we would interpret as zero). The program above takes
-this issue into consideration when reading the file, but you should pay attention when trying
-to read with by other means.</p>
+<p class="last">KPP has a small issue with formatting and sometimes prints a number that can&#8217;t
+be read because some strings are missing. For example, printing <code class="docutils literal"><span class="pre">3.4562-313</span></code>.
+This can&#8217;t be normally read and it&#8217;s supposed to be <code class="docutils literal"><span class="pre">3.4562E-313</span></code> and this
+(apparently) only happens when the number is close to machine-precision (which
+we would interpret as zero). The program above takes this issue into
+consideration (in line 3) when reading the file, but you should pay attention to that when
+trying to read with by other means.</p>
 </div>
 <p>If you have ever seen python before, this code should be pretty intuitive. If
 you haven&#8217;t you can still use it easily (depending on how you got python, you
@@ -363,7 +390,7 @@ alter/create models.</p>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, Tomas Chor.
-      Last updated on 2016-12-06.
+      Last updated on 2016-12-07.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
     </div>
   </body>

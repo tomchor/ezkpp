@@ -5,4 +5,3 @@ concs.columns = ['O1D', 'O', 'O3', 'NO', 'NO2', 'M', 'O2']
 concs.index.name = 'Hours since noon'
 concs.plot(ylim=[1.e8, None], logy=True, y=['O3', 'NO', 'NO2'], grid=True)
 plt.savefig('test1_time.png')
-

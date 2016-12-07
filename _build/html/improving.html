@@ -64,7 +64,7 @@ parameter.</p>
 <code class="docutils literal"><span class="pre">mkdir</span> <span class="pre">test2</span></code>) and enter it (with <code class="docutils literal"><span class="pre">cd</span> <span class="pre">test2</span></code>). Now create a file called
 <code class="docutils literal"><span class="pre">my_strato.kpp</span></code> (with <code class="docutils literal"><span class="pre">notepad++</span> <span class="pre">my_strato.kpp</span></code> or <code class="docutils literal"><span class="pre">gedit</span> <span class="pre">my_strato.kpp</span></code>
 or whichever text editor you ended up using) and paste the following lines in
-the file</p>
+the file:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#MODEL      my_strato</span>
 <span class="c1">#LANGUAGE   Fortran90</span>
 <span class="c1">#INTEGRATOR rosenbrock</span>
@@ -73,9 +73,9 @@ the file</p>
 </div>
 <p>At this point if you run <code class="docutils literal"><span class="pre">kpp</span> <span class="pre">my_strato.kpp</span></code> you should get an error saying
 <code class="docutils literal"><span class="pre">&quot;Fatal</span> <span class="pre">error</span> <span class="pre">:</span> <span class="pre">my_strato.def:</span> <span class="pre">Can't</span> <span class="pre">read</span> <span class="pre">file&quot;</span></code>. Which appears because we
-instructed KPP to search for the file <code class="docutils literal"><span class="pre">my_strato.def</span></code>, which doesn&#8217;t exist in
-the models directory. So we first must create the <code class="docutils literal"><span class="pre">my_strato.def</span></code> file, which
-ultimately defines the <code class="docutils literal"><span class="pre">my_strato</span></code> model.</p>
+instructed KPP to search for the file <code class="docutils literal"><span class="pre">my_strato.def</span></code>, which doesn&#8217;t exist
+anywhere. So we first must create the <code class="docutils literal"><span class="pre">my_strato.def</span></code> file, which ultimately
+defines the <code class="docutils literal"><span class="pre">my_strato</span></code> model.</p>
 <p>Let us define our model based on <code class="docutils literal"><span class="pre">small_strato</span></code>, since for now all we want to
 do is to modify the time length of the simulation. In order to preserve the
 original <code class="docutils literal"><span class="pre">small_strato.def</span></code> we&#8217;ll copy it and call it <code class="docutils literal"><span class="pre">my_strato.def</span></code>, this
@@ -109,19 +109,26 @@ they are given in seconds. For example, <code class="docutils literal"><span cla
 in 3 days, meaning that at the moment the simulation is set to run for 3 days,
 which we saw is not enough.  Let us then replace <code class="docutils literal"><span class="pre">3</span></code> with <code class="docutils literal"><span class="pre">30</span></code>, meaning we
 will run it for 30 days, to be sure that equilibrium is reached. Now that line
-should read <code class="docutils literal"><span class="pre">TEND</span> <span class="pre">=</span> <span class="pre">TSTART</span> <span class="pre">+</span> <span class="pre">(30*24*3600)</span></code>.</p>
+should read <code class="docutils literal"><span class="pre">TEND</span> <span class="pre">=</span> <span class="pre">TSTART</span> <span class="pre">+</span> <span class="pre">(30*24*3600)</span></code>. Please also note that <code class="docutils literal"><span class="pre">TSTART</span></code>
+is set to <code class="docutils literal"><span class="pre">12*3600</span></code>, or 12 hours, which means that the starting time of the
+simulation is at noon.</p>
 <p>After this small change we are ready to test run the model. Run <code class="docutils literal"><span class="pre">kpp</span>
 <span class="pre">my_strato.kpp</span></code>, which should end with a <code class="docutils literal"><span class="pre">succesfully</span> <span class="pre">created</span> <span class="pre">the</span> <span class="pre">model</span></code>
 message. Now, just like with the previous example, open again the file
 <code class="docutils literal"><span class="pre">Makefile_my_strato</span></code> and uncomment the line that says <code class="docutils literal"><span class="pre">COMPILER</span> <span class="pre">=</span>
-<span class="pre">GFORTRAN</span></code>, so we can use Gfortran instead of Intel. After this is done compile
-the model with <code class="docutils literal"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">Makefile_my_strato</span></code>. Again, if everything goes well,
-the <code class="docutils literal"><span class="pre">my_strato.exe</span></code> file should be created.</p>
+<span class="pre">GFORTRAN</span></code>, so we can use gfortran instead of Intel. After this is done compile
+the model with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="o">-</span><span class="n">f</span> <span class="n">Makefile_my_strato</span>
+</pre></div>
+</div>
+<p>Again, if everything goes well, the <code class="docutils literal"><span class="pre">my_strato.exe</span></code> file should be created.
+You can run <code class="docutils literal"><span class="pre">ls</span> <span class="pre">-tr</span></code> (which lists every file on your directory ordered by
+creation time) and see that the last file listed should be the <code class="docutils literal"><span class="pre">.exe</span></code> file.</p>
 <p>We can now run the model with <code class="docutils literal"><span class="pre">./my_strato.exe</span></code>, which should now take 10
 times longer to complete, since we are running it for 10 times as long as
 before.  We can use the Python code given in the last section to read the
-results. We just need to adjust the name of the file inside the code from
-<code class="docutils literal"><span class="pre">small_strato</span></code> to <code class="docutils literal"><span class="pre">my_strato</span></code>.</p>
+results. We just need to adjust the name inside the code from <code class="docutils literal"><span class="pre">small_strato</span></code>
+to <code class="docutils literal"><span class="pre">my_strato</span></code>.</p>
 <p>The plot of the results is</p>
 <div class="figure align-center" id="test2-time">
 <a class="reference internal image-reference" href="_images/test2_time.png"><img alt="_images/test2_time.png" src="_images/test2_time.png" style="width: 640.0px; height: 480.0px;" /></a>
@@ -133,12 +140,12 @@ change some other parameters and examine how the model reacts.</p>
 <div class="section" id="change-in-the-initial-conditions">
 <h2>Change in the initial conditions<a class="headerlink" href="#change-in-the-initial-conditions" title="Permalink to this headline">¶</a></h2>
 <p>We try this next change in the same model as before (<code class="docutils literal"><span class="pre">my_strato</span></code>). Let&#8217;s open
-the <code class="docutils literal"><span class="pre">.def</span></code> file located at <code class="docutils literal"><span class="pre">$KPP_HOME/models/my_strato.def</span></code> and consider an
-atmosphere with more NO (simulating a polluted condition). Where it says <code class="docutils literal"><span class="pre">NO</span> <span class="pre">=</span>
-<span class="pre">8.725E+08;</span></code>, we make it read <code class="docutils literal"><span class="pre">NO</span>&nbsp; <span class="pre">=</span> <span class="pre">9.00E+09</span></code>, which is roughly a 10 times
-increase in the NO concentration. Let us also change the O3 initial condition
-and make the O3 line read <code class="docutils literal"><span class="pre">O3</span>&nbsp; <span class="pre">=</span> <span class="pre">5.00E+10;</span></code>, simulating an atmosphere that
-has a lower initial O3 concentration.</p>
+<code class="docutils literal"><span class="pre">my_strato.def</span></code> and consider an atmosphere with more NO (simulating a more
+polluted condition). Where it says <code class="docutils literal"><span class="pre">NO</span> <span class="pre">=</span> <span class="pre">8.725E+08;</span></code>, we make it read <code class="docutils literal"><span class="pre">NO</span>&nbsp; <span class="pre">=</span>
+<span class="pre">9.00E+09</span></code>, which is roughly a 10 times increase in the NO concentration. Let
+us also change the O3 initial condition and make the O3 line read <code class="docutils literal"><span class="pre">O3</span>&nbsp; <span class="pre">=</span>
+<span class="pre">5.00E+10;</span></code>, simulating an atmosphere that has a lower initial O3
+concentration.</p>
 <p>Let us also change the line that reads:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#LOOKATALL          {File Output}</span>
 </pre></div>
@@ -259,6 +266,9 @@ reaction) to make it a lot slower. We will make the last line read:</p>
 realistic! We only make this change for the sake of illustration, so that
 the output change is easier to see.</p>
 </div>
+<p>You can actually change not only the reaction rate for the equation, but also
+modify the equations itself here and add (or remove) equations. For now we will
+leave the equations the way they are.</p>
 <p>Now we go through the same steps of running <code class="docutils literal"><span class="pre">kpp</span> <span class="pre">strato3.kpp</span></code>, changing the
 compiler to gfortran and running <code class="docutils literal"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">Makefile_strato3</span></code>. If everything
 goes well, we&#8217;ll see the <code class="docutils literal"><span class="pre">strato3.exe</span></code> created. After running
@@ -270,13 +280,13 @@ file of course):</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This process of running KPP, then change the Makefile, then compiling, etc.,
+<p class="last">This process of running KPP, then changing the Makefile, then compiling, etc.,
 is pretty cumbersome and straightforward. So we included a file called
 <code class="docutils literal"><span class="pre">updatenrun.sh</span></code> in the directory <code class="docutils literal"><span class="pre">test3</span></code> that can be found in the <a class="reference external" href="https://github.com/tomchor/ezkpp/tree/gh-pages/test3">github
 repo</a>. This is a bash
 script that does these steps automatically. To run it, you enter <code class="docutils literal"><span class="pre">sh</span>
-<span class="pre">updatenrun.sh</span> <span class="pre">modelname</span></code>. In this case, for example it is <code class="docutils literal"><span class="pre">sh</span> <span class="pre">updatenrun.sh</span>
-<span class="pre">strato3</span></code>.</p>
+<span class="pre">updatenrun.sh</span> <span class="pre">modelname</span></code>. In this case, for example it shoudl be used with
+<code class="docutils literal"><span class="pre">sh</span> <span class="pre">updatenrun.sh</span> <span class="pre">strato3</span></code>.</p>
 </div>
 <p>We can see that once again the final result changed. This time, since NO2 is
 photolizing a lot slower, we see less NO in comparison with the previous plot.
@@ -328,7 +338,7 @@ be written as:</p>
 <span class="o">&lt;</span><span class="n">R15</span><span class="o">&gt;</span> <span class="n">HNO3</span>       <span class="o">=</span> <span class="n">HNO3aq</span>        <span class="p">:</span> <span class="p">(</span><span class="mf">2.4000e-03</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>So copy and paste those lines into the <code class="docutils literal"><span class="pre">ttropo.eqn</span></code>, save and exit.</p>
+<p>So copy and paste those lines into <code class="docutils literal"><span class="pre">ttropo.eqn</span></code>, save and exit.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Again, some of these reaction constants might not be exactly accurate for
@@ -336,7 +346,10 @@ tropospheric conditions, so please double-check if you plan on using them for
 professional means, since the objective here is to only present this as an
 example.</p>
 </div>
-<p>Now we create the species file in which we define only <code class="docutils literal"><span class="pre">M</span></code>, <code class="docutils literal"><span class="pre">H2O</span></code> and
+<p>Now we create the species file, which has to have all the species we used in
+the reactions above properly defined. We can define a species as being variable
+(when its concentration can vary according to the kinetics) or fixed (when its
+concentration is a constant). In this case, we define only <code class="docutils literal"><span class="pre">M</span></code>, <code class="docutils literal"><span class="pre">H2O</span></code> and
 <code class="docutils literal"><span class="pre">O2</span></code> as fixed quantities and the other ones as variables:</p>
 <pre class="literal-block">
 #include atoms
@@ -380,12 +393,13 @@ proceed to the <code class="docutils literal"><span class="pre">.def</span></cod
 
 <span class="c1">#INITVALUES                    {Initial Values}</span>
 <span class="n">CFACTOR</span> <span class="o">=</span> <span class="mf">1.</span>    <span class="p">;</span>              <span class="p">{</span><span class="n">Conversion</span> <span class="n">Factor</span><span class="p">}</span>
-<span class="n">O3</span>  <span class="o">=</span> <span class="mf">0.</span> <span class="p">;</span> 
-<span class="n">NO</span>  <span class="o">=</span> <span class="mf">9.00E+09</span> <span class="p">;</span>
-<span class="n">NO2</span> <span class="o">=</span> <span class="mf">3.60E+10</span> <span class="p">;</span>
+<span class="n">O3</span>  <span class="o">=</span> <span class="mf">7.65E+11</span> <span class="p">;</span> 
+<span class="n">NO</span>  <span class="o">=</span> <span class="mf">2.55E+10</span> <span class="p">;</span>
+<span class="n">NO2</span> <span class="o">=</span> <span class="mf">0.0E+09</span> <span class="p">;</span>
 <span class="n">O2</span>  <span class="o">=</span> <span class="mf">1.697E+19</span> <span class="p">;</span>
 <span class="n">M</span>   <span class="o">=</span> <span class="mf">2.550E+19</span> <span class="p">;</span>
-<span class="n">H2O</span>    <span class="o">=</span> <span class="mf">3.9E17</span> <span class="p">;</span>
+<span class="n">H2O</span> <span class="o">=</span> <span class="mf">3.0E+17</span><span class="p">;</span>
+<span class="n">CO</span>  <span class="o">=</span> <span class="mf">2.55E13</span><span class="p">;</span>
 
 <span class="n">OH</span>     <span class="o">=</span> <span class="mf">0.</span><span class="p">;</span>
 <span class="n">HO2</span>    <span class="o">=</span> <span class="mf">0.</span><span class="p">;</span>
@@ -393,9 +407,8 @@ proceed to the <code class="docutils literal"><span class="pre">.def</span></cod
 <span class="n">H2O2aq</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">;</span>
 <span class="n">HNO3</span>   <span class="o">=</span> <span class="mf">0.</span><span class="p">;</span>
 <span class="n">HNO3aq</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">;</span>
-<span class="n">O1D</span> <span class="o">=</span> <span class="mf">0.</span> <span class="p">;</span>
-<span class="n">O</span>   <span class="o">=</span> <span class="mf">0.</span> <span class="p">;</span>
-<span class="n">CO</span>     <span class="o">=</span> <span class="mf">2.55E12</span><span class="p">;</span> <span class="p">{</span><span class="mi">100</span> <span class="n">ppbv</span><span class="p">}</span>
+<span class="n">O1D</span>    <span class="o">=</span> <span class="mf">0.</span> <span class="p">;</span>
+<span class="n">O</span>      <span class="o">=</span> <span class="mf">0.</span> <span class="p">;</span>
 
 <span class="c1">#INLINE F90_INIT</span>
        <span class="n">TSTART</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="o">*</span><span class="mi">3600</span><span class="p">)</span>
@@ -407,11 +420,11 @@ proceed to the <code class="docutils literal"><span class="pre">.def</span></cod
 </div>
 <p>You can see that with this set of definitions we chose to run the model for 15
 days, with a time step of 0.2 hours and that many of the initial concentrations
-are set to zero.</p>
+are set to zero. Note also that we are again starting the simulation at noon.</p>
 <p>With these files we have the complete <code class="docutils literal"><span class="pre">ttropo</span></code> model and are ready to run it.
 We can use the <code class="docutils literal"><span class="pre">updatenrun.sh</span></code> script as <code class="docutils literal"><span class="pre">sh</span> <span class="pre">updatenrun.sh</span> <span class="pre">ttropo</span></code> (you&#8217;ll
 have to copy it to the current directory with <code class="docutils literal"><span class="pre">cp</span></code> first). It should run
-successfully now.  Note that we again have to check out <code class="docutils literal"><span class="pre">ttropo.map</span></code> to find
+successfully now. Note that we again have to check out <code class="docutils literal"><span class="pre">ttropo.map</span></code> to find
 out the order of the species in the output file. We can use the following Python
 script to plot the results (the correct output order is already included in
 it):</p>
@@ -431,6 +444,15 @@ it):</p>
 <div class="figure align-center" id="test4-time">
 <a class="reference internal image-reference" href="_images/test4_time.png"><img alt="_images/test4_time.png" src="_images/test4_time.png" style="width: 546.4px; height: 446.4px;" /></a>
 </div>
+<p>As you can see, in 15 days we ran the model for, it hasn&#8217;t reached equilibrium
+yet. This system of equations will take longer to reach equilibrium state than
+previous models. You can, once again, investigate the effects of different
+initial concentrations in the final result, change the reactions and reaction
+rates, or even fix some quantities in the <code class="docutils literal"><span class="pre">.spc</span></code> file.</p>
+<p>The creation of any new model from scratch follows the same paths that we just
+described here. So for other models, following these steps should produce the
+correct result. For model detailed information not included here, we refer the
+user to the official manual for KPP.</p>
 </div>
 </div>
 
@@ -514,7 +536,7 @@ it):</p>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, Tomas Chor.
-      Last updated on 2016-12-06.
+      Last updated on 2016-12-07.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
     </div>
   </body>

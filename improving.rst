@@ -16,16 +16,16 @@ First, create another directory (anywhere you want) called ``test2`` (with
 ``mkdir test2``) and enter it (with ``cd test2``). Now create a file called
 ``my_strato.kpp`` (with ``notepad++ my_strato.kpp`` or ``gedit my_strato.kpp``
 or whichever text editor you ended up using) and paste the following lines in
-the file
+the file:
 
 .. include:: test2/my_strato.kpp
    :literal:
 
 At this point if you run ``kpp my_strato.kpp`` you should get an error saying
 ``"Fatal error : my_strato.def: Can't read file"``. Which appears because we
-instructed KPP to search for the file ``my_strato.def``, which doesn't exist in
-the models directory. So we first must create the ``my_strato.def`` file, which
-ultimately defines the ``my_strato`` model.
+instructed KPP to search for the file ``my_strato.def``, which doesn't exist
+anywhere. So we first must create the ``my_strato.def`` file, which ultimately
+defines the ``my_strato`` model.
 
 Let us define our model based on ``small_strato``, since for now all we want to
 do is to modify the time length of the simulation. In order to preserve the
@@ -60,21 +60,28 @@ they are given in seconds. For example, ``3*24*3600`` is the amount of seconds
 in 3 days, meaning that at the moment the simulation is set to run for 3 days,
 which we saw is not enough.  Let us then replace ``3`` with ``30``, meaning we
 will run it for 30 days, to be sure that equilibrium is reached. Now that line
-should read ``TEND = TSTART + (30*24*3600)``.
+should read ``TEND = TSTART + (30*24*3600)``. Please also note that ``TSTART``
+is set to ``12*3600``, or 12 hours, which means that the starting time of the
+simulation is at noon.
 
 After this small change we are ready to test run the model. Run ``kpp
 my_strato.kpp``, which should end with a ``succesfully created the model``
 message. Now, just like with the previous example, open again the file
 ``Makefile_my_strato`` and uncomment the line that says ``COMPILER =
-GFORTRAN``, so we can use Gfortran instead of Intel. After this is done compile
-the model with ``make -f Makefile_my_strato``. Again, if everything goes well,
-the ``my_strato.exe`` file should be created.
+GFORTRAN``, so we can use gfortran instead of Intel. After this is done compile
+the model with::
+
+ make -f Makefile_my_strato
+
+Again, if everything goes well, the ``my_strato.exe`` file should be created.
+You can run ``ls -tr`` (which lists every file on your directory ordered by
+creation time) and see that the last file listed should be the ``.exe`` file.
 
 We can now run the model with ``./my_strato.exe``, which should now take 10
 times longer to complete, since we are running it for 10 times as long as
 before.  We can use the Python code given in the last section to read the
-results. We just need to adjust the name of the file inside the code from
-``small_strato`` to ``my_strato``.
+results. We just need to adjust the name inside the code from ``small_strato``
+to ``my_strato``.
 
 The plot of the results is
 
@@ -92,12 +99,12 @@ Change in the initial conditions
 --------------------------------
 
 We try this next change in the same model as before (``my_strato``). Let's open
-the ``.def`` file located at ``$KPP_HOME/models/my_strato.def`` and consider an
-atmosphere with more NO (simulating a polluted condition). Where it says ``NO =
-8.725E+08;``, we make it read ``NO  = 9.00E+09``, which is roughly a 10 times
-increase in the NO concentration. Let us also change the O3 initial condition
-and make the O3 line read ``O3  = 5.00E+10;``, simulating an atmosphere that
-has a lower initial O3 concentration.
+``my_strato.def`` and consider an atmosphere with more NO (simulating a more
+polluted condition). Where it says ``NO = 8.725E+08;``, we make it read ``NO  =
+9.00E+09``, which is roughly a 10 times increase in the NO concentration. Let
+us also change the O3 initial condition and make the O3 line read ``O3  =
+5.00E+10;``, simulating an atmosphere that has a lower initial O3
+concentration.
 
 Let us also change the line that reads::
 
@@ -230,6 +237,10 @@ reaction) to make it a lot slower. We will make the last line read::
  realistic! We only make this change for the sake of illustration, so that
  the output change is easier to see.
 
+You can actually change not only the reaction rate for the equation, but also
+modify the equations itself here and add (or remove) equations. For now we will
+leave the equations the way they are.
+
 Now we go through the same steps of running ``kpp strato3.kpp``, changing the
 compiler to gfortran and running ``make -f Makefile_strato3``. If everything
 goes well, we'll see the ``strato3.exe`` created. After running
@@ -245,13 +256,13 @@ file of course):
 
 .. note::
 
- This process of running KPP, then change the Makefile, then compiling, etc.,
+ This process of running KPP, then changing the Makefile, then compiling, etc.,
  is pretty cumbersome and straightforward. So we included a file called
  ``updatenrun.sh`` in the directory ``test3`` that can be found in the `github
  repo <https://github.com/tomchor/ezkpp/tree/gh-pages/test3>`_. This is a bash
  script that does these steps automatically. To run it, you enter ``sh
- updatenrun.sh modelname``. In this case, for example it is ``sh updatenrun.sh
- strato3``.
+ updatenrun.sh modelname``. In this case, for example it shoudl be used with
+ ``sh updatenrun.sh strato3``.
 
 We can see that once again the final result changed. This time, since NO2 is
 photolizing a lot slower, we see less NO in comparison with the previous plot.
@@ -292,7 +303,7 @@ be written as:
 .. include:: test4/ttropo.eqn
    :literal:
 
-So copy and paste those lines into the ``ttropo.eqn``, save and exit.
+So copy and paste those lines into ``ttropo.eqn``, save and exit.
 
 .. note::
 
@@ -302,7 +313,10 @@ So copy and paste those lines into the ``ttropo.eqn``, save and exit.
  example.
 
 
-Now we create the species file in which we define only ``M``, ``H2O`` and
+Now we create the species file, which has to have all the species we used in
+the reactions above properly defined. We can define a species as being variable
+(when its concentration can vary according to the kinetics) or fixed (when its
+concentration is a constant). In this case, we define only ``M``, ``H2O`` and
 ``O2`` as fixed quantities and the other ones as variables:
 
 .. include:: test4/ttropo.spc
@@ -317,12 +331,12 @@ ttropo.def``.  In that file you will write the following lines:
 
 You can see that with this set of definitions we chose to run the model for 15
 days, with a time step of 0.2 hours and that many of the initial concentrations
-are set to zero.
+are set to zero. Note also that we are again starting the simulation at noon.
 
 With these files we have the complete ``ttropo`` model and are ready to run it.
 We can use the ``updatenrun.sh`` script as ``sh updatenrun.sh ttropo`` (you'll
 have to copy it to the current directory with ``cp`` first). It should run
-successfully now.  Note that we again have to check out ``ttropo.map`` to find
+successfully now. Note that we again have to check out ``ttropo.map`` to find
 out the order of the species in the output file. We can use the following Python
 script to plot the results (the correct output order is already included in
 it):
@@ -337,4 +351,15 @@ The output of this model can be seen in this figure:
 .. figure:: test4/test4_time.png
    :align: center
    :scale: 80 %
+
+As you can see, in 15 days we ran the model for, it hasn't reached equilibrium
+yet. This system of equations will take longer to reach equilibrium state than
+previous models. You can, once again, investigate the effects of different
+initial concentrations in the final result, change the reactions and reaction
+rates, or even fix some quantities in the ``.spc`` file.
+
+The creation of any new model from scratch follows the same paths that we just
+described here. So for other models, following these steps should produce the
+correct result. For model detailed information not included here, we refer the
+user to the official manual for KPP.
 
